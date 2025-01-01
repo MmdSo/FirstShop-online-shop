@@ -1,0 +1,110 @@
+﻿@using FirstShop.Core.Services.Sales.ShoppingBaskets
+@using FirstShop.Core.Services.Settings.Contects
+@using FirstShop.Core.ViewModels.Sales
+
+@inject IHttpContextAccessor _httpAccessor;
+@inject IContectServices _contectServices;
+@inject FirstShop.Core.Services.Sales.ShoppingBaskets.IShoppingBasketServices _shoppingBasket;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ShoppingBassketViewModel cart = new ShoppingBassketViewModel(); 
+    var co = _contectServices.GetAllContects().FirstOrDefault();
+}
+
+      <header class="header_section">
+      <div class="header_top">
+        <div class="container-fluid">
+          <div class="top_nav_container">
+            <div class="contact_nav">
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call : @co.Number
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  Email : @co.Email
+                </span>
+              </a>
+            </div>
+            <from class="search_form">
+              <input type="text" class="form-control" placeholder="Search here...">
+              <button class="" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </from>
+            <div class="user_option_box">
+                    @if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        <a href="~/UserPanel">@_httpAccessor.HttpContext.User.Identity.Name</a>
+                        <a href="Logout">Logout</a>
+                    }
+                    else
+                    {
+                    <form asp-controller="Account" asp-action="Register">
+                          <a href="Register" class="account-link">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        
+                            <span>
+                              Sign Up
+                            </span>
+                          </a>
+                      </form>
+                    }
+                    <form asp-controller="Product" asp-action"ShoppingCart">
+              <a href="~/ShoppingCart" class="cart-link">
+                <i class="fa fa-shopping-cart" aria-hidden="true"><span class="badge">@cart.TotalCount</span></i>
+                <span>
+                  Cart
+                </span>
+              </a>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="index.html">
+              <span>
+                Minics
+              </span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=""> </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="~/index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="~/CategoryList"> Categories</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="~/ProductList">Products</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="~/PostsList">Blogs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="~/UserPanel">User Panel</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+      </header>
+   
+
+
+      

@@ -1,0 +1,97 @@
+﻿@page "{id?}"
+@model FirstShop.Pages.AdminPanel.Product.AddCategoryModel
+@{
+}
+
+
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Add Category</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="post" enctype="multipart/form-data" asp-page-handler="AddCategory">
+            <input type="hidden" asp-for="@Model.IsEdit" name="isEdit" id="isEdit" />
+            <input type="hidden" asp-for="categoryViewModel.Id" />
+
+            <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
+            <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message" />
+
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="CategoryName">Category Name</label>
+                    <input type="CategoryName" class="form-control" id="CategoryName" asp-for="categoryViewModel.Title" placeholder="Category Name">
+                </div>
+                 <img id="CImg" name="CImg" class="img-fluid" src="~/wwwroot/Images/@Model.categoryViewModel.CategoryImage" alt="@Model.categoryViewModel.CategoryImage" />
+                        <div class="select pic">
+                              <label>Choose Photo</label>
+                              <input type="file" name="catImgUp" id="catImgUp"/>
+                              
+                        </div>
+            </div>
+            <!-- /.card-body -->
+
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info">Submit</button>
+
+            </div>
+            <!-- /.card-footer -->
+        </form>
+    </div>
+    <!-- /.card -->
+
+</div>
+
+
+@section scripts
+{
+<script>
+    $(document).ready(function (){
+        let msg = $("#message").val();
+        let type = $("#type").val();
+
+        if(type == "error")
+        {
+            ShowToastr("error",msg);
+        }
+        if(type == "warning")
+        {
+            ShowToastr("warning",msg);
+        }
+        if(type == "success")
+        {
+            ShowToastr("success",msg);
+        }
+        if(type == "info")
+        {
+           ShowToastr("info",msg);
+        }
+    });
+
+
+
+    function readUrl(input){
+        if(input.Files && input.Files[0]){
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#PImg').attr('src' , e.target.result);
+            }
+
+            reader.readAsDataURL(input.Files[0]);
+        }
+    }
+
+        $("#catImgUp").change(function(){
+            readUrl(this);
+        });
+
+
+
+
+</script>
+
+}

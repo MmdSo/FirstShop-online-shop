@@ -1,0 +1,80 @@
+﻿@using FirstShop.Core.ViewModels.Sales
+
+@inject IHttpContextAccessor _httpAccessor;
+@inject FirstShop.Core.Services.Sales.ShoppingBasketDetailServices.IShoppingBasketDetailServices _Basketdetail;
+@inject FirstShop.Core.Services.Sales.ShoppingBaskets.IShoppingBasketServices _shoppingBasket;
+@inject FirstShop.Core.Services.UserServices.IUserServices _UserServices;
+
+@{
+    long? userId = 0;
+    List<ShoppingBassketDetailViewModel> CartItem = new List<ShoppingBassketDetailViewModel>();
+    ShoppingBassketViewModel ShoppingBasket = new ShoppingBassketViewModel();
+    if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
+    {
+        userId = _UserServices.GetUserIdByUserName(_httpAccessor.HttpContext.User.Identity.Name);
+        ShoppingBasket = await _shoppingBasket.GetActiveShoppingBasketByUserIdAsync(userId) ?? new ShoppingBassketViewModel();
+
+        if(ShoppingBasket != null)
+        {
+            CartItem = await _Basketdetail.GetShoppingBasketDetailByBasketIdAsync(ShoppingBasket.Id);
+
+        }
+    }
+}
+
+<div class="card">
+            <div class="row">
+                <div class="col-md-8 cart">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                            <div class="col align-self-center text-right text-muted">3 items</div>
+                        </div>
+                    </div>    
+            @foreach(var item in CartItem)
+            {
+                <div class="row border-top border-bottom">
+                        <div class="row main align-items-center">
+                            <div class="col-2"><img class="img-fluid" src="/Images/@item.ProductImage"></div>
+                            <div class="col">
+                                @*<div class="row text-muted">@item.</div>*@
+                                <div class="row">@item.ProductName</div>
+                            </div>
+                            <div class="col">
+                                <a href="#">-</a><a href="#" class="border">@item.Quantity</a><a href="#">+</a>
+                            </div>
+                            <div class="col">$ @item.Price ></div>
+                        </div>
+                    </div>
+                    
+            }
+            <div class="back-to-shop"><a href="~/Productlist"></a><span class="text-muted">Back to shop</span></div>
+                </div>
+                <div class="col-md-4 summary">
+                    <div><h5><b>Summary</b></h5></div>
+                    <hr>
+                    <div class="row">
+                        <div class="col" style="padding-left:0;">ITEMS 3</div>
+                        <div class="col text-right">&euro; 132.00</div>
+                    </div>
+                    <form>
+                        <p>SHIPPING</p>
+                        <select><option class="text-muted">Standard-Delivery- &euro;5.00</option></select>
+                        
+                    </form>
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">TOTAL PRICE</div>
+                        <div class="col text-right">&euro; 137.00</div>
+                    </div>
+            @if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                <form asp-controller="Products" asp-action="AddToInvoice">
+                <input type ="hidden" asp-for="@ShoppingBasket.Id" name="ShoppingCartId">
+                <input type ="hidden" asp-for="@userId" name="UserId">
+                <button type="submit"  class="btn">CHECKOUT</button>
+                </form>
+            }
+        </div>
+            </div>
+            
+        </div>

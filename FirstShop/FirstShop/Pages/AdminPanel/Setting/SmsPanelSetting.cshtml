@@ -1,0 +1,56 @@
+﻿@page
+@model FirstShop.Pages.AdminPanel.Setting.SmsPanelSettingModel
+@{
+}
+
+
+@*<div class=conatiner>
+    <div class="row">
+        <form method="post">
+        <input type="text" name="receptorNumber" placeholder="شماره گیرنده"/>
+        <input type="text" name="message" placeholder="پیام تست"/>
+        
+        <button asp-page-handler="SendTestMessage" >ارسال پیامک تست</button>
+        </form>
+    </div>
+    <div class="row">
+        <span>اعتبار باقیمانده : @Model.accountInfoResult.RemainCredit</span>
+
+    </div>
+
+</div>*@
+<div class="col-sm-12 col-md-12">
+         <div class="card card-info"> 
+              <div class="card-header">
+                <h3 class="card-title">Send messages</h3>
+              </div>
+                 <form class="form-horizontal">
+                <div class="card-body">
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 control-label">receptor Number</label>
+                    <div class="col-sm-10">
+                      <input type="Text" class="form-control" name="receptorNumber" id="receptorNumber" placeholder="receptor Number">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Send Message</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="testMessage" id="testMessage" placeholder="message">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="form-check">
+                          <span>remain Credit : @Model.accountInfoResult.RemainCredit</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button asp-page-handler="SendTestMessage" >Send message</button>
+                </div>
+                <!-- /.card-footer -->
+              </form>
+            </div>
+            </div>

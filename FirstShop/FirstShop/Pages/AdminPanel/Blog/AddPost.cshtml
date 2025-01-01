@@ -1,0 +1,138 @@
+﻿@page
+@model FirstShop.Pages.AdminPanel.Blog.AddPostModel
+@{
+}
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-11 col-md-12">
+            <div class="card card-primary ">
+                <div class="card-header">
+                    <h3 class="card-title">Add Post</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+
+
+
+                <form method="post" enctype="multipart/form-data" asp-page-handler="AddPost">
+                    <input type="hidden" asp-for="@Model.IsEdit" name="isEdit" id="isEdit" />
+                    <input type="hidden" asp-for="postViewModel.Id" />
+
+                    <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
+                    <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message" />
+                    <div class="card-body">
+
+                        <div class="form-group col-lg-12">
+                            <label>اChoose Post Type</label>
+                            <select class="form-control " asp-for="postViewModel.PostTypeId">
+                                <option>Post Type</option>
+                                @foreach (var post in Model.postTypeListModel)
+                                {
+                                    <option value=@post.Id>@post.Title</option>
+                                }
+                            </select>
+                            @*                            <span asp-validation-for="productViewModel.CatagoryID" class="text-danger"></span>
+                            *@
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="PostTitle">Post Title</label>
+                            <input type="text" class="form-control" id="PostTitle" asp-for="postViewModel.Title" placeholder="Enter post title">
+                            @*                            <span asp-validation-for="productViewModel.Title" class="text-danger"></span>
+                            *@
+                        </div>
+                        <div class="form-group">
+                            <label for="PostAuthor">Post Author</label>
+                            <input type="text" class="form-control" id="PostAuthor" asp-for="postViewModel.Author" placeholder="Enter Post Author">
+                        </div>
+                        <div class="form-group">
+                            <label for="PostSubject">Post Subject</label>
+                            <input type="text" class="form-control" id="PostSubject" asp-for="postViewModel.Subject" placeholder="Enter Post Subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="PostSubject">Post Symmery</label>
+                            <input type="text" class="form-control" id="PostSummary" asp-for="postViewModel.Summary" placeholder="Enter Post Summary">
+                        </div>
+                        <div class="form-group">
+                            <label for="postBody">post body</label>
+                            <textarea id="editor" asp-for="postViewModel.Body" class="form-control form-control-solid" placeholder="post body">
+                            </textarea>
+                        </div>
+                        <img id="PostImg" name="PostImg" class="img-fluid" src="~/wwwroot/images/@Model.postViewModel.PostImage" alt="@Model.postViewModel.PostImage" />
+                        <div class="select pic">
+                            <label>Choose Photo</label>
+                            <input type="file" name="postImgUp" id="postImgUp" />
+
+                        </div>
+                        @*<input class="form-check-input" type="checkbox" data-val="true" data-val-required="The IsActive field is required." id="postViewModel_IsActive" name="postViewModel.IsActive" value="true" style="margin-right: 5px;">
+                        <label class="form-check-label" style="margin-right: 25px;"> Active </label>*@
+                        @*<div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Proceed</label>
+                            </div>*@
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+<script>
+    $(document).ready(function (){
+        let msg = $("#message").val();
+        let type = $("#type").val();
+
+        if(type == "error")
+        {
+            ShowToastr("error",msg);
+        }
+        if(type == "warning")
+        {
+            ShowToastr("warning",msg);
+        }
+        if(type == "success")
+        {
+            ShowToastr("success",msg);
+        }
+        if(type == "info")
+        {
+           ShowToastr("info",msg);
+        }
+    });
+
+
+
+    function readUrl(input){
+        if(input.Files && input.Files[0]){
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#PostImg').attr('src' , e.target.result);
+            }
+
+            reader.readAsDataURL(input.Files[0]);
+        }
+    }
+
+        $("#postImgUp").change(function(){
+            readUrl(this);
+        });
+
+
+
+
+</script>
+
+}

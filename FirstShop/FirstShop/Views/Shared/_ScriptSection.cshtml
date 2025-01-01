@@ -1,0 +1,164 @@
+﻿
+<script src="~/MainTemplate/js/jquery.js" type="text/javascript"></script>
+<script src="~/MainTemplate/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="~/MainTemplate/js/custom.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+
+<!-- Bootstrap 4 -->
+@*<script src="~/admin_content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+<script src="~/MainTemplate//js/bootstrap.js" type="text/javascript"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
+
+@*User Sidebar
+*@
+<script src="~/User_Content/js/jquery.min.js"></script>
+    <script src="~/User_Content/js/popper.js"></script>
+    <script src="~/User_Content/js/bootstrap.min.js"></script>
+    <script src="~/User_Content/js/main.js"></script>
+
+
+
+    @*User Profile*@
+    <script>var hostUrl = "assets/";</script>
+		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+		<script src="~/User_Contentt/src/assets/plugins/global/plugins.bundle.js"></script>
+		<script src="~/User_Content/src/assets/js/scripts.bundle.js"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Vendors Javascript(used for this page only)-->
+		<script src="~/User_Content/src/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+		<!--end::Vendors Javascript-->
+		<!--begin::Custom Javascript(used for this page only)-->
+		<script src="~/User_Content/src/assets/js/custom/account/settings/signin-methods.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/account/settings/profile-details.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/account/settings/deactivate-account.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/pages/user-profile/general.js"></script>
+		<script src="~/User_Content/src/assets/js/widgets.bundle.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/widgets.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/apps/chat/chat.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/offer-a-deal/type.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/offer-a-deal/details.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/offer-a-deal/finance.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/offer-a-deal/complete.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/offer-a-deal/main.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/two-factor-authentication.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/users-search.js"></script>
+
+
+
+        @*blog list*@
+        <script>var hostUrl = "assets/";</script>
+		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+		<script src="~/User_Content/src/assets/plugins/global/plugins.bundle.js"></script>
+		<script src="~/User_Content/src/assets/js/scripts.bundle.js"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Vendors Javascript(used for this page only)-->
+		<script src="~/User_Content/src/assets/plugins/custom/fslightbox/fslightbox.bundle.js"></script>
+		<script src="~/User_Content/src/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+		<!--end::Vendors Javascript-->
+		<!--begin::Custom Javascript(used for this page only)-->
+		<script src="~/User_Content/src/assets/js/widgets.bundle.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/widgets.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/apps/chat/chat.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/users-search.js"></script>
+
+        <script>var hostUrl = "assets/";</script>
+		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+		<script src="~/User_Content/src/assets/plugins/global/plugins.bundle.js"></script>
+		<script src="~/User_Content/src/assets/js/scripts.bundle.js"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Vendors Javascript(used for this page only)-->
+		<script src="~/User_Content/src/assets/plugins/custom/fslightbox/fslightbox.bundle.js"></script>
+		<script src="~/User_Content/src/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+		<!--end::Vendors Javascript-->
+		<!--begin::Custom Javascript(used for this page only)-->
+		<script src="~/User_Content/src/assets/js/widgets.bundle.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/widgets.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/apps/chat/chat.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
+		<script src="~/User_Content/src/assets/js/custom/utilities/modals/users-search.js"></script>
+
+
+
+
+<script>
+        function successRegister(result){
+            if(result == 0)
+            ShowToastr("error", "please fill the form corectly");
+            if(result == 1)
+            ShowToastr("warning", "User name is taken");
+            if(result == 2)
+            ShowToastr("warning", "the password should be 6 charecter or higher !");
+            if(result == 3)
+            ShowToastr("warning", "confirm password dosent match to the password");
+            if(result == 4)
+            ShowToastr("warning", "please fill the confirm password field");
+            if(result == 10)
+            {
+                ShowToastr("success", "Your regestration are successfull!");
+                window.setTimeout(function(){
+                    window.location.replace("/");
+                },5000);
+            }
+            if(result == 100);
+            ShowToastr("error", "Error ecured");
+        }
+
+        function successLogin(result){
+            if(result == 0)
+                ShowToastr("error", "please fill the form corectly");
+            else if(result == 2)
+                ShowToastr("warning", "User not exist or input info Error!");
+            else if(result == 10)
+            {
+                ShowToastr("success", "Successful Login");
+                window.setTimeout(function(){
+                    window.location.replace("/");
+                },5000);
+            }
+            else
+            ShowToastr("error", "Error ecured");
+        }
+        
+
+        function ShowToastr(type, message){
+            toastr.options = {
+                "debug" : false,
+                "positionClass" : "toast-bottom-left",
+                "progressBar" : true,
+                "onClick" : null,
+                "fadeIn" : 300,
+                "fadeOut" : 1000,
+                "timeOut" : 5000
+            };
+            if(type === "success")
+                toastr.success(message,'success');
+            if(type === "warning")
+                toastr.warning(message,'warning');
+            if(type === "error")
+                toastr.error(message,'error');
+            if(type === "info")
+                toastr.info(message,'info');
+        }
+
+
+
+    CKSource.Editor.create(document.querySelector('#editor')
+    , {
+        fontFamily: {
+            Option:[
+                'default',
+                'Yekan / Yekan',
+                'Nazanin/Nazanin',
+                'Mitra/Mitra',
+                'AdobeArabicShin/AdobeArabicShin',
+                'IranSans/IranSans',
+                'Yekan/Yekan'
+            ]
+        }
+    });
+</script>

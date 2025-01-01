@@ -1,0 +1,50 @@
+﻿@using FirstShop.Core.Services.Settings.Contects
+
+@inject IContectServices _contectService 
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var co = _contectService.GetAllContects().FirstOrDefault();
+}
+
+<section class="info_section ">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="info_contact">
+            <h5>
+              <a href="" class="navbar-brand">
+                <span>
+                  Minics
+                </span>
+              </a>
+            </h5>
+            <p>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              @co.Address
+            </p>
+            <p>
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              @co.Number
+            </p>
+            <p>
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              @co.Email
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="info_info">
+            <h5>
+              Information
+            </h5>
+            <p>
+                @co.Address
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

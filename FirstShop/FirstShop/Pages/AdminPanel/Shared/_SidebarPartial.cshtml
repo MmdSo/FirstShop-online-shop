@@ -1,0 +1,168 @@
+﻿@inject IHttpContextAccessor _httpAccessor;
+
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="Admin_content/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">First shop</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+            @if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    <img src="Admin_content/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                }
+                else
+                {
+                    <img src="Admin_content/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                }
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">@_httpAccessor.HttpContext.User.Identity.Name</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fa fa-laptop"></i>
+              <p>
+                Products
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/AdminPanel/Product/CategoryList" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Catagories</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/AdminPanel/Product/ProductList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Products</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/AdminPanel/Product/BrandList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Brands</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="/AdminPanel/Product/ColorList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Colors</p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="/AdminPanel/Product/ProductCommentList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Comments</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-user"></i>
+              <p>
+                Users
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/AdminPanel/Users/UserList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Users List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/AdminPanel/Users/UserRoleList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User Roles</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/AdminPanel/Users/PermissionList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Permissions</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-file-alt"></i>
+              <p>
+                Blogs
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/AdminPanel/Blog/PostList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Posts List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/AdminPanel/Blog/PostTypeList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Post Types</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-cog"></i>
+              <p>
+                Setting
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+               <li class="nav-item">
+                <a href="/AdminPanel/Setting/SmsPanelSetting" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sms</p>
+                </a>
+             </li>
+             <li class="nav-item">
+                <a href="/AdminPanel/Setting/ContectPanelSetting" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Contact</p>
+                </a>
+             </li>
+             <li class="nav-item">
+                <a href="/AdminPanel/Setting/SliderPicPanelSetting" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Slider Photo</p>
+                </a>
+             </li>
+             <li class="nav-item">
+                <a href="/AdminPanel/Setting/AboutUs" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>About us Slider</p>
+                </a>
+             </li>
+             </ul>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

@@ -1,0 +1,81 @@
+﻿@page "{id?}"
+@model FirstShop.Pages.AdminPanel.Product.AddColorModel
+@{
+}
+
+
+
+
+
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Add Color</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="post" enctype="multipart/form-data" asp-page-handler="AddColor">
+            <input type="hidden" asp-for="@Model.IsEdit" name="isEdit" id="isEdit" />
+            <input type="hidden" asp-for="colorViewModel.Id" />
+
+            <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
+            <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message" />
+
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="Color">Color</label>
+                    <input type="colorT" class="form-control" id="colorT" asp-for="colorViewModel.Title" placeholder="Color Name">
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="ColorCode">Color Code</label>
+                    <input type="ColorCode" class="form-control" id="ColorCode" asp-for="colorViewModel.ColorCode" placeholder="Color Code">
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info">Submit</button>
+
+            </div>
+            <!-- /.card-footer -->
+        </form>
+    </div>
+    <!-- /.card -->
+
+</div>
+
+
+@section scripts
+{
+<script>
+    $(document).ready(function (){
+        let msg = $("#message").val();
+        let type = $("#type").val();
+
+        if(type == "error")
+        {
+            ShowToastr("error",msg);
+        }
+        if(type == "warning")
+        {
+            ShowToastr("warning",msg);
+        }
+        if(type == "success")
+        {
+            ShowToastr("success",msg);
+        }
+        if(type == "info")
+        {
+           ShowToastr("info",msg);
+        }
+    });
+
+
+
+</script>
+
+}

@@ -1,0 +1,96 @@
+﻿@using FirstShop.Core.ViewModels.Products
+@model FirstShop.Core.ViewModels.Products.ProductViewModel
+
+@{
+    ProductViewModel product = ViewBag.product;
+    List<ProductCommentViewModel> CommentList = ViewBag.CommentList;
+    var newComment = new FirstShop.Core.ViewModels.Products.ProductCommentViewModel();
+    newComment.ProductsId = product.Id;
+    long USerId = ViewBag.UserId;
+     
+}
+
+
+
+  <div class="container product-cardss mt-2" style="display: block;">
+    <!-- Product Image -->
+    <div class="row">
+        <div class="product-Images">
+          <img src="/Images/@product.ProductImage" alt="Product Image">
+        </div>
+
+        <!-- Product Details -->
+        <div class="product-detailss">
+          <!-- Product Name -->
+          <h1 class="product-titles">@product.Title</h1>
+
+          <!-- Brand and Category -->
+          <p class="product-brandss">Brand: <span>@product.BrandTitle</span></p>
+          <p class="product-categoryss">Category: <span>@product.CategoryTitle</span></p>
+
+          <p class="product-Quantityss">Quantity:@product.Quantity</p>
+          <!-- Product Price -->
+          <p class="product-pricess">Price: $@product.Price</p>
+
+          <!-- Action Buttons -->
+          <div class="action-buttonss">
+            <button class="buy-button">Buy Now</button>
+            <form asp-controller="Product" asp-action="AddToCart" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="ProductId" value="@product.Id" />
+            <input type="hidden" name="userId" value="@USerId" />
+            <button type="submit" class="add-to-cart-button">Add to Cart</button>
+        </form>
+          </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="container">
+            <p class="product-descriptionss">
+                @product.Description
+            </p>
+      </div>
+    </div>
+    <!-- Product Description -->
+      
+  </div>
+
+  <div class="container">
+      <div class="comments-sectionss">
+        <h2>Customer Reviews</h2>
+
+        <!-- Comments List -->
+        <div class="comments-listss">
+                @foreach (var comment in CommentList.Where(c => c.CommentID == null))
+                {
+                    <div class="commentss">
+                        <h3 class="comment-authorss">@comment.UserName</h3>
+            <p class="comment-textss">@comment.Title</p>
+            <span class="comment-datess">@comment.DateCreated</span>
+            <form asp-controller="Product" asp-action="sendReply" method="post" >
+                <input type="hidden" asp-for=@comment.Id id="parentCommentID" name="parentCommentID"/>
+                <button type="submit" class="reply-buttonss">Reply</button>
+            </form>
+          </div>
+            }
+        
+        <!-- Add Comment Form -->
+        <div class="add-commentss">
+          <h3>Leave a Comment</h3>
+          <form asp-controller="Product" asp-action="SendComment" method="post">
+              <input type="hidden" asp-for="@newComment.ProductsId" />
+            <label for="name">Your Name:</label>
+            <input type="text" asp-for="@newComment.UserName" id="name" name="name" placeholder="User name" >
+        
+            <label for="name">Your Email:</label>
+            <input type="text" asp-for="@newComment.UserEmail" id="name" name="Email" placeholder="User Email" >
+
+            <textarea placeholder="leave a comment" asp-for="@newComment.Title" class="form-control"></textarea>
+        
+            <button type="submit">Post Comment</button>
+          </form>
+        </div>
+      </div>    
+      </div>
+  </div>
+

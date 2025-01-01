@@ -1,0 +1,17 @@
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.deps.json
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.dll
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\bin\Debug\net6.0\ref\FirstShop.Data.dll
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.pdb
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.GeneratedMSBuildEditorConfig.editorconfig
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.AssemblyInfoInputs.cache
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.AssemblyInfo.cs
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.csproj.CoreCompileInputs.cache
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\staticwebassets.build.json
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\staticwebassets.development.json
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\scopedcss\bundle\FirstShop.Data.styles.css
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.dll
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\ref\FirstShop.Data.dll
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.pdb
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.runtimeconfig.json
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.genruntimeconfig.cache
+F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.csproj.AssemblyReference.cache

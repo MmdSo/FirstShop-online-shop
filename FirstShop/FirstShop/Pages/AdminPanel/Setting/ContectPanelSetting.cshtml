@@ -1,0 +1,80 @@
+﻿@page "{id?}"
+@model FirstShop.Pages.AdminPanel.Setting.ContectPanelSettingModel
+@{
+}
+
+
+
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Contact</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="post" enctype="multipart/form-data" asp-page-handler="ContectPanelSetting">
+            <input type="hidden" asp-for="@Model.isEdit" name="isEdit" id="isEdit" />
+            <input type="hidden" asp-for="contectViewModel.Id" />
+
+            <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
+            <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message" />
+
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="Phone Number">Phone Number</label>
+                    <input type="PhoneNumber" class="form-control" id="PhoneNumber" asp-for="contectViewModel.Number" placeholder="Phone Number">
+
+                     <label for="Email">Email</label>
+                    <input type="email" class="form-control" id="PhoneNumber" asp-for="contectViewModel.Email" placeholder="Email">
+
+                    <label for="Email">Address</label>
+                    <input type="Address" class="form-control" id="Address" asp-for="contectViewModel.Address" placeholder="Address">
+
+                    <label for="Email">Information</label>
+                    <textarea id="Information" asp-for="contectViewModel.Information" class="form-control form-control-solid" placeholder="Information About your job">
+                            </textarea>
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info">Submit</button>
+
+            </div>
+            <!-- /.card-footer -->
+        </form>
+    </div>
+    <!-- /.card -->
+
+</div>
+
+
+@section scripts
+{
+<script>
+    $(document).ready(function (){
+        let msg = $("#message").val();
+        let type = $("#type").val();
+
+        if(type == "error")
+        {
+            ShowToastr("error",msg);
+        }
+        if(type == "warning")
+        {
+            ShowToastr("warning",msg);
+        }
+        if(type == "success")
+        {
+            ShowToastr("success",msg);
+        }
+        if(type == "info")
+        {
+           ShowToastr("info",msg);
+        }
+    });
+</script>
+
+}

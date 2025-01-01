@@ -1,0 +1,54 @@
+﻿@inject FirstShop.Core.Services.Settings.Sliders.ISliderPicServices _Slider
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var ph = _Slider.GetFivephoto();
+}
+
+<section class="slider_section ">
+    
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            @{int slideCount = 0;}
+            @foreach(var item in ph )
+            {
+                slideCount++;
+              <div class="carousel-@(slideCount == 1 ? "item active ": "item")">
+                <div class="container ">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="detail-box">
+                        <p>
+                          @item.SliderDescription
+                        </p>
+                        <a href="@item.Link">
+                        
+                          Read More
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="img-box">
+                        <img src="~/Images/@item.SliderPhoto" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             }
+          </div>
+        
+        <div class="carousel_btn_box">
+          <a class="carousel-control-prev" href="#customCarousel1" role="button" data-slide="prev">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#customCarousel1" role="button" data-slide="next">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+     
+    </section>

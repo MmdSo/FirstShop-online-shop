@@ -1,0 +1,104 @@
+﻿@page
+@model FirstShop.Pages.AdminPanel.Setting.SliderPicPanelsettingModel
+@{
+}
+
+
+
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Add Photo to slider</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="post" enctype="multipart/form-data" asp-page-handler="SliderPhoto">
+@*            <input type="hidden" asp-for="@Model.IsEdit" name="isEdit" id="isEdit" />
+*@            <input type="hidden" asp-for="Slider.Id" />
+
+            <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
+            <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message" />
+
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="CategoryName">Photo Name</label>
+                    <input type="PhotoName" class="form-control" id="PhotoName" asp-for="Slider.PhotoName" placeholder="Photo Name">
+                    <label for="CategoryName">Photo Limk</label>
+                    <input type="PhotoLink" class="form-control" id="PhotoLink" asp-for="Slider.Link" placeholder="PhotoLink">
+                    <label for="CategoryName">Photo Description</label>
+                    <input type="PhotoDescription" class="form-control" id="PhotoDescription" asp-for="Slider.SliderDescription" placeholder="Photo Description">
+
+                </div>
+                 <img id="pImg" name="pImg" class="img-fluid" src="~/wwwroot/Images/@Model.Slider.SliderPhoto" alt="@Model.Slider.SliderPhoto" />
+                        <div class="select pic">
+                              <label>Choose Photo</label>
+                              <input type="file" name="pImgUp" id="pImgUp"/>
+                              
+                        </div>
+            </div>
+            <!-- /.card-body -->
+
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info">Submit</button>
+                <a type="submit" href="/AdminPanel/Setting/EditSliderPic" class="btn btn-danger">Edit</a>
+
+            </div>
+            <!-- /.card-footer -->
+        </form>
+    </div>
+    <!-- /.card -->
+
+</div>
+
+
+@section scripts
+{
+<script>
+    $(document).ready(function (){
+        let msg = $("#message").val();
+        let type = $("#type").val();
+
+        if(type == "error")
+        {
+            ShowToastr("error",msg);
+        }
+        if(type == "warning")
+        {
+            ShowToastr("warning",msg);
+        }
+        if(type == "success")
+        {
+            ShowToastr("success",msg);
+        }
+        if(type == "info")
+        {
+           ShowToastr("info",msg);
+        }
+    });
+
+
+
+    function readUrl(input){
+        if(input.Files && input.Files[0]){
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#pImg').attr('src' , e.target.result);
+            }
+
+            reader.readAsDataURL(input.Files[0]);
+        }
+    }
+
+        $("#pImgUp").change(function(){
+            readUrl(this);
+        });
+
+
+
+
+</script>
+
+}

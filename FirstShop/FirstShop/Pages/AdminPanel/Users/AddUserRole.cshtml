@@ -1,0 +1,88 @@
+﻿@page "{id?}"
+@using FirstShop.Core.ViewModels.Users
+@model FirstShop.Pages.AdminPanel.Users.AddUserRoleModel
+@{
+    var permissionList = ViewData["Permission"] as List<PermissionViewModel>;
+    List<long> selectedPermission = ViewData["selectedPermission"] as List<long> ?? new List<long>();
+}
+
+
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Add User Role</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="post" enctype="multipart/form-data" asp-page-handler="UpdateRolePermission">
+            <input type="hidden" asp-for="@Model.IsEdit" name="isEdit" id="isEdit" />
+            <input type="hidden" asp-for="roleListModel.Id" />
+
+            <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
+            <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message" />
+
+            <div class="card-body">
+
+
+                
+
+                <div class="form-group">
+                    <label for="Role">Role</label>
+                    <input type="Role" class="form-control" id="Role" asp-for="roleListModel.Title" placeholder="Role">
+                </div>
+
+                 <ul>
+                        @foreach(var p in permissionList)
+                        {
+                            <li>
+                            <input type="checkbox" class="form-check-input" name="selectedPermission" 
+                            @(selectedPermission.Any(per => per==p.Id) ? "checked" : "") id="exampleCheck1" value="@p.Id"/>@p.Title
+                            <br>
+                            </li>
+                        }
+                        </ul>             
+            </div>
+            <!-- /.card-body -->
+
+           
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info">Submit</button>
+                
+            </div>
+            <!-- /.card-footer -->
+           </form>
+    </div>
+    <!-- /.card -->
+    
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function (){
+            let msg = $("#message").val();
+            let type = $("#type").val();
+
+            if(type == "error")
+            {
+                ShowToastr("error",msg);
+            }
+            if(type == "warning")
+            {
+                ShowToastr("warning",msg);
+            }
+            if(type == "success")
+            {
+                ShowToastr("success",msg);
+            }
+            if(type == "info")
+            {
+               ShowToastr("info",msg);
+            }
+        });
+        
+    </script>
+
+}

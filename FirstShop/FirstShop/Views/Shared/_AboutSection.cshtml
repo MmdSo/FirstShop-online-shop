@@ -1,0 +1,39 @@
+﻿@using FirstShop.Core.Services.Blogs.Post
+
+@inject IPostServices _postServices;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var post = _postServices.GetAllPosts().OrderBy(p => p.DateCreated).FirstOrDefault();
+}
+
+
+
+<section class="about_section">
+    <div class="container-fluid  ">
+      <div class="row">
+        <div class="col-md-5 ml-auto">
+          <div class="detail-box pr-md-3">
+            <div class="heading_container">
+              <h2>
+                @post.Title
+              </h2>
+            </div>
+            <p>
+                @post.Summary
+            </p>
+            <a href="~/PostsList">
+              Read More
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6 px-0">
+          <div class="img-box">
+            <img src="~/Images/@post.PostImage" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

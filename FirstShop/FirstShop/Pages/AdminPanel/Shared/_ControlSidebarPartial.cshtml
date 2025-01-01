@@ -1,0 +1,29 @@
+﻿<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+
+
+
+
+  <!DOCTYPE html>
+
+<html>
+    <partial name ="~/pages/AdminPanel/Shared/HeadPartial.cshtml"/>
+
+   <body class= "hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <partial name ="~/Pages/AdminPanel/Shared/HeaderPartial.cshtml" />
+        <div>
+        @RenderBody()
+        </div>
+         <partial name="~/Pages/AdminPanel/Shared/_SidebarPartial.cshtml" />
+
+
+
+        <partial name="~/Pages/AdminPanel/Shared/_FooterPartial.cshtml" />
+        <partial name="~/Pages/AdminPanel/Shared/_AsideControlPartial.cshtml" />    
+    </div>
+    <partial name="~/Pages/AdminPanel/Shared/_ScriptPartial.cshtml"  />
+    @RenderSection("scripts", false)
+  </body>
+</html>
