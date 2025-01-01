@@ -1,4 +1,5 @@
 ﻿using FirstShop.Data.Context;
+using FirstShop.Data.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,12 +17,16 @@ namespace FirstShop.Data.Products
         public long ProductsId { get; set; }
         public bool IsApproved { get; set; }
         public long? CommentID { get; set; }
+        //public long? UserID { get; set; }
 
 
 
         #region relation
         [ForeignKey("ProductsId")]
         public Productss products { get; set; }
+
+        //[ForeignKey("UserId")]
+        //public SiteUser SiteUser { get; set; }
 
         [ForeignKey("CommentID")]
         public IProductComment productComment { get; set; }

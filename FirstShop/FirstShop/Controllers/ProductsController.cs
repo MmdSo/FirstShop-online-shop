@@ -8,6 +8,7 @@ using FirstShop.Core.Services.Sales.ShoppingBaskets;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.ViewModels.Products;
 using FirstShop.Core.ViewModels.Sales;
+using FirstShop.Core.ViewModels.Users;
 using FirstShop.Data.Sales;
 using Microsoft.AspNetCore.Mvc;
 
@@ -82,17 +83,17 @@ namespace FirstShop.Controllers
         {
             ProductViewModel product = new ProductViewModel();
             product = _productServices.GetProductsById(id);
-            long user = 0;
+            UserListViewModel user = new UserListViewModel();
             List<ProductCommentViewModel> commentList = _productCommentServices.GetAllProductCommentsByProductId(id);
             if (_Httpaccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                user = _userServices.GetUserIdByUserName(_Httpaccessor.HttpContext.User.Identity.Name);
+                user = _userServices.GetUserById(_userServices.GetUserIdByUserName(_Httpaccessor.HttpContext.User.Identity.Name));
             }
 
             ProductID = id;
 
             ViewBag.Product = product;
-            ViewBag.UserId = user;
+            ViewBag.User = user;
             ViewBag.CommentList = commentList;
 
             return View();
@@ -101,9 +102,17 @@ namespace FirstShop.Controllers
         [HttpPost]
         public async Task<IActionResult> SendComment(ProductCommentViewModel newComment)
         {
-            await _productCommentServices.SendComment(newComment);
+            if (string.IsNullOrEmpty( newComment.UserName))
+            {
 
-            return RedirectToPage("/ProductDetail/" + newComment.ProductsId);
+                return RedirectToPage("/Login");
+            }
+            else
+            {
+                await _productCommentServices.SendComment(newComment);
+                return RedirectToPage("/product_detail/",newComment.ProductsId);
+            }
+            
         }
 
         [HttpPost]

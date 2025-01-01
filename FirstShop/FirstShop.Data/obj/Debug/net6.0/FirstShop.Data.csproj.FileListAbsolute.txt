@@ -15,3 +15,20 @@ F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0
 F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.runtimeconfig.json
 F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.genruntimeconfig.cache
 F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.csproj.AssemblyReference.cache
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.deps.json
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.runtimeconfig.json
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\ref\FirstShop.Data.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.pdb
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.csproj.AssemblyReference.cache
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.GeneratedMSBuildEditorConfig.editorconfig
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.AssemblyInfoInputs.cache
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.AssemblyInfo.cs
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.csproj.CoreCompileInputs.cache
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\staticwebassets.build.json
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\staticwebassets.development.json
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\scopedcss\bundle\FirstShop.Data.styles.css
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\ref\FirstShop.Data.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.pdb
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.genruntimeconfig.cache

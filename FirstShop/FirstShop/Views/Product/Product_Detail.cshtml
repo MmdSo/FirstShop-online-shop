@@ -1,4 +1,5 @@
 ﻿@using FirstShop.Core.ViewModels.Products
+@using FirstShop.Core.ViewModels.Users
 @model FirstShop.Core.ViewModels.Products.ProductViewModel
 
 @{
@@ -6,7 +7,7 @@
     List<ProductCommentViewModel> CommentList = ViewBag.CommentList;
     var newComment = new FirstShop.Core.ViewModels.Products.ProductCommentViewModel();
     newComment.ProductsId = product.Id;
-    long USerId = ViewBag.UserId;
+    UserListViewModel User = ViewBag.User as UserListViewModel;
      
 }
 
@@ -37,7 +38,7 @@
             <button class="buy-button">Buy Now</button>
             <form asp-controller="Product" asp-action="AddToCart" method="post" enctype="multipart/form-data">
             <input type="hidden" name="ProductId" value="@product.Id" />
-            <input type="hidden" name="userId" value="@USerId" />
+            <input type="hidden" name="userId" value="@User.id" />
             <button type="submit" class="add-to-cart-button">Add to Cart</button>
         </form>
           </div>
@@ -79,8 +80,9 @@
           <h3>Leave a Comment</h3>
           <form asp-controller="Product" asp-action="SendComment" method="post">
               <input type="hidden" asp-for="@newComment.ProductsId" />
-            <label for="name">Your Name:</label>
-            <input type="text" asp-for="@newComment.UserName" id="name" name="name" placeholder="User name" >
+              <input type="hidden" asp-for="@newComment.UserName" value=@User.UserName/>
+            @*<label for="name">Your Name:</label>*@
+            @*<input type="text" asp-for="@newComment.UserName" id="name" name="name" placeholder="User name" >*@
         
             <label for="name">Your Email:</label>
             <input type="text" asp-for="@newComment.UserEmail" id="name" name="Email" placeholder="User Email" >

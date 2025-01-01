@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hqZNcCsLlQKrgPYtEDnG7tjILZDcKwxzyoo68c0rGdgSh4JWLnN/B9JyiiFUWIpeI1+XQqKe6Ev4UDASrngd9A==",
+  "dgSpecHash": "4QraLJvjV6VQhisAakp6SepUcSzIDcpj37wyS8wNltKs9oqLOfh3NJfWd/W11bVUBlk0weONedsl01wztj+HrQ==",
   "success": true,
-  "projectFilePath": "F:\\Visual Studio\\Training\\ASP.Net core\\FirstShop\\FirstShop.Data\\FirstShop.Data.csproj",
+  "projectFilePath": "F:\\github\\FirstShop-online-shop\\FirstShop\\FirstShop.Data\\FirstShop.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Vidar\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Vidar\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

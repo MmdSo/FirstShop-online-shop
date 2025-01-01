@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pCYd0XM35z1X94zxu73qYzIFs+uDLgSH7A3YxfMIBq+9RqCOSg8eNpplRpNoLpdMA5voSid1tCK5qmD38s7BLw==",
+  "dgSpecHash": "UH6jx00u9uI/SZJn2t835YwYfQZYI9FpCtTnTpTuZXb1dN+aIVqPl5gVrmwjgmhLE7SGENCBHARE9Fb5GNLPdg==",
   "success": true,
-  "projectFilePath": "F:\\Visual Studio\\Training\\ASP.Net core\\FirstShop\\FirstShop.Core\\FirstShop.Core.csproj",
+  "projectFilePath": "F:\\github\\FirstShop-online-shop\\FirstShop\\FirstShop.Core\\FirstShop.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Vidar\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Vidar\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

@@ -1,47 +1,42 @@
-﻿@page
+﻿@page "{Id?}"
+@using FirstShop.Core.ViewModels.Products
+@using FirstShop.Core.ViewModels.Users
 @model FirstShop.Pages.AdminPanel.Product.ApproveCommentModel
+
 @{
+    var user = ViewData["UserList"] as UserListViewModel;
+    var comment = ViewData["comment"] as ProductCommentViewModel;
 }
+<div class="container">
+    <div class="post">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="~/Images/avatar/@user.Avatar" alt="user image">
+                        <span class="username">
+                          <a href="#">@user.FirstName @user.LastName</a>
+                          @*<a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>*@
+                        </span>
+                        @*<span class="description">@Model.</span>*@
+                      </div>
+                      <!-- /.user-block -->
+                      <p>
+                        @comment.Title
+                      </p>
 
-<div class="card-body pb-0">
-											<!--begin::Header-->
-											<div class="d-flex align-items-center mb-5">
-												<!--begin::User-->
-												<div class="d-flex align-items-center flex-grow-1">
-													<!--begin::Avatar-->
-													<div class="symbol symbol-45px me-5">
-														<img src="assets/media/avatars/300-7.jpg" alt="">
-													</div>
-													<!--end::Avatar-->
-													<!--begin::Info-->
-													<div class="d-flex flex-column">
-														<a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">Carles Nilson</a>
-														<span class="text-gray-500 fw-bold">Last week at 10:00 PM</span>
-													</div>
-													<!--end::Info-->
-												</div>
-												<!--end::User-->
-												<!--begin::Menu-->
-												<div class="my-0">
-													<div class="custom-control custom-checkbox">
-														  <input class="custom-control-input" type="checkbox" id="customCheckbox1"  >
-														  <label for="customCheckbox1" class="custom-control-label">this comment approved</label>
-											        </div>
+                      <div class="custom-control custom-checkbox">
+                          <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
+                          <label for="customCheckbox1" class="custom-control-label" asp-for="@comment.IsApproved">Approve</label>
+                          <button type="submit" class="btn btn-info">Submit</button>
+                        </div>
+                      @*<p>
+                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                        <span class="float-right">
+                          <a href="#" class="link-black text-sm">
+                            <i class="far fa-comments mr-1"></i> Comments (5)
+                          </a>
+                        </span>
+                      </p>*@
 
-													<!--begin::Menu 3-->
-													<!--end::Menu 3-->
-												</div>
-												<!--end::Menu-->
-											</div>
-											<!--end::Header-->
-											<!--begin::Post-->
-											<div class="mb-7">
-												<!--begin::Text-->
-												<div class="text-gray-800 mb-5">Outlines keep you honest. They stop you from indulging in poorly thought-out metaphors about driving and keep you focused on the overall structure of your post</div>
-												<!--end::Text-->
-											</div>
-											<!--end::Post-->
-											<!--begin::Separator-->
-											<div class="separator mb-4"></div>
-											<!--end::Separator-->
-										</div>
+                      @*<input class="form-control form-control-sm" type="text" placeholder="Type a comment">*@
+                    </div>
+                    </div>
