@@ -122,7 +122,7 @@ namespace FirstShop.Controllers
             newComment.CommentID = parentCommentID;
             await _productCommentServices.SendComment(newComment);
 
-            return RedirectToPage("/ProductDetail/" + newComment.ProductsId);
+            return RedirectToPage("/Product_Detail/" + newComment.ProductsId);
         }
 
 

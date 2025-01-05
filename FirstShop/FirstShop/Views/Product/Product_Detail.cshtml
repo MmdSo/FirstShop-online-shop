@@ -12,7 +12,7 @@
 }
 
 
-
+@*
   <div class="container product-cardss mt-2" style="display: block;">
     <!-- Product Image -->
     <div class="row">
@@ -83,7 +83,7 @@
               <input type="hidden" asp-for="@newComment.UserName" value=@User.UserName/>
             @*<label for="name">Your Name:</label>*@
             @*<input type="text" asp-for="@newComment.UserName" id="name" name="name" placeholder="User name" >*@
-        
+        @*
             <label for="name">Your Email:</label>
             <input type="text" asp-for="@newComment.UserEmail" id="name" name="Email" placeholder="User Email" >
 
@@ -94,5 +94,71 @@
         </div>
       </div>    
       </div>
-  </div>
+  </div>*@
 
+
+
+
+
+  <section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="/Images/@product.ProductImage" class="img-fluid" alt="Product Image">
+                <p class="mt-3"><strong>Description:</strong> @product.Description</p>
+            </div>
+            <div class="col-md-6">
+                <h1>@product.Title</h1>
+                <p><strong>Category:</strong> @product.CategoryTitle</p>
+                <p><strong>Brand:</strong> @product.BrandTitle</p>
+                <p><strong>Price:</strong> $@product.Price</p>
+                <p><strong>Stock:</strong> @product.Quantity left</p>
+                <div class="d-flex align-items-center mb-3">
+                    <input type="number" class="form-control me-2" style="width: 100px;" placeholder="Qty" min="1" max="15">
+                    <form asp-controller="Product" asp-action="AddToCart" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="ProductId" value="@product.Id" />
+            <input type="hidden" name="userId" value="@User.id" />
+            <button type="submit" class="btn btn-primary me-2">Add to Cart</button>
+        </form>
+                    
+                    @*<button class="btn btn-success">Buy Now</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2>Comments</h2>
+        <div class="mb-4">
+            <form  asp-controller="Product" asp-action="SendComment" method="post">
+                <input type="hidden" asp-for="@newComment.ProductsId" />
+              <input type="hidden" asp-for="@newComment.UserName" value=@User.UserName/>
+                <div class="mb-3">
+                    <label for="commentInput" class="form-label">Leave a Comment</label>
+                    <textarea class="form-control" id="commentInput" rows="3"asp-for="@newComment.Title" placeholder="Write your comment here..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="comment-section">
+             @foreach (var comment in CommentList.Where(c => c.CommentID == null))
+            {
+                <div class="comment mb-3">
+                    <strong>@comment.UserName:</strong>
+                    <p>@comment.Title</p>
+                    <form asp-controller="Product" asp-action="sendReply" method="post" >
+                <input type="hidden" asp-for=@comment.Id id="parentCommentID" name="parentCommentID"/>
+                    <div class="reply">
+                        <strong>@comment.UserName:</strong>
+                        <textarea placeholder="replay comment" asp-for="@newComment.Title" class="form-control"></textarea>
+
+                         <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    </form>
+                </div>
+}
+        </div>
+    </div>
+</section>
