@@ -21,10 +21,11 @@
                       <p>
                         @comment.Title
                       </p>
-                      <form method="post" enctype="multipart/form-data" asp-page-handler="AddProduct">
+                      <form method="post" enctype="multipart/form-data" asp-page-handler="Approve">
                       <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                          <label for="customCheckbox1" class="custom-control-label" asp-for="@comment.IsApproved">Approve</label>
+                          <input type="hidden" asp-for="@Model.commentId" name="commentId"/>
+                          <input class="custom-control-input" type="checkbox" id="customCheckbox1" name="isApproved" value="true" checked="@Model.productComment.IsApproved"/>
+                          <label for="customCheckbox1" class="custom-control-label" >Approve</label>
                           <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                         </form>

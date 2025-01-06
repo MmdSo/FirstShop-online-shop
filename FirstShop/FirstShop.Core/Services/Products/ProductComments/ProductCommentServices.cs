@@ -30,10 +30,10 @@ namespace FirstShop.Core.Services.Products.ProductComments
             return productcomment.Id;
         }
 
-        public bool ApprovedComment(long? id)
+        public bool ApprovedComment(long? id,bool isApproved)
         {
             var ac = GetProductCommentsById(id);
-            ac.IsApproved = true;
+            ac.IsApproved = isApproved;
             EditProductComments(ac);
             return ac.IsApproved;
 

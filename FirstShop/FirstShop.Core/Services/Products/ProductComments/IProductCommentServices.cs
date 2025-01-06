@@ -16,7 +16,7 @@ namespace FirstShop.Core.Services.Products.ProductComments
         ProductCommentViewModel GetProductCommentsById(long? id);
         List<ProductCommentViewModel> GetAllProductCommentsByProductId(long? id);
         ProductCommentViewModel GetCommentByProductId(long? id);
-        bool ApprovedComment(long? id);
+        bool ApprovedComment(long? id, bool isApproved);
         Task<long> AddProductComments(ProductCommentViewModel productcomment);
         Task EditProductComments(ProductCommentViewModel productcomment);
         void DeleteProductComments(ProductCommentViewModel productcomment);
