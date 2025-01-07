@@ -110,7 +110,7 @@ namespace FirstShop.Controllers
             else
             {
                 await _productCommentServices.SendComment(newComment);
-                return RedirectToPage("/product_detail/",newComment.ProductsId);
+                return RedirectToPage("/Product_Detail/", newComment.ProductsId);
             }
             
         }

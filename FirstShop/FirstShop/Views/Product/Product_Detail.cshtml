@@ -150,13 +150,16 @@
                     <p>@comment.Title</p>
                     <form asp-controller="Product" asp-action="sendReply" method="post" >
                 <input type="hidden" asp-for=@comment.Id id="parentCommentID" name="parentCommentID"/>
+                <input type="hidden" asp-for="@newComment.ProductsId" />
+              <input type="hidden" asp-for="@newComment.UserName" value=@User.UserName/>
                     <div class="reply">
                         <strong>@comment.UserName:</strong>
                         <textarea placeholder="replay comment" asp-for="@newComment.Title" class="form-control"></textarea>
-
                          <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                     </form>
+                    <strong>@newComment.UserName:</strong>
+                    <p>@newComment.Title</p>
                 </div>
 }
         </div>

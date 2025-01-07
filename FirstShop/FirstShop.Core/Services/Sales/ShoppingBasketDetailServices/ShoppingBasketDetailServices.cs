@@ -42,20 +42,20 @@ namespace FirstShop.Core.Services.Sales.ShoppingBasketDetailServices
                 sbdVM.Price = _productServices.GetProductsById(sp.ProductId).Price;
                 await EditShoppingBasketDetail(sbdVM);
 
-                var shopBasket = await _shoppingBasket.GetShoppingBasketByIdAsync(sbd.id);
-                shopBasket.TotalCount = Convert.ToInt32(GetAllShoppingBasketsDetail().Where(d => d.BasketId == sbd.id).Sum(bd => bd.Quantity));
-                shopBasket.TotalPrice = Convert.ToDecimal(GetAllShoppingBasketsDetail().Where(d => d.BasketId == sbd.id).Sum(bd => bd.Price * bd.Quantity));
+                var shopBasket = await _shoppingBasket.GetShoppingBasketByIdAsync(sbd.BasketId);
+                shopBasket.TotalCount = Convert.ToInt32(GetAllShoppingBasketsDetail().Where(d => d.BasketId == sbd.BasketId).Sum(bd => bd.Quantity));
+                shopBasket.TotalPrice = Convert.ToDecimal(GetAllShoppingBasketsDetail().Where(d => d.BasketId == sbd.BasketId).Sum(bd => bd.Price * bd.Quantity));
 
-                _shoppingBasket.EditShoppingBasket(shopBasket);
+                await _shoppingBasket.EditShoppingBasket(shopBasket);
             }
             else
             {
                 var product = _productServices.GetEntityById(sp.ProductId);
                 sp.Quantity += 1;
-                sp.BasketId += 1;
                 sp.Price = product.Price;
                 sp.ProductName = product.Title;
                 await AddEntity(sp);
+                await SaveChanges();
 
                 var shopBasket = _shoppingBasket.GetShoppingBasketById(sp.BasketId);
                 shopBasket.TotalCount = Convert.ToInt32(GetAllShoppingBasketsDetail().Where(d => d.BasketId == sp.BasketId).Sum(bd => bd.Quantity));
