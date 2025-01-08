@@ -84,6 +84,12 @@ namespace FirstShop.Core.Services.Sales.ShoppingBasketDetailServices
         public IEnumerable<ShoppingBassketDetailViewModel> GetAllShoppingBasketsDetail()
         {
             var sp = _mapper.Map<IEnumerable<ShoppingBasketDetail>, IEnumerable<ShoppingBassketDetailViewModel>>(GetAll());
+            
+            foreach(var item in sp)
+            {
+                item.ProductImage = _productServices.GetProductsById(item.ProductId).ProductImage;
+            }
+            
             return sp;
         }
 
@@ -96,6 +102,12 @@ namespace FirstShop.Core.Services.Sales.ShoppingBasketDetailServices
         public async Task<List<ShoppingBassketDetailViewModel>> GetShoppingBasketDetailByBasketIdAsync(long id)
         {
             var sp = _mapper.Map<IEnumerable<ShoppingBasketDetail>, IEnumerable<ShoppingBassketDetailViewModel>>(GetAll().Where(b => b.BasketId == id));
+
+            foreach (var item in sp)
+            {
+                item.ProductImage = _productServices.GetProductsById(item.ProductId).ProductImage;
+            }
+
             return sp.ToList();
         }
     }

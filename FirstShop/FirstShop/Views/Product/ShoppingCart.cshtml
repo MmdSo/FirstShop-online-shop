@@ -1,9 +1,11 @@
 ﻿@using FirstShop.Core.ViewModels.Sales
+@using FirstShop.Core.ViewModels.Products
 
 @inject IHttpContextAccessor _httpAccessor;
 @inject FirstShop.Core.Services.Sales.ShoppingBasketDetailServices.IShoppingBasketDetailServices _Basketdetail;
 @inject FirstShop.Core.Services.Sales.ShoppingBaskets.IShoppingBasketServices _shoppingBasket;
 @inject FirstShop.Core.Services.UserServices.IUserServices _UserServices;
+
 
 @{
     long? userId = 0;
@@ -19,6 +21,7 @@
             CartItem = await _Basketdetail.GetShoppingBasketDetailByBasketIdAsync(ShoppingBasket.Id);
 
         }
+        List<ProductViewModel> product = new List<ProductViewModel>();
     }
 }
 
@@ -41,9 +44,14 @@
                                 <div class="row">@item.ProductName</div>
                             </div>
                             <div class="col">
-                                @*<a href="#">-</a><a href="#" class="border">@item.Quantity</a><a href="#">+</a>*@
+                                <p>@item.Quantity</p>
                             </div>
                             <div class="col">$ @item.Price ></div>
+                            <div>
+                                <input type="hidden" asp-for="@item.Id"/>
+                                <button type="button" name="DeletItem" class="btn btn-tool btn-sm" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                 <i class="fas fa-times"></i></button>
+                            </div>
                         </div>
                     </div>
                     

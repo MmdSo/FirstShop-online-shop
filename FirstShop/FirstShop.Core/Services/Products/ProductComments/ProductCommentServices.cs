@@ -54,7 +54,7 @@ namespace FirstShop.Core.Services.Products.ProductComments
 
         public IEnumerable<ProductCommentViewModel> GetAllProductComments()
         {
-            var pd = _mapper.Map<IEnumerable<IProductComment>, IEnumerable<ProductCommentViewModel>>(GetAll());
+            var pd = _mapper.Map<IEnumerable<IProductComment>, IEnumerable<ProductCommentViewModel>>(GetAll().OrderBy(p => p.DataCreated));
             return pd;
         }
 

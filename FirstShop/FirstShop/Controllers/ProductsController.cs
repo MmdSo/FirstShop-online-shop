@@ -127,7 +127,7 @@ namespace FirstShop.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(long ProductId, long userId)
+        public async Task<IActionResult> AddToCart(long ProductId, long userId, int count)
         {
             long BasketId = 0;
             if (userId == 0)
@@ -145,6 +145,7 @@ namespace FirstShop.Controllers
                 ShoppingBassketDetailViewModel Detail = new ShoppingBassketDetailViewModel();
                 Detail.ProductId = ProductId;
                 Detail.BasketId = BasketId;
+                Detail.Quantity = count;
 
                 await _ShoppingBasketDetailServices.AddShoppingBasketDetail(Detail);
 
@@ -156,6 +157,7 @@ namespace FirstShop.Controllers
 
                 Detail.ProductId = ProductId;
                 Detail.BasketId = Cart.Id;
+                Detail.Quantity = count;
 
                 await _ShoppingBasketDetailServices.AddShoppingBasketDetail(Detail);
 
