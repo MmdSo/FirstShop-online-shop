@@ -160,9 +160,30 @@ namespace FirstShop.Controllers
                 Detail.Quantity = count;
 
                 await _ShoppingBasketDetailServices.AddShoppingBasketDetail(Detail);
-
+                
                 return Redirect("/ProductList");
             }
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCartItem(long deleteItemId, long userId)
+        {
+            long BasketId = 0;
+            if (userId == 0)
+            {
+                return Redirect("/Login");
+            }
+
+            var Cart = await _ShoppingBasketServices.GetActiveShoppingBasketByUserIdAsync(userId);
+            
+                var deleteItem = _ShoppingBasketDetailServices.GetShoppingBasketDetailByIdAsync(deleteItemId).Result;
+
+
+                _ShoppingBasketDetailServices.DeleteShoppingBasketDetail(deleteItem);
+
+                return Redirect("/ShoppingCart");
+            
         }
 
         [Route("ShoppingCart")]

@@ -66,6 +66,6 @@ namespace FirstShop.Core.Services.Sales.ShoppingBaskets
         {
             var sp = _mapper.Map<ShoppingBasket, ShoppingBassketViewModel>(GetAll().FirstOrDefault(s => s.UserId == id && s.IsComplete == false));
             return sp;
-        }
+        } 
     }
 }

@@ -111,6 +111,9 @@ namespace FirstShop.Core.Mapper
             CreateMap<ShoppingBasketDetail, ShoppingBassketDetailViewModel>();
             CreateMap<ShoppingBassketDetailViewModel, ShoppingBasketDetail>();
 
+            CreateMap<DeliveryMethods, DeliveryViewModel>();
+            CreateMap<DeliveryViewModel, DeliveryMethods>();
+
             CreateMap<Posts, PostViewModel>();
             CreateMap<PostViewModel, Posts>();
 

@@ -21,7 +21,6 @@
             CartItem = await _Basketdetail.GetShoppingBasketDetailByBasketIdAsync(ShoppingBasket.Id);
 
         }
-        List<ProductViewModel> product = new List<ProductViewModel>();
     }
 }
 
@@ -47,11 +46,14 @@
                                 <p>@item.Quantity</p>
                             </div>
                             <div class="col">$ @item.Price ></div>
+                            <form asp-controller="Product" asp-action="DeleteCartItem" method="post">
                             <div>
-                                <input type="hidden" asp-for="@item.Id"/>
-                                <button type="button" name="DeletItem" class="btn btn-tool btn-sm" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <input type="hidden" asp-for="@item.Id" name="deleteItemId"/>
+                                <input type="hidden" asp-for="@userId"/>
+                                <button type="submit" name="deletItem" class="btn btn-tool btn-sm" data-card-widget="remove" data-toggle="tooltip" title="Remove">
                                  <i class="fas fa-times"></i></button>
                             </div>
+                            </form>
                         </div>
                     </div>
                     

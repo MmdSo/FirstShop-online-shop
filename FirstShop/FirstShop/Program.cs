@@ -7,6 +7,7 @@ using FirstShop.Core.Services.Products.Category;
 using FirstShop.Core.Services.Products.Colors;
 using FirstShop.Core.Services.Products.Product;
 using FirstShop.Core.Services.Products.ProductComments;
+using FirstShop.Core.Services.Sales.Delivey;
 using FirstShop.Core.Services.Sales.InvoiceBodies;
 using FirstShop.Core.Services.Sales.InvoiceHeads;
 using FirstShop.Core.Services.Sales.ShoppingBasketDetailServices;
@@ -76,6 +77,7 @@ builder.Services.AddTransient<IInvoiceBodyServices, InvoiceBodyServices>();
 builder.Services.AddTransient<IInvoiceHeadServices, InvoiceHeadServices>();
 builder.Services.AddTransient<IShoppingBasketDetailServices, ShoppingBasketDetailServices>();
 builder.Services.AddTransient<IShoppingBasketServices, ShoppingBasketServices>();
+builder.Services.AddTransient<IDeliveryMethodServices, DeliveryMethodServices>();
 
 builder.Services.AddTransient<IPostServices, PostServices>();
 builder.Services.AddTransient<IPostCommentServices, PostCommentServices>();

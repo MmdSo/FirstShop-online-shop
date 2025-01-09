@@ -70,8 +70,20 @@ namespace FirstShop.Core.Services.Sales.ShoppingBasketDetailServices
 
         public void DeleteShoppingBasketDetail(ShoppingBassketDetailViewModel shoppingBasketDetail)
         {
-            shoppingBasketDetail.IsDeleted = true;
-            EditShoppingBasketDetail(shoppingBasketDetail);
+            var item = _mapper.Map<ShoppingBassketDetailViewModel, ShoppingBasketDetail>(GetShoppingBasketDetailByIdAsync(shoppingBasketDetail.Id).Result);
+            _context.Remove(item);
+            _context.SaveChanges();
+
+            var shopBasket = _shoppingBasket.GetShoppingBasketByIdAsync(shoppingBasketDetail.BasketId).Result;
+
+            shopBasket.TotalCount = 0;
+            shopBasket.TotalPrice = 0;
+
+            shopBasket.TotalCount = Convert.ToInt32(GetAllShoppingBasketsDetail().Where(d => d.BasketId == shoppingBasketDetail.BasketId).Sum(bd => bd.Quantity));
+            shopBasket.TotalPrice = Convert.ToDecimal(GetAllShoppingBasketsDetail().Where(d => d.BasketId == shoppingBasketDetail.BasketId).Sum(bd => bd.Price * bd.Quantity));
+
+            _shoppingBasket.EditShoppingBasket(shopBasket);
+            _context.SaveChanges();
         }
 
         public async Task EditShoppingBasketDetail(ShoppingBassketDetailViewModel shoppingBasketDetail)
