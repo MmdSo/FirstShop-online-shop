@@ -11,5 +11,7 @@ namespace FirstShop.Data.Sales
     {
         public long DeliveryPrice { get; set; }
         public string DeliveryMethod { get; set; }
+
+        //public ShoppingBasket Cart { get; set; }
     }
 }

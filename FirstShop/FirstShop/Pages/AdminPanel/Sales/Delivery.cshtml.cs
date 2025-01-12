@@ -17,16 +17,21 @@ namespace FirstShop.Pages.AdminPanel.Sales
 
         public bool IsEdit;
 
-        [BindProperty]
+        
         public DeliveryViewModel deliveryViewModel { get; set; }
+        public List<DeliveryViewModel> deliveryListModel { get; set; }
         public ErorrMessage errorMessage = new ErorrMessage();
 
         public void OnGet(long? id)
         {
+            deliveryListModel = _deliveryMethod.GetAllMethods().ToList();
+            ViewData["MethodList"] = deliveryListModel;
+
             if (id != null)
             {
                 IsEdit = true;
                 deliveryViewModel = _deliveryMethod.GetDeliveryById(id);
+                ViewData["Method"] = deliveryViewModel;
             }
             else
             {
@@ -35,10 +40,12 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
         }
 
-        public async Task<IActionResult> OnPostAddDelivery(bool IsEdit)
+        public async Task<IActionResult> OnPostAddDelivery(bool IsEdit , long Price , string Method)
         {
+
             if (!ModelState.IsValid)
             {
+
                 errorMessage.type = "error";
                 errorMessage.message = "Please fill form corectly!";
 
@@ -46,6 +53,9 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
             if (IsEdit)
             {
+                deliveryViewModel.DeliveryMethod = Method;
+                deliveryViewModel.DeliveryPrice = Price;
+
                 _deliveryMethod.EditDelivery(deliveryViewModel);
 
                 errorMessage.type = "success";
@@ -55,15 +65,28 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
             else
             {
-                _deliveryMethod.AddDelivery(deliveryViewModel);
+                var newDelivery = new DeliveryViewModel
+                {
+                    DeliveryMethod = Method,
+                    DeliveryPrice = Price
+                };
+
+                _deliveryMethod.AddDelivery(newDelivery);
 
                 errorMessage.type = "success";
                 errorMessage.message = "Delivery method is Added successfully";
 
                 return RedirectToPage("/AdminPanel/Sales/Delivery");
             }
+        }
+        public IActionResult OnPostDelete(long methodDeleteID)
+        {
+            _deliveryMethod.DeleteDelivery(methodDeleteID);
 
+            deliveryListModel = _deliveryMethod.GetAllMethods().ToList();
+            ViewData["MethodList"] = deliveryListModel;
 
+            return RedirectToPage();
         }
     }
 }

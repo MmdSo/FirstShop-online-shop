@@ -27,6 +27,7 @@ namespace FirstShop.Data.Context
         public DbSet<ShoppingBasketDetail> shoppingBasketDetail { get; set; }
         public DbSet<InvoiceBody> InvoiceBody { get; set; }
         public DbSet<InvoiceHead> InvoiceHead { get; set; }
+        public DbSet<DeliveryMethods> Delivery { get; set; }
 
 
         public DbSet<Brand> Brands { get; set; }

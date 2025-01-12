@@ -15,10 +15,10 @@ namespace FirstShop.Core.Services.Sales.Delivey
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
-        public DeliveryMethodServices(AppDbContext context , IMapper _mapper) : base(context)
+        public DeliveryMethodServices(AppDbContext context , IMapper mapper) : base(context)
         {
             _context = context;
-            _mapper = _mapper;
+            _mapper = mapper;
         }
 
         public async Task<long> AddDelivery(DeliveryViewModel delivery)
