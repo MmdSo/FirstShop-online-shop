@@ -14,9 +14,9 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form method="post" enctype="multipart/form-data" asp-page-handler="AddDelivery" >
+        <form method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="@Model.IsEdit" name="isEdit" id="isEdit" />
-            <input type="hidden" asp-for="deliveryViewModel.Id" />
+            <input type="hidden" asp-for="deliveryViewModel.Id" name="deliveryId" />
 
             <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
             <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message" />
@@ -26,7 +26,7 @@
                     <label for="DeliveryMethod">Delivery Method</label>
                     <input type="DeliveryMethod" class="form-control" id="DeliveryMethod" name="Method" asp-for="@method.DeliveryMethod" placeholder="Delivery Method">
 
-                     <label for="BrandName">Delivery Price</label>
+                    <label for="BrandName">Delivery Price</label>
                     <input type="DeliveryPrice" class="form-control" id="DeliveryPrice" name="Price" asp-for="@method.DeliveryPrice" placeholder="Delivery Price">
                 </div>
             </div>
@@ -34,7 +34,7 @@
 
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-info">Submit</button>
+                <button type="submit" id="SubmitDelivery" class="btn btn-info">Submit</button>
 
             </div>
             <!-- /.card-footer -->
@@ -48,12 +48,12 @@
     <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
         <div class="row">
             <div class="col-sm-12 col-md-3">
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                </div>
-                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+            </div>
+            <div class="col-sm-12 col-md-3">
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-12">
                 <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
@@ -71,7 +71,7 @@
                                 <td class="">@delivery.DeliveryMethod</td>
                                 <td class="">@delivery.DeliveryPrice</td>
                                 <td>
-                                    <a href="/Adminpanel/product/AddBrand/Id">Edit</a>
+                                    <a href="/Adminpanel/Sales/Delivery/@delivery.Id">Edit</a>
                                     <a href="#modalConfirmDelete" id="btnDelete" class="delete" data-toggle="modal">    Delete</a>
                                     <input type="hidden" id="MethodId" name="MethodId" value="@delivery.Id" />
                                 </td>
@@ -84,81 +84,106 @@
                     </tfoot>
                 </table>
             </div>
-    </div>
-</div>
-
-
-
-<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <form method="post" class="d-flex form-area" enctype="multipart/form-data" id="DeleteImage"
-          asp-page="/AdminPanel/Sales/Delivery" asp-page-handler="Delete">
-        <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
-            <!--Content-->
-            <div class="modal-content text-center">
-                <!--Header-->
-                <div class="modal-header d-flex justify-content-center">
-                    <p class="heading">Delete </p>
-                </div>
-
-                <!--Body-->
-                <div class="modal-body">
-
-                    <i class="fa fa-4x fa-remove animated rotateIn" style="color: red;"></i>
-                    
-                    <hr />
-                    <p class="text-warning small">Do you want to delete this Method?</p>
-                </div>
-
-                <!--Footer-->
-                <div class="modal-footer flex-center">
-                    <input type="submit" id="submitDelete" name="submit" class="modal-btn modal-btn-proceed" value="Delete">
-                    <input type="button" id="cancel" class="modal-btn  modal-btn-cancel" data-dismiss="modal" value="Cancle" />
-                    <input type="hidden" id="methodDeleteID" name="methodDeleteID" />
-
-                </div>
-            </div>
-            <!--/.Content-->
         </div>
-    </form>
-</div>
+    </div>
 
 
-@section scripts
-{
-<script>
-    $(document).ready(function (){
-        let msg = $("#message").val();
-        let type = $("#type").val();
 
-        if(type == "error")
-        {
-            ShowToastr("error",msg);
-        }
-        if(type == "warning")
-        {
-            ShowToastr("warning",msg);
-        }
-        if(type == "success")
-        {
-            ShowToastr("success",msg);
-        }
-        if(type == "info")
-        {
-           ShowToastr("info",msg);
-        }
-    });
+    <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <form method="post" class="d-flex form-area" enctype="multipart/form-data" id="DeleteImage"
+              asp-page="/AdminPanel/Sales/Delivery" asp-page-handler="Delete">
+            <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+                <!--Content-->
+                <div class="modal-content text-center">
+                    <!--Header-->
+                    <div class="modal-header d-flex justify-content-center">
+                        <p class="heading">Delete </p>
+                    </div>
 
-    
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
+                    <!--Body-->
+                    <div class="modal-body">
 
-            $('table .delete').on('click',
-                function () {
-                    var id = $(this).parent().find('#MethodId').val();
-                    $('#modalConfirmDelete #methodDeleteID').val(id);
-                });
+                        <i class="fa fa-4x fa-remove animated rotateIn" style="color: red;"></i>
+
+                        <hr />
+                        <p class="text-warning small">Do you want to delete this Method?</p>
+                    </div>
+
+                    <!--Footer-->
+                    <div class="modal-footer flex-center">
+                        <input type="submit" id="submitDelete" name="submit" class="modal-btn modal-btn-proceed" value="Delete">
+                        <input type="button" id="cancel" class="modal-btn  modal-btn-cancel" data-dismiss="modal" value="Cancle" />
+                        <input type="hidden" id="methodDeleteID" name="methodDeleteID" />
+
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </form>
+    </div>
+
+
+    @section scripts
+    {
+    <script>
+        $(document).ready(function (){
+            let msg = $("#message").val();
+            let type = $("#type").val();
+
+            if(type == "error")
+            {
+                ShowToastr("error",msg);
+            }
+            if(type == "warning")
+            {
+                ShowToastr("warning",msg);
+            }
+            if(type == "success")
+            {
+                ShowToastr("success",msg);
+            }
+            if(type == "info")
+            {
+               ShowToastr("info",msg);
+            }
         });
-</script>
 
-}
+
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+
+                $('table .delete').on('click',
+                    function () {
+                        var id = $(this).parent().find('#MethodId').val();
+                        $('#modalConfirmDelete #methodDeleteID').val(id);
+                    });
+            });
+
+
+            $(function () {
+                $('#SubmitDelivery').on('click', function () {
+                    var isedit = $('#isEdit').val();
+                    var price = $('#DeliveryPrice').val();
+                    var method = $('#DeliveryMethod').val();
+                    var id = $('#deliveryId').val();
+                    $.ajax({
+                    type: 'POST',
+                    url: "~/Pages/AdminPanel/Sales/Delivery/AddDelivery",
+                    data: {IsEdit : isedit, Price : price , Method : method , deliveryId : id},
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+
+                        
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                    });
+                 });
+                });
+
+    </script>
+
+    }

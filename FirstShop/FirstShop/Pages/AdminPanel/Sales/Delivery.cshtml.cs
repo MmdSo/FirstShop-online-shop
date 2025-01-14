@@ -40,7 +40,7 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
         }
 
-        public async Task<IActionResult> OnPostAddDelivery(bool IsEdit , long Price , string Method)
+        public async Task<IActionResult> OnPostAddDelivery(bool IsEdit , long Price , string Method, long? deliveryId)
         {
 
             if (!ModelState.IsValid)
@@ -53,6 +53,7 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
             if (IsEdit)
             {
+                deliveryViewModel = _deliveryMethod.GetDeliveryById(deliveryId);
                 deliveryViewModel.DeliveryMethod = Method;
                 deliveryViewModel.DeliveryPrice = Price;
 
@@ -82,9 +83,6 @@ namespace FirstShop.Pages.AdminPanel.Sales
         public IActionResult OnPostDelete(long methodDeleteID)
         {
             _deliveryMethod.DeleteDelivery(methodDeleteID);
-
-            deliveryListModel = _deliveryMethod.GetAllMethods().ToList();
-            ViewData["MethodList"] = deliveryListModel;
 
             return RedirectToPage();
         }

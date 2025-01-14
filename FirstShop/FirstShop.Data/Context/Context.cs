@@ -70,6 +70,7 @@ namespace FirstShop.Data.Context
             builder.Entity<ShoppingBasket>().HasQueryFilter(e => !e.IsDeleted);
             builder.Entity<InvoiceBody>().HasQueryFilter(e => !e.IsDeleted);
             builder.Entity<InvoiceHead>().HasQueryFilter(e => !e.IsDeleted);
+            builder.Entity<DeliveryMethods>().HasQueryFilter(e => !e.IsDeleted);
             
             
             builder.Entity<Posts>().HasQueryFilter(e => !e.IsDeleted);
