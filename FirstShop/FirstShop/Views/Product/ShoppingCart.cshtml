@@ -5,6 +5,7 @@
 @inject FirstShop.Core.Services.Sales.ShoppingBasketDetailServices.IShoppingBasketDetailServices _Basketdetail;
 @inject FirstShop.Core.Services.Sales.ShoppingBaskets.IShoppingBasketServices _shoppingBasket;
 @inject FirstShop.Core.Services.UserServices.IUserServices _UserServices;
+@inject FirstShop.Core.Services.Sales.Delivey.IDeliveryMethodServices _delivry;
 
 
 @{
@@ -22,6 +23,7 @@
 
         }
     }
+    var delivery = _delivry.GetAllMethods().ToList();
 }
 
 <div class="card">
@@ -69,8 +71,11 @@
                     </div>
                     <form>
                         <p>SHIPPING</p>
-                        <select><option class="text-muted">Standard-Delivery- $ 5.00</option></select>
-                        
+                        <select>
+                            @foreach(var item in delivery){
+                            <option class="text-muted">@item.DeliveryMethod $@item.DeliveryPrice</option>
+                             }
+                            </select>
                     </form>
                     <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                         <div class="col">TOTAL PRICE</div>
