@@ -38,6 +38,7 @@
     <Folder Include="Models\" />
     <Folder Include="Pages\AdminPanel\ShoppingBaskets\" />
     <Folder Include="wwwroot\Images\avatar\" />
+    <Folder Include="wwwroot\Images\Logo\" />
   </ItemGroup>
 
   <ItemGroup>

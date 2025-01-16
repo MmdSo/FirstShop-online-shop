@@ -44,6 +44,7 @@ namespace FirstShop.Data.Context
         public DbSet<Contect> Contect { get; set; }
         public DbSet<SendMessage> SendMessage { get; set; }
         public DbSet<SliderPic> SliderPic { get; set; }
+        public DbSet<Logo> Logo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -81,6 +82,7 @@ namespace FirstShop.Data.Context
             builder.Entity<Contect>().HasQueryFilter(e => !e.IsDeleted);
             builder.Entity<SendMessage>().HasQueryFilter(e => !e.IsDeleted);
             builder.Entity<SliderPic>().HasQueryFilter(e => !e.IsDeleted);
+            builder.Entity<Logo>().HasQueryFilter(e => !e.IsDeleted);
         }
     }
 }

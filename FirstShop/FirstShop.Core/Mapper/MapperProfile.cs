@@ -140,6 +140,9 @@ namespace FirstShop.Core.Mapper
 
             CreateMap<SliderViewModel, SliderPic>();
             CreateMap<SliderPic, SliderViewModel>();
+
+            CreateMap<LogoViewModel, Logo>();
+            CreateMap<Logo, LogoViewModel>();
         }
     }
 }
