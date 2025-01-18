@@ -38,7 +38,7 @@ namespace FirstShop.Pages.AdminPanel.Setting
                 _sliderServices.AddPhoto(Slider , pImgUp);
 
                 errorMessage.type = "success";
-                errorMessage.message = "Brand is Added successfully";
+                errorMessage.message = "Photo is Added successfully";
 
                 return RedirectToPage("/AdminPanel/Setting/SliderPicPanelSetting");
             

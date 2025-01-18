@@ -23,19 +23,19 @@ namespace FirstShop.Core.Services.Settings.Logos
             _mapper = mapper;
         }
 
-        public async Task<LogoViewModel> AddContect(LogoViewModel logo, IFormFile logoImg)
+        public async Task<LogoViewModel> AddLogo(LogoViewModel logo, IFormFile logoImg)
         {
             if (logoImg != null)
             {
                 logo.LogoImage = NameGenerator.GenerateUniqCode() + Path.GetExtension(logoImg.FileName);
-                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", logo.LogoImage);
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Logo", logo.LogoImage);
 
                 using (var stream = new FileStream(imagePath, FileMode.Create))
                 {
                     logoImg.CopyTo(stream);
                 }
                 Tools.ImageConverter ImgResizer = new Tools.ImageConverter();
-                string thumbPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", logo.LogoImage);
+                string thumbPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images/Logo", logo.LogoImage);
             }
 
             var lg = _mapper.Map<LogoViewModel , Logo>(logo);
@@ -44,7 +44,7 @@ namespace FirstShop.Core.Services.Settings.Logos
             return logo;
         }
 
-        public async Task EditContect(LogoViewModel logo, IFormFile logoImg)
+        public async Task EditLogo(LogoViewModel logo, IFormFile logoImg)
         {
             if (logoImg != null)
             {
@@ -64,13 +64,13 @@ namespace FirstShop.Core.Services.Settings.Logos
             await SaveChanges();
         }
 
-        public IEnumerable<LogoViewModel> GetAllContects()
+        public IEnumerable<LogoViewModel> GetAllLogo()
         {
             var lg = _mapper.Map<IEnumerable<Logo>, IEnumerable<LogoViewModel>>(GetAll());
             return lg;
         }
 
-        public async Task<LogoViewModel> GetContectById(long Id)
+        public async Task<LogoViewModel> GetLogoById(long Id)
         {
             var lg = _mapper.Map<Logo, LogoViewModel>(await GetEntityByIdAsync(Id));
             return lg;

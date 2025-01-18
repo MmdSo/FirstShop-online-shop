@@ -12,9 +12,9 @@ namespace FirstShop.Core.Services.Settings.Logos
 {
     public interface ILogoServices : IGenericRepository<Logo>
     {
-        IEnumerable<LogoViewModel> GetAllContects();
-        Task<LogoViewModel> AddContect(LogoViewModel logo , IFormFile logoImg);
-        Task<LogoViewModel> GetContectById(long Id);
-        Task EditContect(LogoViewModel logo, IFormFile logoImg);
+        IEnumerable<LogoViewModel> GetAllLogo();
+        Task<LogoViewModel> AddLogo(LogoViewModel logo , IFormFile logoImg);
+        Task<LogoViewModel> GetLogoById(long Id);
+        Task EditLogo(LogoViewModel logo, IFormFile logoImg);
     }
 }

@@ -614,6 +614,32 @@ namespace FirstShop.Data.Migrations
                     b.ToTable("Contect");
                 });
 
+            modelBuilder.Entity("FirstShop.Data.setting.Logo", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"), 1L, 1);
+
+                    b.Property<DateTime>("DataCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LogoImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Logo");
+                });
+
             modelBuilder.Entity("FirstShop.Data.setting.SendMessage", b =>
                 {
                     b.Property<long>("id")

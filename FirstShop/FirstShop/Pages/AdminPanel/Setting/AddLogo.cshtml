@@ -1,0 +1,96 @@
+﻿@page
+@model FirstShop.Pages.AdminPanel.Setting.AddLogoModel
+@{
+}
+
+
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Add logo</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="post" enctype="multipart/form-data" asp-page-handler="AddLogo">
+@*            <input type="hidden" asp-for="@Model.IsEdit" name="isEdit" id="isEdit" />
+*@            <input type="hidden" asp-for="logoViewModel.Id" />
+
+            <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
+            <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message" />
+
+            <div class="card-body">
+                <div class="form-group">
+                 <img id="logoImg" name="logoImg" class="img-fluid" src="~/wwwroot/Images/Logo/@Model.logoViewModel.LogoImage" alt="@Model.logoViewModel.LogoImage" />
+                      </div>
+                 <div class="select pic">
+                              <label>Choose Photo</label>
+                              <input type="file" name="logoImgUp" id="logoImgUp"/>
+                              
+                        </div>
+            </div>
+            <!-- /.card-body -->
+
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info">Submit</button>
+                @*<a type="submit" href="/AdminPanel/Setting/AddLogo" class="btn btn-danger">Edit</a>*@
+
+            </div>
+            <!-- /.card-footer -->
+        </form>
+    </div>
+    <!-- /.card -->
+
+</div>
+
+
+@section scripts
+{
+<script>
+    $(document).ready(function (){
+        let msg = $("#message").val();
+        let type = $("#type").val();
+
+        if(type == "error")
+        {
+            ShowToastr("error",msg);
+        }
+        if(type == "warning")
+        {
+            ShowToastr("warning",msg);
+        }
+        if(type == "success")
+        {
+            ShowToastr("success",msg);
+        }
+        if(type == "info")
+        {
+           ShowToastr("info",msg);
+        }
+    });
+
+
+
+    function readUrl(input){
+        if(input.Files && input.Files[0]){
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#logoImg').attr('src' , e.target.result);
+            }
+
+            reader.readAsDataURL(input.Files[0]);
+        }
+    }
+
+        $("#logoImgUp").change(function(){
+            readUrl(this);
+        });
+
+
+
+
+</script>
+
+}

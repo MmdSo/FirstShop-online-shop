@@ -1,16 +1,21 @@
 ﻿@using FirstShop.Core.Services.Sales.ShoppingBaskets
 @using FirstShop.Core.Services.Settings.Contects
 @using FirstShop.Core.ViewModels.Sales
+@using FirstShop.Core.ViewModels.Settings
 
 @inject IHttpContextAccessor _httpAccessor;
 @inject IContectServices _contectServices;
 @inject FirstShop.Core.Services.Sales.ShoppingBaskets.IShoppingBasketServices _shoppingBasket;
+@inject FirstShop.Core.Services.Settings.Logos.ILogoServices _logoServices;
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     ShoppingBassketViewModel cart = new ShoppingBassketViewModel(); 
     var co = _contectServices.GetAllContects().FirstOrDefault();
+
+    LogoViewModel logo = new LogoViewModel();
+    var lo = _logoServices.GetAllLogo().FirstOrDefault();
 }
 
       <header class="header_section">
@@ -71,11 +76,7 @@
       <div class="header_bottom">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="index.html">
-              <span>
-                Minics
-              </span>
-            </a>
+            <img class="navbar-brand" src="~/Images/Logo/@lo.LogoImage" style="heigh:64px ; width: 64px" />
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class=""> </span>

@@ -13,6 +13,6 @@ namespace FirstShop.Core.ViewModels.Settings
         public DateTime DateModified { get; set; }
         public bool IsDeleted { get; set; }
 
-        public string LogoImage { get; set; }
+        public string? LogoImage { get; set; }
     }
 }
