@@ -16,18 +16,18 @@
         <!-- form start -->
         <form method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="@Model.IsEdit" name="isEdit" id="isEdit" />
-            <input type="hidden" asp-for="deliveryViewModel.Id" name="deliveryId" />
+            <input type="hidden" asp-for="deliveryViewModel.Id" name="deliveryId" id="deliveryId" />
 
             <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
-            <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message" />
+            <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message"  />
 
             <div class="card-body">
                 <div class="form-group">
                     <label for="DeliveryMethod">Delivery Method</label>
-                    <input type="DeliveryMethod" class="form-control" id="DeliveryMethod" name="Method" asp-for="@method.DeliveryMethod" placeholder="Delivery Method">
+                    <input type="DeliveryMethod" class="form-control" id="DeliveryMethod" name="Method" asp-for="@method.DeliveryMethod" placeholder="Delivery Method" />
 
                     <label for="BrandName">Delivery Price</label>
-                    <input type="DeliveryPrice" class="form-control" id="DeliveryPrice" name="Price" asp-for="@method.DeliveryPrice" placeholder="Delivery Price">
+                    <input type="DeliveryPrice" class="form-control" id="DeliveryPrice" name="Price" asp-for="@method.DeliveryPrice" placeholder="Delivery Price"/>
                 </div>
             </div>
             <!-- /.card-body -->
@@ -167,18 +167,16 @@
                     var price = $('#DeliveryPrice').val();
                     var method = $('#DeliveryMethod').val();
                     var id = $('#deliveryId').val();
+                    var JsonData = JSON.stringify({'IsEdit' : isedit, 'Price' : price , 'Method' : method , 'deliveryId' : id})
                     $.ajax({
                     type: 'POST',
-                    url: "~/Pages/AdminPanel/Sales/Delivery/AddDelivery",
-                    data: {IsEdit : isedit, Price : price , Method : method , deliveryId : id},
-                    contentType: false,
-                    processData: false,
+                    url: "~/AdminPanel/Sales/Delivery?handler=AddDelivery",
+                    data: JSON.stringify(JsonData),
                     success: function (data) {
-
-                        
+                        alert("success");
                     },
                     error: function (err) {
-                        console.log(err)
+                        alert("error");
                     }
                     });
                  });

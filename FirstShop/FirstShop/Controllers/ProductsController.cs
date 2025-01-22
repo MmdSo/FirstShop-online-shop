@@ -199,7 +199,7 @@ namespace FirstShop.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddToInvoice(long ShoppingCartId , long UserId)
+        public async Task<IActionResult> AddToInvoice(long ShoppingCartId , long UserId, int deliveryPrice)
         {
             long BasketId = 0;
             if (UserId == 0)
@@ -236,7 +236,7 @@ namespace FirstShop.Controllers
                             title = "Invoice",
                             description = "customer invoice",
                             UserID = user.id,
-                            TotalPrice = cart.TotalPrice,
+                            TotalPrice = cart.TotalPrice + deliveryPrice,
                             Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
                         };
 

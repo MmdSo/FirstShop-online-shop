@@ -19,6 +19,14 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclBhbmVsXFZpZXdzXEhvbWVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/github/FirstShop-online-shop/FirstShop/FirstShop/Areas/UserPanel/Views/Invoices/Invoice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclBhbmVsXFZpZXdzXEludm9pY2VzXEludm9pY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/github/FirstShop-online-shop/FirstShop/FirstShop/Areas/UserPanel/Views/Invoices/InvoiceList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclBhbmVsXFZpZXdzXEludm9pY2VzXEludm9pY2VMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/github/FirstShop-online-shop/FirstShop/FirstShop/Areas/UserPanel/Views/Setting/ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlclBhbmVsXFZpZXdzXFNldHRpbmdcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -205,10 +213,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/github/FirstShop-online-shop/FirstShop/FirstShop/Views/Product/CategoryItemList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxDYXRlZ29yeUl0ZW1MaXN0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[F:/github/FirstShop-online-shop/FirstShop/FirstShop/Views/Product/CheckOut.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxDaGVja091dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/github/FirstShop-online-shop/FirstShop/FirstShop/Views/Product/ProductList.cshtml]

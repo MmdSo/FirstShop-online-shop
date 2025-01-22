@@ -18,5 +18,6 @@ namespace FirstShop.Core.ViewModels.Sales
         public long Quantity { get; set; }
         public long InvoiceHeadId { get; set; }
         public long ProductId { get; set; }
+        public long DeliveryPrice { get; set; }
     }
 }

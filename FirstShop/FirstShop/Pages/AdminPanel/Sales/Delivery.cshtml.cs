@@ -3,6 +3,7 @@ using FirstShop.Core.ViewModels.Sales;
 using FirstShop.Data.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 
 namespace FirstShop.Pages.AdminPanel.Sales
 {
@@ -40,9 +41,19 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
         }
 
-        public async Task<IActionResult> OnPostAddDelivery(bool IsEdit , long Price , string Method, long? deliveryId)
+        public class JsonData
         {
+            public bool IsEdit; 
+            public long Price; 
+            public string Method;
+            public long? deliveryId;
+        }
 
+        [HttpPost]
+        //public IActionResult OnPostAddDelivery(bool IsEdit , long Price , string Method, long? deliveryId)
+        public IActionResult OnPostAddDelivery([FromBody] string jsonData)
+        {
+            JsonData jData = JsonConvert.DeserializeObject<JsonData>(jsonData);
             if (!ModelState.IsValid)
             {
 
@@ -53,9 +64,9 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
             if (IsEdit)
             {
-                deliveryViewModel = _deliveryMethod.GetDeliveryById(deliveryId);
-                deliveryViewModel.DeliveryMethod = Method;
-                deliveryViewModel.DeliveryPrice = Price;
+                deliveryViewModel = _deliveryMethod.GetDeliveryById(jData.deliveryId);
+                deliveryViewModel.DeliveryMethod = jData.Method;
+                deliveryViewModel.DeliveryPrice = jData.Price;
 
                 _deliveryMethod.EditDelivery(deliveryViewModel);
 
@@ -68,8 +79,8 @@ namespace FirstShop.Pages.AdminPanel.Sales
             {
                 var newDelivery = new DeliveryViewModel
                 {
-                    DeliveryMethod = Method,
-                    DeliveryPrice = Price
+                    DeliveryMethod = jData.Method,
+                    DeliveryPrice = jData.Price
                 };
 
                 _deliveryMethod.AddDelivery(newDelivery);

@@ -16,10 +16,12 @@ namespace FirstShop.Data.Sales
         public string ProductName { get; set; }
         public int Quantity { get; set; }
         public long InvoiceHeadId { get; set; }
+        public long? DeliveryPrice { get; set; }
+    
 
 
-        #region Relation
-        [ForeignKey("InvoiceHeadId")]
+    #region Relation
+    [ForeignKey("InvoiceHeadId")]
         public InvoiceHead InvoiceHead { get; set; }
 
         [ForeignKey("ProductId")]

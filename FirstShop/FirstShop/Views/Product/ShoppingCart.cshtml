@@ -7,7 +7,6 @@
 @inject FirstShop.Core.Services.UserServices.IUserServices _UserServices;
 @inject FirstShop.Core.Services.Sales.Delivey.IDeliveryMethodServices _delivry;
 
-
 @{
     long? userId = 0;
     List<ShoppingBassketDetailViewModel> CartItem = new List<ShoppingBassketDetailViewModel>();
@@ -60,7 +59,7 @@
                     </div>
                     
             }
-            <div class="back-to-shop"><a href="~/Productlist"></a><span class="text-muted">Back to shop</span></div>
+            <div class="back-to-shop"><a href="~/Productlist">Back to shop</a></div>
                 </div>
                 <div class="col-md-4 summary">
                     <div><h5><b>Summary</b></h5></div>
@@ -68,24 +67,26 @@
                     <div class="row">
                         <div class="col" style="padding-left:0;">@ShoppingBasket.TotalCount</div>
                         <div class="col text-right">$ @ShoppingBasket.TotalPrice</div>
+                        <input type="hidden" value="@ShoppingBasket.TotalPrice" id="cartTotalPrice" />
                     </div>
                     <form>
                         <p>SHIPPING</p>
-                        <select>
+                        <select id="delivery">
                             @foreach(var item in delivery){
-                            <option class="text-muted">@item.DeliveryMethod $@item.DeliveryPrice</option>
+                            <option class="text-muted" value="@item.DeliveryPrice">@item.DeliveryMethod $@item.DeliveryPrice</option>
                              }
                             </select>
                     </form>
                     <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                         <div class="col">TOTAL PRICE</div>
-                        <div class="col text-right">$ @ShoppingBasket.TotalPrice + $ 5</div>
+                        <div class="col text-right"><span id="totalPrice"></span></div>
                     </div>
             @if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                <form asp-controller="Products" asp-action="AddToInvoice">
+                <form asp-controller="Product" asp-action="AddToInvoice">
                 <input type ="hidden" asp-for="@ShoppingBasket.Id" name="ShoppingCartId">
                 <input type ="hidden" asp-for="@userId" name="UserId">
+                <input type ="hidden" id="deliveryPrice" name="deliveryPrice">
                 <button type="submit"  class="btn">CHECKOUT</button>
                 </form>
             }
@@ -93,3 +94,16 @@
             </div>
             
         </div>
+        @section scripts{
+        <script>
+            $("#delivery").change(function (){
+                let tPrice = parseInt($("#cartTotalPrice").val());
+                let dPrice = parseInt($("#delivery :selected").val());
+                $("#deliveryPrice").val(dPrice);
+                let endPrice = tPrice + dPrice;
+
+                $("#totalPrice").html('');
+                $("#totalPrice").append('$ ' + endPrice);
+            })
+        </script>
+        }

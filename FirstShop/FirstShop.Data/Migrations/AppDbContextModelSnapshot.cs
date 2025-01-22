@@ -417,6 +417,9 @@ namespace FirstShop.Data.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
+                    b.Property<long?>("DeliveryPrice")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("InvoiceHeadId")
                         .HasColumnType("bigint");
 
@@ -458,6 +461,9 @@ namespace FirstShop.Data.Migrations
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("DeliveryPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("Discount")
                         .HasColumnType("decimal(18,2)");
