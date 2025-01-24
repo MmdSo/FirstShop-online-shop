@@ -238,6 +238,7 @@ namespace FirstShop.Controllers
                             UserID = user.id,
                             TotalPrice = cart.TotalPrice + deliveryPrice,
                             Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
+                            
                         };
 
                         var InvoiceId = _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);

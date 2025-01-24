@@ -7,6 +7,7 @@
 @inject IContectServices _contectServices;
 @inject FirstShop.Core.Services.Sales.ShoppingBaskets.IShoppingBasketServices _shoppingBasket;
 @inject FirstShop.Core.Services.Settings.Logos.ILogoServices _logoServices;
+@inject FirstShop.Core.Services.UserServices.IUserServices _userServices;
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -16,6 +17,13 @@
 
     LogoViewModel logo = new LogoViewModel();
     var lo = _logoServices.GetAllLogo().FirstOrDefault();
+    long? userId;
+    if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
+    {
+        userId = _userServices.GetUserIdByUserName(_httpAccessor.HttpContext.User.Identity.Name);
+        cart = await _shoppingBasket.GetActiveShoppingBasketByUserIdAsync(userId) ?? new ShoppingBassketViewModel();
+
+    }
 }
 
       <header class="header_section">

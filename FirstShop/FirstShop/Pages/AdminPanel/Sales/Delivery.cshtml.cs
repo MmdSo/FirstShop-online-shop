@@ -41,19 +41,19 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
         }
 
-        public class JsonData
-        {
-            public bool IsEdit; 
-            public long Price; 
-            public string Method;
-            public long? deliveryId;
-        }
+        //public class JsonData
+        //{
+        //    public bool IsEdit; 
+        //    public long Price; 
+        //    public string Method;
+        //    public long? deliveryId;
+        //}
 
         [HttpPost]
-        //public IActionResult OnPostAddDelivery(bool IsEdit , long Price , string Method, long? deliveryId)
-        public IActionResult OnPostAddDelivery([FromBody] string jsonData)
+        public IActionResult OnPostAddDelivery(bool IsEdit, long Price, string Method, long? deliveryId)
+        //public IActionResult OnPostAddDelivery([FromBody] string jsonData)
         {
-            JsonData jData = JsonConvert.DeserializeObject<JsonData>(jsonData);
+            
             if (!ModelState.IsValid)
             {
 
@@ -64,9 +64,9 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
             if (IsEdit)
             {
-                deliveryViewModel = _deliveryMethod.GetDeliveryById(jData.deliveryId);
-                deliveryViewModel.DeliveryMethod = jData.Method;
-                deliveryViewModel.DeliveryPrice = jData.Price;
+                deliveryViewModel = _deliveryMethod.GetDeliveryById(deliveryId);
+                deliveryViewModel.DeliveryMethod = Method;
+                deliveryViewModel.DeliveryPrice = Price;
 
                 _deliveryMethod.EditDelivery(deliveryViewModel);
 
@@ -77,13 +77,7 @@ namespace FirstShop.Pages.AdminPanel.Sales
             }
             else
             {
-                var newDelivery = new DeliveryViewModel
-                {
-                    DeliveryMethod = jData.Method,
-                    DeliveryPrice = jData.Price
-                };
-
-                _deliveryMethod.AddDelivery(newDelivery);
+                _deliveryMethod.AddDelivery(deliveryViewModel);
 
                 errorMessage.type = "success";
                 errorMessage.message = "Delivery method is Added successfully";
