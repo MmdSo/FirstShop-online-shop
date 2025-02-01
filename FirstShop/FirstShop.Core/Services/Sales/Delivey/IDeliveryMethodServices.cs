@@ -14,6 +14,7 @@ namespace FirstShop.Core.Services.Sales.Delivey
         IEnumerable<DeliveryViewModel> GetAllMethods();
         Task<DeliveryViewModel> GetDeliveryByIdAsync(long? id);
         DeliveryViewModel GetDeliveryById(long? id);
+        long GetDeliveryIdByName(string name);
         Task<long> AddDelivery(DeliveryViewModel delivery);
         Task EditDelivery(DeliveryViewModel delivery);
         Task DeleteDelivery(long deliveryId);

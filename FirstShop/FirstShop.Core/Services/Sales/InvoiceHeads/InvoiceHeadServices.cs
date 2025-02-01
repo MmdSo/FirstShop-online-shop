@@ -37,7 +37,7 @@ namespace FirstShop.Core.Services.Sales.InvoiceHeads
         {
             var Invoicehead = _mapper.Map<InvoiceHeadViewModel, InvoiceHead>(invoice);
             await AddEntity(Invoicehead);
-            await SaveChanges();
+            _context.SaveChanges();
 
             foreach (var item in invoiceBodyList)
             {
@@ -45,7 +45,7 @@ namespace FirstShop.Core.Services.Sales.InvoiceHeads
                 await _invoiceBodyServices.AddInvoiceBody(item);
             }
 
-            await SaveChanges();
+            _context.SaveChanges();
 
             return Invoicehead.id;
         }

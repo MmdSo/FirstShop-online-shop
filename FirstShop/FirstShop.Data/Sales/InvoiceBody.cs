@@ -21,7 +21,7 @@ namespace FirstShop.Data.Sales
 
 
     #region Relation
-    [ForeignKey("InvoiceHeadId")]
+        [ForeignKey("InvoiceHeadId")]
         public InvoiceHead InvoiceHead { get; set; }
 
         [ForeignKey("ProductId")]

@@ -191,27 +191,24 @@
         var price = $('#DeliveryPrice').val();
         var method = $('#DeliveryMethod').val();
         var id = $('#deliveryId').val();
-
-        // ارسال درخواست Ajax
-        $.ajax({
-            //type: 'POST'
-            //url: '/AdminPanel/Sales/Delivery?handler=AddDelivery', 
-            url: '/Pages/AdminPanel/Sales/Delivery?handler=OnPostAddDelivery',
-            type: 'POST',
-            dataType: "json",
-            data: {
+        var Data = {
                 IsEdit: isEdit,
                 Price: price,
                 Method: method,
                 deliveryId: id
-            },
+            };
+        // ارسال درخواست Ajax
+        $.ajax({
+            //type: 'POST'
+            //url: '/AdminPanel/Sales/Delivery?handler=AddDelivery', 
+            url: '/adminpanel/AddDelivery',
+            type: 'POST',
+            data: Data,
             success: function (response) {
-                alert();
                 console.log(response); 
                 window.location.reload(); 
             },
             error: function (xhr, status, error) {
-                alert();
                 
             }
         });

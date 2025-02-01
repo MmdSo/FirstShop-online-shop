@@ -65,5 +65,11 @@ namespace FirstShop.Core.Services.Sales.Delivey
             var deliver = _mapper.Map<DeliveryMethods, DeliveryViewModel>(await GetEntityByIdAsync(id));
             return deliver;
         }
+
+        public long GetDeliveryIdByName(string name)
+        {
+            var Deliv = _mapper.Map<DeliveryMethods , DeliveryViewModel>(GetAll().SingleOrDefault(d => d.DeliveryMethod == name));
+            return Deliv.Id;
+        }
     }
 }

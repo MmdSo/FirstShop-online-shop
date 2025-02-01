@@ -202,8 +202,9 @@ namespace FirstShop.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddToInvoice(long ShoppingCartId , long UserId, int deliveryPrice )
+        public async Task<IActionResult> AddToInvoice(long ShoppingCartId , long UserId, int deliveryPrice, long deliveryId)
         {
+            
             long BasketId = 0;
             if (UserId == 0)
             {
@@ -218,11 +219,12 @@ namespace FirstShop.Controllers
                 }
                 else
                 {
+                    
+
                     List<ShoppingBassketDetailViewModel> Detail = await _ShoppingBasketDetailServices.GetShoppingBasketDetailByBasketIdAsync(ShoppingCartId);
                     List<InvoiceBodyViewModel> invoiceBodyList = new List<InvoiceBodyViewModel>();
-                    var deliv = _delivery.GetDeliveryById();
-
-                    foreach(var item in Detail)
+                    var deliveryMethod = _delivery.GetDeliveryById(deliveryId);
+                    foreach (var item in Detail)
                     {
                         invoiceBodyList.Add(new InvoiceBodyViewModel()
                         {
@@ -242,7 +244,7 @@ namespace FirstShop.Controllers
                             UserID = user.id,
                             TotalPrice = cart.TotalPrice + deliveryPrice,
                             Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
-                            DeliveryPrice = deliv.DeliveryPrice
+                            DeliveryPrice = deliveryMethod.DeliveryPrice,
                         };
 
                         var InvoiceId = _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);

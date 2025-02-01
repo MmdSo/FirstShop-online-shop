@@ -22,6 +22,7 @@
 
         }
     }
+    DeliveryViewModel deliver = new DeliveryViewModel();
     var delivery = _delivry.GetAllMethods().ToList();
 }
 
@@ -71,9 +72,9 @@
                     </div>
                     <form>
                         <p>SHIPPING</p>
-                        <select id="delivery">
+                        <select id="delivery" name="DeliveryId">
                             @foreach(var item in delivery){
-                            <option class="text-muted" value="@item.DeliveryPrice">@item.DeliveryMethod $@item.DeliveryPrice</option>
+                            <option class="text-muted" value="@item.Id" data-price="@item.DeliveryPrice">@item.DeliveryMethod $@item.DeliveryPrice</option>
                              }
                             </select>
                     </form>
@@ -87,6 +88,7 @@
                 <input type ="hidden" asp-for="@ShoppingBasket.Id" name="ShoppingCartId">
                 <input type ="hidden" asp-for="@userId" name="UserId">
                 <input type ="hidden" id="deliveryPrice" name="deliveryPrice">
+                <input type ="hidden" id="deliveryId" name="deliveryId">
                 <button type="submit"  class="btn">CHECKOUT</button>
                 </form>
             }
@@ -96,14 +98,29 @@
         </div>
         @section scripts{
         <script>
-            $("#delivery").change(function (){
-                let tPrice = parseInt($("#cartTotalPrice").val());
-                let dPrice = parseInt($("#delivery :selected").val());
-                $("#deliveryPrice").val(dPrice);
-                let endPrice = tPrice + dPrice;
+            //$("#delivery").change(function (){
+            //    let tPrice = parseInt($("#cartTotalPrice").val());
+            //    let dPrice = parseInt($("#delivery :selected").val());
+            //    $("#deliveryPrice").val(dPrice);
+            //    let endPrice = tPrice + dPrice;
 
-                $("#totalPrice").html('');
-                $("#totalPrice").append('$ ' + endPrice);
-            })
+            //    $("#totalPrice").html('');
+            //    $("#totalPrice").append('$ ' + endPrice);
+            //})
+
+            $(document).ready(function () {
+    $("#delivery").change(function () {
+        let tPrice = parseInt($("#cartTotalPrice").val());
+        let dPrice = parseInt($("#delivery option:selected").attr("data-price"));
+        let dId = parseInt($("#delivery option:selected").val()); 
+
+        $("#deliveryPrice").val(dPrice);
+        $("#deliveryId").val(dId);
+        $("#totalPrice").html('$ ' + (tPrice + dPrice));
+    });
+
+    
+    $("#delivery").trigger("change");
+});
         </script>
         }

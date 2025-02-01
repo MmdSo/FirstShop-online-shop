@@ -49,42 +49,42 @@ namespace FirstShop.Pages.AdminPanel.Sales
         //    public long? deliveryId;
         //}
 
-        [HttpPost]
-        public IActionResult OnPostAddDelivery(bool IsEdit, long Price, string Method, long? deliveryId)
-        //public IActionResult OnPostAddDelivery([FromBody] string jsonData)
-        {
+        //[HttpPost]
+        //public IActionResult OnPostAddDelivery(bool IsEdit, long Price, string Method, long? deliveryId)
+        ////public IActionResult OnPostAddDelivery([FromBody] string jsonData)
+        //{
             
-            if (!ModelState.IsValid)
-            {
+        //    if (!ModelState.IsValid)
+        //    {
 
-                errorMessage.type = "error";
-                errorMessage.message = "Please fill form corectly!";
+        //        errorMessage.type = "error";
+        //        errorMessage.message = "Please fill form corectly!";
 
-                return Page();
-            }
-            if (IsEdit)
-            {
-                deliveryViewModel = _deliveryMethod.GetDeliveryById(deliveryId);
-                deliveryViewModel.DeliveryMethod = Method;
-                deliveryViewModel.DeliveryPrice = Price;
+        //        return Page();
+        //    }
+        //    if (IsEdit)
+        //    {
+        //        deliveryViewModel = _deliveryMethod.GetDeliveryById(deliveryId);
+        //        deliveryViewModel.DeliveryMethod = Method;
+        //        deliveryViewModel.DeliveryPrice = Price;
 
-                _deliveryMethod.EditDelivery(deliveryViewModel);
+        //        _deliveryMethod.EditDelivery(deliveryViewModel);
 
-                errorMessage.type = "success";
-                errorMessage.message = "Delivery method is edited successfully";
+        //        errorMessage.type = "success";
+        //        errorMessage.message = "Delivery method is edited successfully";
 
-                return RedirectToPage("/AdminPanel/Sales/Delivery");
-            }
-            else
-            {
-                _deliveryMethod.AddDelivery(deliveryViewModel);
+        //        return RedirectToPage("/AdminPanel/Sales/Delivery");
+        //    }
+        //    else
+        //    {
+        //        _deliveryMethod.AddDelivery(deliveryViewModel);
 
-                errorMessage.type = "success";
-                errorMessage.message = "Delivery method is Added successfully";
+        //        errorMessage.type = "success";
+        //        errorMessage.message = "Delivery method is Added successfully";
 
-                return RedirectToPage("/AdminPanel/Sales/Delivery");
-            }
-        }
+        //        return RedirectToPage("/AdminPanel/Sales/Delivery");
+        //    }
+        //}
         public IActionResult OnPostDelete(long methodDeleteID)
         {
             _deliveryMethod.DeleteDelivery(methodDeleteID);
