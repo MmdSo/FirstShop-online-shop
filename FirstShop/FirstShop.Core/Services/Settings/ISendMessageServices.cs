@@ -14,5 +14,7 @@ namespace FirstShop.Core.Services.Settings
         IEnumerable<SendMessagesViewModel> GetAllMessages();
         Task<SendMessagesViewModel> AddMessages(SendMessagesViewModel Messages);
         Task EditMessages(SendMessagesViewModel Messages);
+        Task SendPublicSMS(string PhoneNumber, string Message);
+        Task SendLookUpSms(string PhoneNumber, string TemplateName ,string token1, string? token2 = "" , string? token3 = "");
     }
 }

@@ -1991,6 +1991,7 @@
         "dependencies": {
           "AutoMapper": "13.0.1",
           "FirstShop.Data": "1.0.0",
+          "KavenegarDotNetCore": "1.0.7",
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Authorization": "6.0.31",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",

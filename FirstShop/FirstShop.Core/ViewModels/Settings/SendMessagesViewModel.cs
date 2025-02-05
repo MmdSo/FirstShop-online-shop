@@ -15,7 +15,7 @@ namespace FirstShop.Core.ViewModels.Settings
         public bool IsDeleted { get; set; }
 
 
-        public string API { get; set; }
-        public string SenderNumber { get; set; }
+        public string ApiKey { get; set; }
+        public string Sender { get; set; }
     }
 }

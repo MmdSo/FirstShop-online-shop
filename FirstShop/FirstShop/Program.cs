@@ -42,6 +42,8 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("FirstShopConecti
 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
 , ServiceLifetime.Transient);
 
+builder.Services.Configure<SendMessagesViewModel>(builder.Configuration.GetSection("KavehNegar"));
+
 #region Authentication
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
