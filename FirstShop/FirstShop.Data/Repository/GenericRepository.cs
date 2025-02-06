@@ -22,15 +22,8 @@ namespace FirstShop.Data.Repository
 
         public async Task<long> AddEntity(TEntity entity)
         {
-            try
-            {
                 entity.DataCreated = DateTime.Now;
                 await _dbSet.AddAsync(entity);
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
             return entity.id;
         }
 

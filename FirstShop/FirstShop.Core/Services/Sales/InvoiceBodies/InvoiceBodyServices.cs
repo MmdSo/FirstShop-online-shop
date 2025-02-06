@@ -25,15 +25,8 @@ namespace FirstShop.Core.Services.Sales.InvoiceBodies
         public async Task<long> AddInvoiceBody(InvoiceBodyViewModel Invoice)
         {
             var Invoices = _mapper.Map<InvoiceBodyViewModel, InvoiceBody>(Invoice);
-            try
-            {
+          
                 await AddEntity(Invoices);
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
-
             await _context.SaveChangesAsync();
             return Invoice.Id;
         }

@@ -239,7 +239,7 @@ namespace FirstShop.Controllers
                         {
                             CustomerName = user.FirstName,
                             CustomerLastName = user.LastName,
-                            title = "Invoice",
+                            title = Detail.FirstOrDefault().ProductName,
                             description = "customer invoice",
                             UserID = user.id,
                             TotalPrice = cart.TotalPrice + deliveryPrice,

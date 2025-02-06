@@ -35,15 +35,20 @@
                       <th>Product</th>
                       <th>Date</th>
                       <th>Discount</th>
+                      <th>Tax</th>
+                      <th>Total Price</th>
                     </tr>
                   </thead>
                   <tbody>
                       @foreach(var item in invoiceHead){
+                          <input type="hidden" asp-for="@item.Id"/>
                     <tr>
                       <td>@item.Id</td>
-                      <td>@item.title</td>
+                      <td><a href="/UserPanel/Invoice/@item.Id">@item.title</a></td>
                       <td>@item.Pdate</td>
                       <td>@item.Discount</td>
+                      <td>@item.Tax</td>
+                      <td>@item.TotalPrice</td>
                     </tr>
                       }
                   </tbody>

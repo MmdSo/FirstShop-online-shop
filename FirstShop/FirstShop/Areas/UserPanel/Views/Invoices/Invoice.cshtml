@@ -12,7 +12,8 @@
 @{
 	LogoViewModel logo = new LogoViewModel();
 	var lg = _logoServices.GetAllLogo().FirstOrDefault();
-
+	var invoiceHead = ViewData["InvoiceH"];
+	var invoiceBody = ViewData["InvoiceB"];
 }
 
 
@@ -144,7 +145,7 @@
 						<table>
 							<tr>
 								<td class="title">
-									<img src="~/Images/Logo/@lg.LogoImage" alt="Company logo" style="width: 100%; max-width: 300px" />
+									<img src="~/Images/Logo/@lg.LogoImage" alt="Company logo" style="width: 100px; max-width: 300px" />
 								</td>
 
 								<td>
