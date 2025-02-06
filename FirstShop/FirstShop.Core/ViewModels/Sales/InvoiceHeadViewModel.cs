@@ -23,5 +23,6 @@ namespace FirstShop.Core.ViewModels.Sales
         public decimal? Discount { get; set; }
         public decimal? Tax { get; set; }
         public decimal? DeliveryPrice { get; set; }
+        public DateTime Pdate { get; set; }
     }
 }

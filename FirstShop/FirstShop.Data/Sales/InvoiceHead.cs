@@ -20,7 +20,7 @@ namespace FirstShop.Data.Sales
         public decimal? DeliveryPrice { get; set; }
         public decimal? Discount { get; set; }
         public decimal? Tax { get; set; }
-
+        public DateTime Pdate { get; set; }
 
 
         #region Relation 
