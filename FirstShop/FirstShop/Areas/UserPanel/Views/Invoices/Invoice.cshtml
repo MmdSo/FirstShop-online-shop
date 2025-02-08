@@ -1,5 +1,6 @@
 ﻿@using FirstShop.Core.ViewModels.Sales
 @using FirstShop.Core.ViewModels.Settings
+@using FirstShop.Data.Sales
 @inject FirstShop.Core.Services.Settings.Logos.ILogoServices _logoServices;
 @inject FirstShop.Core.Services.Sales.InvoiceBodies.IInvoiceBodyServices _invoiceBody;
 @inject FirstShop.Core.Services.Sales.InvoiceHeads.IInvoiceHeadServices _invoiceHead;
@@ -12,8 +13,10 @@
 @{
 	LogoViewModel logo = new LogoViewModel();
 	var lg = _logoServices.GetAllLogo().FirstOrDefault();
-	var invoiceHead = ViewData["InvoiceH"];
-	var invoiceBody = ViewData["InvoiceB"];
+	var invoiceHead = ViewData["InvoiceH"] as InvoiceHeadViewModel;
+	var invoiceBody = ViewData["InvoiceB"] as List<InvoiceBodyViewModel>;
+
+	var contact = _Contacts.GetAllContects().FirstOrDefault();
 }
 
 
@@ -149,9 +152,9 @@
 								</td>
 
 								<td>
-									Invoice #: .Id<br />
-									Created: .<br />
-									Due: February 1, 2023
+									Invoice #:@invoiceHead.Id <br />
+									Created:@invoiceHead.Pdate .<br />
+									Due: @invoiceHead.Pdate
 								</td>
 							</tr>
 						</table>
@@ -164,12 +167,12 @@
 							<tr>
 								<td>
 									First Shop.<br />
-									.Address
+									@contact.Address
 								</td>
 
 								<td>
-									.FirstName .LastName<br />
-									.Email
+									.f .LastName<br />
+									@contact.Email
 								</td>
 							</tr>
 						</table>
@@ -180,11 +183,11 @@
 
 					<td>Price</td>
 				</tr>
-				@*@foreach(var item in )*@{
+				@foreach(var item in invoiceBody){
 				<tr class="item">
-					<td>.ProductName</td>
+					<td>@item.ProductName</td>
 
-					<td>.Price</td>
+					<td>@item.Price</td>
 				</tr>
 				}
 				<tr class="total">

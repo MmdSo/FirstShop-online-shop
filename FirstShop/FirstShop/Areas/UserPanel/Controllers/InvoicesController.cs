@@ -38,14 +38,14 @@ namespace FirstShop.Areas.UserPanel.Controllers
             return View(invList);
         }
 
-        [Route("UserPanel/Invoice")]
+        [Route("UserPanel/Invoice/{id?}")]
         public async Task<IActionResult> Invoice(long id)
         {
             InvoiceHeadViewModel invoiceHead = await _InvoiceHeadServices.GetInvoiceHeadByIdAsync(id);
             ViewData["InvoiceH"] = invoiceHead;
 
             InvoiceBodyViewModel invoiceBody = await _InvoiceBodyServices.GetInvoiceBodyByIdAsync(id);
-            ViewData["EmailModel"] = invoiceBody;
+            ViewData["InvoiceB"] = invoiceBody ;
 
             return View();
         }
