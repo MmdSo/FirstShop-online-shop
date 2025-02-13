@@ -28,6 +28,7 @@ namespace FirstShop.Controllers
         private IInvoiceHeadServices _InvoiceHeadServices;
         private ICategoryServices _categoryServices;
         private IDeliveryMethodServices _delivery;
+        
 
         public ProductController(IUserServices userServices ,IProductServices productServices , IProductCommentServices productCommentServices ,
            IHttpContextAccessor Httpaccessor , IShoppingBasketDetailServices ShoppingBasketDetailServices , IShoppingBasketServices ShoppingBasketServices ,
@@ -201,10 +202,72 @@ namespace FirstShop.Controllers
         }
 
 
+        //[HttpPost]
+        //public async Task<IActionResult> AddToInvoice(long ShoppingCartId , long UserId, int deliveryPrice, long deliveryId)
+        //{
+
+        //    long BasketId = 0;
+        //    if (UserId == 0)
+        //    {
+        //        return Redirect("/Login");
+        //    }
+        //    else
+        //    {
+        //        var cart = await _ShoppingBasketServices.GetShoppingBasketByIdAsync(ShoppingCartId);
+        //        if(cart == null)
+        //        {
+        //            return Redirect("/");
+        //        }
+        //        else
+        //        {
+
+
+        //            List<ShoppingBassketDetailViewModel> Detail = await _ShoppingBasketDetailServices.GetShoppingBasketDetailByBasketIdAsync(ShoppingCartId);
+        //            List<InvoiceBodyViewModel> invoiceBodyList = new List<InvoiceBodyViewModel>();
+        //            var deliveryMethod = _delivery.GetDeliveryById(deliveryId);
+        //            foreach (var item in Detail)
+        //            {
+        //                InvoiceBodyViewModel invoiceBody = new InvoiceBodyViewModel()
+        //                {
+        //                    Price = item.Price,
+        //                    Quantity =item.Quantity,
+        //                    ProductId = item.ProductId,
+        //                    ProductName = item.ProductName,
+        //                };
+
+        //                long invoiceBodyId = await _InvoiceBodyServices.AddInvoiceBody(invoiceBody);
+
+        //                invoiceBody.Id = invoiceBodyId;
+        //                invoiceBodyList.Add(invoiceBody);
+
+        //                var user = await _userServices.GetUserByIdAsync(UserId);
+        //                InvoiceHeadViewModel invoiceHead = new InvoiceHeadViewModel()
+        //                {
+        //                    CustomerName = user.FirstName,
+        //                    CustomerLastName = user.LastName,
+        //                    title = Detail.FirstOrDefault().ProductName,
+        //                    description = "customer invoice",
+        //                    UserID = user.id,
+        //                    TotalPrice = cart.TotalPrice + deliveryPrice,
+        //                    Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
+        //                    DeliveryPrice = deliveryMethod.DeliveryPrice,
+        //                    InvoiceBody = invoiceBodyId
+        //                };
+
+        //                var InvoiceId = _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
+
+        //                cart.IsComplete = true;
+        //                await _ShoppingBasketServices.EditShoppingBasket(cart);
+
+
+        //            }
+        //            return Redirect("/ProductList");
+        //        }
+        //    }
+        //}
         [HttpPost]
-        public async Task<IActionResult> AddToInvoice(long ShoppingCartId , long UserId, int deliveryPrice, long deliveryId)
+        public async Task<IActionResult> AddToInvoice(long ShoppingCartId, long UserId, int deliveryPrice, long deliveryId)
         {
-            
             long BasketId = 0;
             if (UserId == 0)
             {
@@ -213,50 +276,65 @@ namespace FirstShop.Controllers
             else
             {
                 var cart = await _ShoppingBasketServices.GetShoppingBasketByIdAsync(ShoppingCartId);
-                if(cart == null)
+                if (cart == null)
                 {
-                    return Redirect("/");
+                    return Redirect("/");  // سبد خرید پیدا نشد
                 }
                 else
                 {
-                    
-
+                    // دریافت جزئیات سبد خرید
                     List<ShoppingBassketDetailViewModel> Detail = await _ShoppingBasketDetailServices.GetShoppingBasketDetailByBasketIdAsync(ShoppingCartId);
                     List<InvoiceBodyViewModel> invoiceBodyList = new List<InvoiceBodyViewModel>();
+
                     var deliveryMethod = _delivery.GetDeliveryById(deliveryId);
+
+                    // ابتدا فاکتور سرصفحه را ایجاد می‌کنیم
+                    var user = await _userServices.GetUserByIdAsync(UserId);
+                    InvoiceHeadViewModel invoiceHead = new InvoiceHeadViewModel()
+                    {
+                        CustomerName = user.FirstName,
+                        CustomerLastName = user.LastName,
+                        title = Detail.FirstOrDefault().ProductName,
+                        description = "customer invoice",
+                        UserID = user.id,
+                        TotalPrice = cart.TotalPrice + deliveryPrice,
+                        Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
+                        DeliveryPrice = deliveryMethod.DeliveryPrice,
+                    };
+
+                    // ذخیره فاکتور سرصفحه و دریافت ID آن
+                    long invoiceHeadId =await _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
+
+                    // افزودن هر آیتم سبد خرید به لیست فاکتور جزئی
                     foreach (var item in Detail)
                     {
-                        invoiceBodyList.Add(new InvoiceBodyViewModel()
+                        // ایجاد فاکتور جزئی
+                        InvoiceBodyViewModel invoiceBody = new InvoiceBodyViewModel()
                         {
                             Price = item.Price,
-                            Quantity =item.Quantity,
+                            Quantity = item.Quantity,
                             ProductId = item.ProductId,
                             ProductName = item.ProductName,
-                        });
-
-                        var user = await _userServices.GetUserByIdAsync(UserId);
-                        InvoiceHeadViewModel invoiceHead = new InvoiceHeadViewModel()
-                        {
-                            CustomerName = user.FirstName,
-                            CustomerLastName = user.LastName,
-                            title = Detail.FirstOrDefault().ProductName,
-                            description = "customer invoice",
-                            UserID = user.id,
-                            TotalPrice = cart.TotalPrice + deliveryPrice,
-                            Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
-                            DeliveryPrice = deliveryMethod.DeliveryPrice,
+                            // نسبت دادن ID فاکتور سرصفحه به فاکتور جزئی
+                            InvoiceHeadId = invoiceHeadId
                         };
 
-                        var InvoiceId = _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
+                        // افزودن فاکتور جزئی به دیتابیس
+                        long invoiceBodyId = await _InvoiceBodyServices.AddInvoiceBody(invoiceBody);
 
-                        cart.IsComplete = true;
-                        await _ShoppingBasketServices.EditShoppingBasket(cart);
-
-                        
+                        // ذخیره ID فاکتور جزئی در لیست
+                        invoiceBody.Id = invoiceBodyId;
+                        invoiceBodyList.Add(invoiceBody);
                     }
+
+                    // تغییر وضعیت سبد خرید به تکمیل‌شده
+                    cart.IsComplete = true;
+                    await _ShoppingBasketServices.EditShoppingBasket(cart);
+
                     return Redirect("/ProductList");
                 }
             }
         }
+
     }
 }

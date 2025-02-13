@@ -22,7 +22,7 @@ namespace FirstShop.Core.Services.Sales.InvoiceBodies
             _mapper = mapper;
         }
 
-        public async Task<long> AddInvoiceBody(InvoiceBodyViewModel Invoice)
+		public async Task<long> AddInvoiceBody(InvoiceBodyViewModel Invoice)
         {
             var Invoices = _mapper.Map<InvoiceBodyViewModel, InvoiceBody>(Invoice);
           
