@@ -44,7 +44,7 @@ namespace FirstShop.Areas.UserPanel.Controllers
             InvoiceHeadViewModel invoiceHead = await _InvoiceHeadServices.GetInvoiceHeadByIdAsync(id);
             ViewData["InvoiceH"] = invoiceHead;
 
-            InvoiceBodyViewModel invoiceBody = await _InvoiceBodyServices.GetInvoiceBodyByIdAsync(invoiceHead.InvoiceBody);
+            List<InvoiceBodyViewModel> invoiceBody = await _InvoiceBodyServices.GetInvoiceBodyByHeadIdAsync(id);
             ViewData["InvoiceB"] = invoiceBody ;
 
             return View();

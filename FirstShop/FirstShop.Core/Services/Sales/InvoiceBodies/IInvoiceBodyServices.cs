@@ -13,6 +13,7 @@ namespace FirstShop.Core.Services.Sales.InvoiceBodies
     {
         IEnumerable<InvoiceBodyViewModel> GetAllInvoiceBody();
         Task<InvoiceBodyViewModel> GetInvoiceBodyByIdAsync(long id);
+        Task<List<InvoiceBodyViewModel>> GetInvoiceBodyByHeadIdAsync(long id);
         Task<long> AddInvoiceBody(InvoiceBodyViewModel Invoice);
         void EditInvoiceBody(InvoiceBodyViewModel Invoice);
         void DeleteInvoiceBody(InvoiceBodyViewModel Invoice);

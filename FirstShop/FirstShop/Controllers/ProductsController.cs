@@ -28,11 +28,11 @@ namespace FirstShop.Controllers
         private IInvoiceHeadServices _InvoiceHeadServices;
         private ICategoryServices _categoryServices;
         private IDeliveryMethodServices _delivery;
-        
 
-        public ProductController(IUserServices userServices ,IProductServices productServices , IProductCommentServices productCommentServices ,
-           IHttpContextAccessor Httpaccessor , IShoppingBasketDetailServices ShoppingBasketDetailServices , IShoppingBasketServices ShoppingBasketServices ,
-           IInvoiceBodyServices InvoiceBodyServices , IInvoiceHeadServices InvoiceHeadServices , ICategoryServices categoryServices , IDeliveryMethodServices delivery)
+
+        public ProductController(IUserServices userServices, IProductServices productServices, IProductCommentServices productCommentServices,
+           IHttpContextAccessor Httpaccessor, IShoppingBasketDetailServices ShoppingBasketDetailServices, IShoppingBasketServices ShoppingBasketServices,
+           IInvoiceBodyServices InvoiceBodyServices, IInvoiceHeadServices InvoiceHeadServices, ICategoryServices categoryServices, IDeliveryMethodServices delivery)
         {
             _userServices = userServices;
             _productServices = productServices;
@@ -40,7 +40,7 @@ namespace FirstShop.Controllers
             _Httpaccessor = Httpaccessor;
             _ShoppingBasketDetailServices = ShoppingBasketDetailServices;
             _ShoppingBasketServices = ShoppingBasketServices;
-            _InvoiceBodyServices= InvoiceBodyServices;
+            _InvoiceBodyServices = InvoiceBodyServices;
             _InvoiceHeadServices = InvoiceHeadServices;
             _categoryServices = categoryServices;
             _delivery = delivery;
@@ -72,7 +72,7 @@ namespace FirstShop.Controllers
 
 
         [Route("CategoryItemList/{id?}")]
-         public IActionResult CategoryItemList(long id)
+        public IActionResult CategoryItemList(long id)
         {
             List<ProductViewModel> products = new List<ProductViewModel>();
             products = _productServices.GetProductsByCategoryId(id).ToList();
@@ -106,7 +106,7 @@ namespace FirstShop.Controllers
         [HttpPost]
         public async Task<IActionResult> SendComment(ProductCommentViewModel newComment)
         {
-            if (string.IsNullOrEmpty( newComment.UserName))
+            if (string.IsNullOrEmpty(newComment.UserName))
             {
 
                 return RedirectToPage("/Login");
@@ -116,7 +116,7 @@ namespace FirstShop.Controllers
                 await _productCommentServices.SendComment(newComment);
                 return RedirectToPage("/Product_Detail/", newComment.ProductsId);
             }
-            
+
         }
 
         [HttpPost]
@@ -140,7 +140,7 @@ namespace FirstShop.Controllers
             }
 
             var Cart = await _ShoppingBasketServices.GetActiveShoppingBasketByUserIdAsync(userId);
-            if(Cart == null)
+            if (Cart == null)
             {
                 ShoppingBassketViewModel Basket = new ShoppingBassketViewModel();
                 Basket.UserId = userId;
@@ -164,10 +164,10 @@ namespace FirstShop.Controllers
                 Detail.Quantity = count;
 
                 await _ShoppingBasketDetailServices.AddShoppingBasketDetail(Detail);
-                
+
                 return Redirect("/ProductList");
             }
-            
+
         }
 
         [HttpPost]
@@ -180,14 +180,14 @@ namespace FirstShop.Controllers
             }
 
             var Cart = await _ShoppingBasketServices.GetActiveShoppingBasketByUserIdAsync(userId);
-            
-                var deleteItem = _ShoppingBasketDetailServices.GetShoppingBasketDetailByIdAsync(deleteItemId).Result;
+
+            var deleteItem = _ShoppingBasketDetailServices.GetShoppingBasketDetailByIdAsync(deleteItemId).Result;
 
 
-                _ShoppingBasketDetailServices.DeleteShoppingBasketDetail(deleteItem);
+            _ShoppingBasketDetailServices.DeleteShoppingBasketDetail(deleteItem);
 
-                return Redirect("/ShoppingCart");
-            
+            return Redirect("/ShoppingCart");
+
         }
 
         [Route("ShoppingCart")]
@@ -202,72 +202,10 @@ namespace FirstShop.Controllers
         }
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddToInvoice(long ShoppingCartId , long UserId, int deliveryPrice, long deliveryId)
-        //{
-
-        //    long BasketId = 0;
-        //    if (UserId == 0)
-        //    {
-        //        return Redirect("/Login");
-        //    }
-        //    else
-        //    {
-        //        var cart = await _ShoppingBasketServices.GetShoppingBasketByIdAsync(ShoppingCartId);
-        //        if(cart == null)
-        //        {
-        //            return Redirect("/");
-        //        }
-        //        else
-        //        {
-
-
-        //            List<ShoppingBassketDetailViewModel> Detail = await _ShoppingBasketDetailServices.GetShoppingBasketDetailByBasketIdAsync(ShoppingCartId);
-        //            List<InvoiceBodyViewModel> invoiceBodyList = new List<InvoiceBodyViewModel>();
-        //            var deliveryMethod = _delivery.GetDeliveryById(deliveryId);
-        //            foreach (var item in Detail)
-        //            {
-        //                InvoiceBodyViewModel invoiceBody = new InvoiceBodyViewModel()
-        //                {
-        //                    Price = item.Price,
-        //                    Quantity =item.Quantity,
-        //                    ProductId = item.ProductId,
-        //                    ProductName = item.ProductName,
-        //                };
-
-        //                long invoiceBodyId = await _InvoiceBodyServices.AddInvoiceBody(invoiceBody);
-
-        //                invoiceBody.Id = invoiceBodyId;
-        //                invoiceBodyList.Add(invoiceBody);
-
-        //                var user = await _userServices.GetUserByIdAsync(UserId);
-        //                InvoiceHeadViewModel invoiceHead = new InvoiceHeadViewModel()
-        //                {
-        //                    CustomerName = user.FirstName,
-        //                    CustomerLastName = user.LastName,
-        //                    title = Detail.FirstOrDefault().ProductName,
-        //                    description = "customer invoice",
-        //                    UserID = user.id,
-        //                    TotalPrice = cart.TotalPrice + deliveryPrice,
-        //                    Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
-        //                    DeliveryPrice = deliveryMethod.DeliveryPrice,
-        //                    InvoiceBody = invoiceBodyId
-        //                };
-
-        //                var InvoiceId = _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
-
-        //                cart.IsComplete = true;
-        //                await _ShoppingBasketServices.EditShoppingBasket(cart);
-
-
-        //            }
-        //            return Redirect("/ProductList");
-        //        }
-        //    }
-        //}
         [HttpPost]
         public async Task<IActionResult> AddToInvoice(long ShoppingCartId, long UserId, int deliveryPrice, long deliveryId)
         {
+
             long BasketId = 0;
             if (UserId == 0)
             {
@@ -278,17 +216,32 @@ namespace FirstShop.Controllers
                 var cart = await _ShoppingBasketServices.GetShoppingBasketByIdAsync(ShoppingCartId);
                 if (cart == null)
                 {
-                    return Redirect("/");  // سبد خرید پیدا نشد
+                    return Redirect("/");
                 }
                 else
                 {
-                    // دریافت جزئیات سبد خرید
+
+
                     List<ShoppingBassketDetailViewModel> Detail = await _ShoppingBasketDetailServices.GetShoppingBasketDetailByBasketIdAsync(ShoppingCartId);
                     List<InvoiceBodyViewModel> invoiceBodyList = new List<InvoiceBodyViewModel>();
-
                     var deliveryMethod = _delivery.GetDeliveryById(deliveryId);
+                    foreach (var item in Detail)
+                    {
+                        InvoiceBodyViewModel invoiceBody = new InvoiceBodyViewModel()
+                        {
+                            Price = item.Price,
+                            Quantity = item.Quantity,
+                            ProductId = item.ProductId,
+                            ProductName = item.ProductName,
+                        };
 
-                    // ابتدا فاکتور سرصفحه را ایجاد می‌کنیم
+
+
+
+                        //invoiceBody.Id = invoiceBodyId;
+                        invoiceBodyList.Add(invoiceBody);
+                        //long invoiceBodyId = await _InvoiceBodyServices.AddInvoiceBody(invoiceBody);
+                    }
                     var user = await _userServices.GetUserByIdAsync(UserId);
                     InvoiceHeadViewModel invoiceHead = new InvoiceHeadViewModel()
                     {
@@ -300,41 +253,21 @@ namespace FirstShop.Controllers
                         TotalPrice = cart.TotalPrice + deliveryPrice,
                         Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
                         DeliveryPrice = deliveryMethod.DeliveryPrice,
+
                     };
 
-                    // ذخیره فاکتور سرصفحه و دریافت ID آن
-                    long invoiceHeadId =await _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
+                    var InvoiceId = _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
 
-                    // افزودن هر آیتم سبد خرید به لیست فاکتور جزئی
-                    foreach (var item in Detail)
-                    {
-                        // ایجاد فاکتور جزئی
-                        InvoiceBodyViewModel invoiceBody = new InvoiceBodyViewModel()
-                        {
-                            Price = item.Price,
-                            Quantity = item.Quantity,
-                            ProductId = item.ProductId,
-                            ProductName = item.ProductName,
-                            // نسبت دادن ID فاکتور سرصفحه به فاکتور جزئی
-                            InvoiceHeadId = invoiceHeadId
-                        };
-
-                        // افزودن فاکتور جزئی به دیتابیس
-                        long invoiceBodyId = await _InvoiceBodyServices.AddInvoiceBody(invoiceBody);
-
-                        // ذخیره ID فاکتور جزئی در لیست
-                        invoiceBody.Id = invoiceBodyId;
-                        invoiceBodyList.Add(invoiceBody);
-                    }
-
-                    // تغییر وضعیت سبد خرید به تکمیل‌شده
                     cart.IsComplete = true;
                     await _ShoppingBasketServices.EditShoppingBasket(cart);
 
-                    return Redirect("/ProductList");
+
                 }
+                return Redirect("/ProductList");
             }
         }
+    
+
 
     }
 }

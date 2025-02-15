@@ -23,15 +23,15 @@ namespace FirstShop.Core.Services.Sales.InvoiceBodies
         }
 
 		public async Task<long> AddInvoiceBody(InvoiceBodyViewModel Invoice)
-        {
-            var Invoices = _mapper.Map<InvoiceBodyViewModel, InvoiceBody>(Invoice);
-          
-                await AddEntity(Invoices);
-            await _context.SaveChangesAsync();
-            return Invoice.Id;
-        }
+		{
+			var Invoices = _mapper.Map<InvoiceBodyViewModel, InvoiceBody>(Invoice);
 
-        public void DeleteInvoiceBody(InvoiceBodyViewModel Invoice)
+			await AddEntity(Invoices);
+			await _context.SaveChangesAsync();
+			return Invoice.Id;
+		}
+
+		public void DeleteInvoiceBody(InvoiceBodyViewModel Invoice)
         {
             Invoice.IsDeleted = true;
             EditInvoiceBody(Invoice);
@@ -53,6 +53,12 @@ namespace FirstShop.Core.Services.Sales.InvoiceBodies
         public async Task<InvoiceBodyViewModel> GetInvoiceBodyByIdAsync(long id)
         {
             var Invoice = _mapper.Map<InvoiceBody, InvoiceBodyViewModel>(await GetEntityByIdAsync(id));
+            return Invoice;
+        }
+
+        public async Task<List<InvoiceBodyViewModel>> GetInvoiceBodyByHeadIdAsync(long id)
+        {
+            var Invoice = GetAllInvoiceBody().Where(b => b.InvoiceHeadId == id).ToList();
             return Invoice;
         }
     }

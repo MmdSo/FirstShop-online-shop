@@ -15,12 +15,13 @@ namespace FirstShop.Data.Sales
         public string Title { get; set; }
         public string description { get; set; }
         public long UserId { get; set; }
-        public long InvoiceBodyId { get; set; }
+        public long? InvoiceBodyId { get; set; }
         public decimal? TotalPrice { get; set; }
         public decimal? DeliveryPrice { get; set; }
         public decimal? Discount { get; set; }
         public decimal? Tax { get; set; }
         public DateTime Pdate { get; set; }
+        
 
 
         #region Relation 
