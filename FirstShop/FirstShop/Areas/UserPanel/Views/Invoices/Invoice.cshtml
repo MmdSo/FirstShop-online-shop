@@ -17,6 +17,7 @@
 	var invoiceBody = ViewData["InvoiceB"] as List<InvoiceBodyViewModel>;
 
 	var contact = _Contacts.GetAllContects().FirstOrDefault();
+	var user = _user.GetUserById(invoiceHead.UserID);
 }
 
 
@@ -167,12 +168,12 @@
 							<tr>
 								<td>
 									First Shop.<br />
-									@contact.Address
+									@user.Address
 								</td>
 
 								<td>
-									.f .LastName<br />
-									@contact.Email
+									@user.FirstName @user.LastName<br />
+									@user.Email
 								</td>
 							</tr>
 						</table>
@@ -180,21 +181,37 @@
 				</tr>
 				<tr class="heading">
 					<td>Item</td>
-
 					<td>Price</td>
 				</tr>
 				@foreach(var item in invoiceBody){
 				<tr class="item">
 					<td>@item.ProductName</td>
-
 					<td>@item.Price</td>
 				</tr>
 				}
-				<tr class="total">
-					<td></td>
-
-					<td>.</td>
-				</tr>
+				<tr class="item">
+					<td>DeliveryPrice</td>
+					<td>$@invoiceHead.DeliveryPrice</td>
+					</tr>
+					<tr class="item">
+				    <td>Discount</td>
+				@if(@invoiceHead.Discount == null)
+				{
+					<td>%0</td>
+				}
+				else{
+				<td>$@invoiceHead.Discount</td>
+				}
+					</tr>
+					<tr class="item">
+				    <td>Tax</td>
+				    <td>$@invoiceHead.Tax</td>
+					</tr>
+					
+					<tr class="Total">
+				    <td>TotalPrice</td>
+				    <td>$@invoiceHead.FinalPrice</td>
+					</tr>
 			</table>
 		</div>
 	</body>

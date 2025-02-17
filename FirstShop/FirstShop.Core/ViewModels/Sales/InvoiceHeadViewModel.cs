@@ -20,6 +20,7 @@ namespace FirstShop.Core.ViewModels.Sales
         public long UserID { get; set; }
         public long? InvoiceBodyId { get; set; }
         public decimal TotalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
         public decimal? Discount { get; set; }
         public decimal? Tax { get; set; }
         public decimal? DeliveryPrice { get; set; }

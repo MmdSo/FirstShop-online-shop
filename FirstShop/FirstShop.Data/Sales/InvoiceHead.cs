@@ -17,6 +17,7 @@ namespace FirstShop.Data.Sales
         public long UserId { get; set; }
         public long? InvoiceBodyId { get; set; }
         public decimal? TotalPrice { get; set; }
+        public decimal? FinalPrice { get; set; }
         public decimal? DeliveryPrice { get; set; }
         public decimal? Discount { get; set; }
         public decimal? Tax { get; set; }
