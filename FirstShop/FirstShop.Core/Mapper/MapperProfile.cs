@@ -143,6 +143,9 @@ namespace FirstShop.Core.Mapper
 
             CreateMap<LogoViewModel, Logo>();
             CreateMap<Logo, LogoViewModel>();
+
+            CreateMap<DiscountCodeViewModel, DiscountCode>();
+            CreateMap<DiscountCode, DiscountCodeViewModel>();
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿@page "{id?}"
-@model FirstShop.Pages.AdminPanel.Sales.DeliveryModel
-@using FirstShop.Core.ViewModels.Sales
+﻿@page 
+@model FirstShop.Pages.AdminPanel.Setting.AddDiscountModel
+@using FirstShop.Core.ViewModels.Settings
+
 @{
-    var method = ViewData["Method"] as DeliveryViewModel;
+    var Discount = ViewData["Codes"] as DiscountCodeViewModel;
 }
 
 
@@ -10,31 +11,30 @@
     <!-- general form elements -->
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Add Delivery method</h3>
+            <h3 class="card-title">Add Discount Code</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
         <form method="post" enctype="multipart/form-data">
-            <input type="hidden" asp-for="@Model.IsEdit" name="isEdit" id="isEdit" />
-            <input type="hidden" asp-for="deliveryViewModel.Id" name="deliveryId" id="deliveryId" />
+            @*<input type="hidden" asp-for="discountViewmodel.Id" name="DiscountId" id="DiscountId" />*@
 
             <input type="hidden" asp-for="@Model.errorMessage.type" id="type" name="type" />
             <input type="hidden" asp-for="@Model.errorMessage.message" id="message" name="message"  />
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="DeliveryMethod">Delivery Method</label>
-                    <input type="DeliveryMethod" class="form-control" id="DeliveryMethod" name="Method" asp-for="@method.DeliveryMethod" placeholder="Delivery Method" />
+                    <label for="DiscountCode">Discount code</label>
+                    <input type="DiscountCode" class="form-control" id="DiscountCode" name="Code" asp-for="@Discount.Code" placeholder="Discount Code" />
 
-                    <label for="DeliveryPrice">Delivery Price</label>
-                    <input type="DeliveryPrice" class="form-control" id="DeliveryPrice" name="Price" asp-for="@method.DeliveryPrice" placeholder="Delivery Price"/>
+                    <label for="DiscountPercent">Discount percent</label>
+                    <input type="DiscountPercent" class="form-control" id="DiscountPercent" name="Percent" asp-for="@Discount.Percent" placeholder="Discount percent"/>
                 </div>
             </div>
             <!-- /.card-body -->
 
 
             <div class="card-footer">
-                <button type="submit" id="SubmitDelivery" class="btn btn-info">Submit</button>
+                <button type="submit" id="SubmitDiscount" class="btn btn-info">Submit</button>
 
             </div>
             <!-- /.card-footer -->
@@ -59,21 +59,20 @@
                 <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                     <thead>
                         <tr role="row">
-                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 176.057px;">delivery Method</th>
-                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 176.057px;">Price</th>
+                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 176.057px;">delivery Code</th>
+                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 176.057px;">Discount percent</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 149.511px;">Operation</th>
                         </tr>
                     </thead>
                     <tbody id="table">
-                        @foreach (var delivery in @Model.deliveryListModel)
+                        @foreach (var discount in @Model.discountCodeList)
                         {
                             <tr role="row" class="odd">
-                                <td class="">@delivery.DeliveryMethod</td>
-                                <td class="">@delivery.DeliveryPrice</td>
+                                <td class="">@discount.Code</td>
+                                <td class="">@discount.Percent</td>
                                 <td>
-                                    <a href="/Adminpanel/Sales/Delivery/@delivery.Id">Edit</a>
                                     <a href="#modalConfirmDelete" id="btnDelete" class="delete" data-toggle="modal">    Delete</a>
-                                    <input type="hidden" id="MethodId" name="MethodId" value="@delivery.Id" />
+                                    <input type="hidden" id="DiscountId" name="DiscountId" value="@discount.Id" />
                                 </td>
                             </tr>
                         }
@@ -93,7 +92,7 @@
     <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <form method="post" class="d-flex form-area" enctype="multipart/form-data" id="DeleteImage"
-              asp-page="/AdminPanel/Sales/Delivery" asp-page-handler="Delete">
+              asp-page="/AdminPanel/Setting/AddDiscount" asp-page-handler="Delete">
             <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
                 <!--Content-->
                 <div class="modal-content text-center">
@@ -115,7 +114,7 @@
                     <div class="modal-footer flex-center">
                         <input type="submit" id="submitDelete" name="submit" class="modal-btn modal-btn-proceed" value="Delete">
                         <input type="button" id="cancel" class="modal-btn  modal-btn-cancel" data-dismiss="modal" value="Cancle" />
-                        <input type="hidden" id="methodDeleteID" name="methodDeleteID" />
+                        <input type="hidden" id="DiscountDeleteID" name="DiscountDeleteID" />
 
                     </div>
                 </div>
@@ -156,53 +155,27 @@
 
                 $('table .delete').on('click',
                     function () {
-                        var id = $(this).parent().find('#MethodId').val();
-                        $('#modalConfirmDelete #methodDeleteID').val(id);
+                        var id = $(this).parent().find('#DiscountId').val();
+                        $('#modalConfirmDelete #DiscountDeleteID').val(id);
                     });
             });
 
-
-            //$(function () {
-            //    $('#SubmitDelivery').on('click', function () {
-            //        var isedit = $('#isEdit').val();
-            //        var price = $('#DeliveryPrice').val();
-            //        var method = $('#DeliveryMethod').val();
-            //        var id = $('#deliveryId').val();
-            //        var JsonData = JSON.stringify({'IsEdit' : isedit, 'Price' : price , 'Method' : method , 'deliveryId' : id})
-            //        $.ajax({
-            //        type: 'POST',
-            //        url: "~/AdminPanel/Sales/Delivery/AddDelivery",
-            //        data: JSON.stringify(JsonData),
-            //        success: function (data) {
-            //            alert();
-            //        },
-            //        error: function (err) {
-            //            alert();
-            //        }
-            //        });
-            //     });
-            //    });
-
      $(function () {
-    $('#SubmitDelivery').on('click', function (e) {
-        e.preventDefault(); // جلوگیری از ارسال پیش‌فرض فرم
+    $('#SubmitDiscount').on('click', function (e) {
+        e.preventDefault(); 
 
-        // استخراج داده‌ها از فرم
-        var isEdit = $('#isEdit').val();
-        var price = $('#DeliveryPrice').val();
-        var method = $('#DeliveryMethod').val();
-        var id = $('#deliveryId').val();
+
+        var code = $('#DiscountCode').val();
+        var percent = $('#DiscountPercent').val();
         var Data = {
-                IsEdit: isEdit,
-                Price: price,
-                Method: method,
-                deliveryId: id
+                Code: code,
+                Percent: percent
+                
             };
-        // ارسال درخواست Ajax
+        
         $.ajax({
-            //type: 'POST'
-            //url: '/AdminPanel/Sales/Delivery?handler=AddDelivery', 
-            url: '/adminpanel/AddDelivery',
+            
+            url: '/adminpanel/AddDiscount',
             type: 'POST',
             data: Data,
             success: function (response) {

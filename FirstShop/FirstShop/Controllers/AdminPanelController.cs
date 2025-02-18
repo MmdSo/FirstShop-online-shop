@@ -1,5 +1,7 @@
 ﻿using FirstShop.Core.Services.Sales.Delivey;
+using FirstShop.Core.Services.Settings.Discount;
 using FirstShop.Core.ViewModels.Sales;
+using FirstShop.Core.ViewModels.Settings;
 using FirstShop.Data.Context;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +11,12 @@ namespace FirstShop.Controllers
     public class AdminPanelController : Controller
     {
         private IDeliveryMethodServices _deliveryMethod;
+        private IDiscountServices _discount;
 
-        public AdminPanelController(IDeliveryMethodServices deliveryMethod)
+        public AdminPanelController(IDeliveryMethodServices deliveryMethod , IDiscountServices discount)
         {
             _deliveryMethod = deliveryMethod;
+            _discount = discount;
         }
 
         public DeliveryViewModel deliveryViewModel { get; set; }
@@ -51,6 +55,35 @@ namespace FirstShop.Controllers
                 errorMessage.message = "Delivery method is Added successfully";
 
                 return RedirectToPage("/AdminPanel/Sales/Delivery");
+            }
+        }
+
+        public DiscountCodeViewModel dicountViewmodel { get; set; }
+        public List<DiscountCodeViewModel> dicountCodeList { get; set; }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDiscount( long Percent, string Code)
+        {
+            dicountViewmodel = new DiscountCodeViewModel();
+            dicountViewmodel.Code = Code;
+            dicountViewmodel.Percent = Percent;
+
+            if (!ModelState.IsValid)
+            {
+
+                errorMessage.type = "error";
+                errorMessage.message = "Please fill form corectly!";
+
+                return Redirect("/adminpanel/Setting/AddDiscount");
+            }
+            else
+            {
+                await _discount.AddCodes(dicountViewmodel);
+
+                errorMessage.type = "success";
+                errorMessage.message = "Delivery method is Added successfully";
+
+                return RedirectToPage("/AdminPanel/Setting/AddDiscount");
             }
         }
     }

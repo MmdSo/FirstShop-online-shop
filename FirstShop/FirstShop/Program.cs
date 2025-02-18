@@ -14,6 +14,7 @@ using FirstShop.Core.Services.Sales.ShoppingBasketDetailServices;
 using FirstShop.Core.Services.Sales.ShoppingBaskets;
 using FirstShop.Core.Services.Settings;
 using FirstShop.Core.Services.Settings.Contects;
+using FirstShop.Core.Services.Settings.Discount;
 using FirstShop.Core.Services.Settings.Logos;
 using FirstShop.Core.Services.Settings.Sliders;
 using FirstShop.Core.Services.User.PermissionServices;
@@ -90,6 +91,7 @@ builder.Services.AddTransient<IContectServices, ContectServices>();
 builder.Services.AddTransient<ISendMessageServices, SendMessageServices>();
 builder.Services.AddTransient<ISliderPicServices, SliderPicServices>();
 builder.Services.AddTransient<ILogoServices, LogoServices>();
+builder.Services.AddTransient<IDiscountServices, DiscountServices>();
 
 builder.Services.AddTransient<IUserServices, UserServices>();
 builder.Services.AddTransient<IRoleServices, RoleServices>();

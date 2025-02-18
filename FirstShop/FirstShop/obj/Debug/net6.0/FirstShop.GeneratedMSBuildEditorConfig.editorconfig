@@ -111,6 +111,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5QYW5lbFxTYWxlc1xEZWxpdmVyeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/github/FirstShop-online-shop/FirstShop/FirstShop/Pages/AdminPanel/Setting/AddDiscount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5QYW5lbFxTZXR0aW5nXEFkZERpc2NvdW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/github/FirstShop-online-shop/FirstShop/FirstShop/Pages/AdminPanel/Setting/AddLogo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5QYW5lbFxTZXR0aW5nXEFkZExvZ28uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
