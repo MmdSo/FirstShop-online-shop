@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstShop.Data.setting
+namespace FirstShop.Data.Sales
 {
-    public class DiscountCode : BaseEntities
+    public class TaxPercent : BaseEntities
     {
-        public string Code { get; set; }
         public decimal Percent { get; set; }
-
     }
 }

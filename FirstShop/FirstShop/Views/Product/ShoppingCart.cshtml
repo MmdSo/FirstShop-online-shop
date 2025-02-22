@@ -70,25 +70,31 @@
                         <div class="col text-right">$ @ShoppingBasket.TotalPrice</div>
                         <input type="hidden" value="@ShoppingBasket.TotalPrice" id="cartTotalPrice" />
                     </div>
-                    <form>
-                        <p>SHIPPING</p>
-                        <select id="delivery" name="DeliveryId">
-                            @foreach(var item in delivery){
-                            <option class="text-muted" value="@item.Id" data-price="@item.DeliveryPrice">@item.DeliveryMethod $@item.DeliveryPrice</option>
-                             }
-                            </select>
-                    </form>
-                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                        <div class="col">TOTAL PRICE</div>
-                        <div class="col text-right"><span id="totalPrice"></span></div>
-                    </div>
-            @if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
+                    @if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
                 <form asp-controller="Product" asp-action="AddToInvoice">
                 <input type ="hidden" asp-for="@ShoppingBasket.Id" name="ShoppingCartId">
                 <input type ="hidden" asp-for="@userId" name="UserId">
                 <input type ="hidden" id="deliveryPrice" name="deliveryPrice">
                 <input type ="hidden" id="deliveryId" name="deliveryId">
+                
+                
+                        <p>SHIPPING</p>
+                        <select id="delivery" name="DeliveryId">
+                            @foreach(var item in delivery){
+                            <option class="text-muted" value="@item.Id" data-price="@item.DeliveryPrice">@item.DeliveryMethod $@item.DeliveryPrice</option>
+                             }
+                            </select>
+                    
+                    
+                    <p>Discount Code</p>
+                            <input type="text" id="discountCode" name="discountCode" placeholder="(Optional)"/>
+                            
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">TOTAL PRICE</div>
+                        <div class="col text-right"><span id="totalPrice"></span></div>
+                    </div>
+            
                 <button type="submit"  class="btn">CHECKOUT</button>
                 </form>
             }

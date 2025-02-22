@@ -12,6 +12,7 @@ using FirstShop.Core.Services.Sales.InvoiceBodies;
 using FirstShop.Core.Services.Sales.InvoiceHeads;
 using FirstShop.Core.Services.Sales.ShoppingBasketDetailServices;
 using FirstShop.Core.Services.Sales.ShoppingBaskets;
+using FirstShop.Core.Services.Sales.Taxes;
 using FirstShop.Core.Services.Settings;
 using FirstShop.Core.Services.Settings.Contects;
 using FirstShop.Core.Services.Settings.Discount;
@@ -92,6 +93,7 @@ builder.Services.AddTransient<ISendMessageServices, SendMessageServices>();
 builder.Services.AddTransient<ISliderPicServices, SliderPicServices>();
 builder.Services.AddTransient<ILogoServices, LogoServices>();
 builder.Services.AddTransient<IDiscountServices, DiscountServices>();
+builder.Services.AddTransient<ITaxServices, TaxServices>();
 
 builder.Services.AddTransient<IUserServices, UserServices>();
 builder.Services.AddTransient<IRoleServices, RoleServices>();

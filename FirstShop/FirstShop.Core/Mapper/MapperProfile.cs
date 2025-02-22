@@ -146,6 +146,9 @@ namespace FirstShop.Core.Mapper
 
             CreateMap<DiscountCodeViewModel, DiscountCode>();
             CreateMap<DiscountCode, DiscountCodeViewModel>();
+
+            CreateMap<TaxViewModel, TaxPercent>();
+            CreateMap<TaxPercent, TaxViewModel>();
         }
     }
 }

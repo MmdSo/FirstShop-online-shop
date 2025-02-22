@@ -49,7 +49,7 @@ namespace FirstShop.Pages.AdminPanel.Setting
                 _contectServices.EditContect(contectViewModel);
 
                 errorMessage.type = "success";
-                errorMessage.message = "Brand is edited successfully";
+                errorMessage.message = "Contects is edited successfully";
 
                 return RedirectToPage("/AdminPanel/Setting/ContectPanelSetting");
             }
@@ -58,7 +58,7 @@ namespace FirstShop.Pages.AdminPanel.Setting
                 _contectServices.AddContect(contectViewModel);
 
                 errorMessage.type = "success";
-                errorMessage.message = "Brand is Added successfully";
+                errorMessage.message = "Contects is Added successfully";
 
                 return RedirectToPage("/AdminPanel/Setting/ContectPanelSetting");
             }

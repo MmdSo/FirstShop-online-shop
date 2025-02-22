@@ -119,6 +119,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5QYW5lbFxTZXR0aW5nXEFkZExvZ28uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[F:/github/FirstShop-online-shop/FirstShop/FirstShop/Pages/AdminPanel/Setting/AddTax.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5QYW5lbFxTZXR0aW5nXEFkZFRheC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/github/FirstShop-online-shop/FirstShop/FirstShop/Pages/AdminPanel/Setting/ContectPanelSetting.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5QYW5lbFxTZXR0aW5nXENvbnRlY3RQYW5lbFNldHRpbmcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

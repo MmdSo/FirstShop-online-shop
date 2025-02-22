@@ -6,6 +6,7 @@ using FirstShop.Core.Services.Sales.InvoiceBodies;
 using FirstShop.Core.Services.Sales.InvoiceHeads;
 using FirstShop.Core.Services.Sales.ShoppingBasketDetailServices;
 using FirstShop.Core.Services.Sales.ShoppingBaskets;
+using FirstShop.Core.Services.Settings.Discount;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.ViewModels.Products;
 using FirstShop.Core.ViewModels.Sales;
@@ -28,11 +29,13 @@ namespace FirstShop.Controllers
         private IInvoiceHeadServices _InvoiceHeadServices;
         private ICategoryServices _categoryServices;
         private IDeliveryMethodServices _delivery;
+        private IDiscountServices _discount;
 
 
         public ProductController(IUserServices userServices, IProductServices productServices, IProductCommentServices productCommentServices,
            IHttpContextAccessor Httpaccessor, IShoppingBasketDetailServices ShoppingBasketDetailServices, IShoppingBasketServices ShoppingBasketServices,
-           IInvoiceBodyServices InvoiceBodyServices, IInvoiceHeadServices InvoiceHeadServices, ICategoryServices categoryServices, IDeliveryMethodServices delivery)
+           IInvoiceBodyServices InvoiceBodyServices, IInvoiceHeadServices InvoiceHeadServices, ICategoryServices categoryServices, IDeliveryMethodServices delivery ,
+           IDiscountServices discount)
         {
             _userServices = userServices;
             _productServices = productServices;
@@ -44,6 +47,7 @@ namespace FirstShop.Controllers
             _InvoiceHeadServices = InvoiceHeadServices;
             _categoryServices = categoryServices;
             _delivery = delivery;
+            _discount = discount;
         }
 
         public long ProductID;
@@ -203,7 +207,7 @@ namespace FirstShop.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddToInvoice(long ShoppingCartId, long UserId, int deliveryPrice, long deliveryId)
+        public async Task<IActionResult> AddToInvoice(long ShoppingCartId, long UserId, int deliveryPrice, long deliveryId , string discountCode)
         {
 
             long BasketId = 0;
@@ -225,6 +229,14 @@ namespace FirstShop.Controllers
                     List<ShoppingBassketDetailViewModel> Detail = await _ShoppingBasketDetailServices.GetShoppingBasketDetailByBasketIdAsync(ShoppingCartId);
                     List<InvoiceBodyViewModel> invoiceBodyList = new List<InvoiceBodyViewModel>();
                     var deliveryMethod = _delivery.GetDeliveryById(deliveryId);
+                    var discount = await _discount.GetCodesByCodeAsync(discountCode);
+                    
+                    if(discount == null)
+                    {
+                        ModelState.AddModelError("", "Invalid discount code!");
+                        return RedirectToAction("ShoppingCart");
+                    }
+
                     foreach (var item in Detail)
                     {
                         InvoiceBodyViewModel invoiceBody = new InvoiceBodyViewModel()
@@ -253,10 +265,11 @@ namespace FirstShop.Controllers
                         TotalPrice = cart.TotalPrice + deliveryPrice,
                         Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
                         DeliveryPrice = deliveryMethod.DeliveryPrice,
-
+                        Discount = discount.Percent,
+                        FinalPrice = ((cart.TotalPrice + deliveryPrice + Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1)) * discount.Percent)/100,
                     };
 
-                    var InvoiceId = _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
+                    await _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
 
                     cart.IsComplete = true;
                     await _ShoppingBasketServices.EditShoppingBasket(cart);
