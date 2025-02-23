@@ -6,6 +6,7 @@ using FirstShop.Core.Services.Sales.InvoiceBodies;
 using FirstShop.Core.Services.Sales.InvoiceHeads;
 using FirstShop.Core.Services.Sales.ShoppingBasketDetailServices;
 using FirstShop.Core.Services.Sales.ShoppingBaskets;
+using FirstShop.Core.Services.Sales.Taxes;
 using FirstShop.Core.Services.Settings.Discount;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.ViewModels.Products;
@@ -30,12 +31,13 @@ namespace FirstShop.Controllers
         private ICategoryServices _categoryServices;
         private IDeliveryMethodServices _delivery;
         private IDiscountServices _discount;
+        private ITaxServices _taxServices;
 
 
         public ProductController(IUserServices userServices, IProductServices productServices, IProductCommentServices productCommentServices,
            IHttpContextAccessor Httpaccessor, IShoppingBasketDetailServices ShoppingBasketDetailServices, IShoppingBasketServices ShoppingBasketServices,
            IInvoiceBodyServices InvoiceBodyServices, IInvoiceHeadServices InvoiceHeadServices, ICategoryServices categoryServices, IDeliveryMethodServices delivery ,
-           IDiscountServices discount)
+           IDiscountServices discount , ITaxServices taxServices)
         {
             _userServices = userServices;
             _productServices = productServices;
@@ -48,6 +50,7 @@ namespace FirstShop.Controllers
             _categoryServices = categoryServices;
             _delivery = delivery;
             _discount = discount;
+            _taxServices = taxServices;
         }
 
         public long ProductID;
@@ -230,51 +233,52 @@ namespace FirstShop.Controllers
                     List<InvoiceBodyViewModel> invoiceBodyList = new List<InvoiceBodyViewModel>();
                     var deliveryMethod = _delivery.GetDeliveryById(deliveryId);
                     var discount = await _discount.GetCodesByCodeAsync(discountCode);
-                    
-                    if(discount == null)
+                    var tax = _taxServices.GetAllTax().FirstOrDefault();
+
+                    if (discount == null)
                     {
                         ModelState.AddModelError("", "Invalid discount code!");
                         return RedirectToAction("ShoppingCart");
                     }
-
-                    foreach (var item in Detail)
-                    {
-                        InvoiceBodyViewModel invoiceBody = new InvoiceBodyViewModel()
+                    
+                        foreach (var item in Detail)
                         {
-                            Price = item.Price,
-                            Quantity = item.Quantity,
-                            ProductId = item.ProductId,
-                            ProductName = item.ProductName,
+                            InvoiceBodyViewModel invoiceBody = new InvoiceBodyViewModel()
+                            {
+                                Price = item.Price,
+                                Quantity = item.Quantity,
+                                ProductId = item.ProductId,
+                                ProductName = item.ProductName,
+                            };
+
+
+
+
+                            //invoiceBody.Id = invoiceBodyId;
+                            invoiceBodyList.Add(invoiceBody);
+                            //long invoiceBodyId = await _InvoiceBodyServices.AddInvoiceBody(invoiceBody);
+                        }
+                        var user = await _userServices.GetUserByIdAsync(UserId);
+                        InvoiceHeadViewModel invoiceHead = new InvoiceHeadViewModel()
+                        {
+                            CustomerName = user.FirstName,
+                            CustomerLastName = user.LastName,
+                            title = Detail.FirstOrDefault().ProductName,
+                            description = "customer invoice",
+                            UserID = user.id,
+                            TotalPrice = cart.TotalPrice + deliveryPrice,
+                            Tax = (cart.TotalPrice * tax.Percent) / 100,
+                            DeliveryPrice = deliveryMethod.DeliveryPrice,
+                            Discount = discount.Percent,
+                            FinalPrice = ((cart.TotalPrice + deliveryPrice + ((cart.TotalPrice * tax.Percent) / 100)) * (discount.Percent / 100)),
                         };
 
+                        await _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
 
+                        cart.IsComplete = true;
+                        await _ShoppingBasketServices.EditShoppingBasket(cart);
 
-
-                        //invoiceBody.Id = invoiceBodyId;
-                        invoiceBodyList.Add(invoiceBody);
-                        //long invoiceBodyId = await _InvoiceBodyServices.AddInvoiceBody(invoiceBody);
-                    }
-                    var user = await _userServices.GetUserByIdAsync(UserId);
-                    InvoiceHeadViewModel invoiceHead = new InvoiceHeadViewModel()
-                    {
-                        CustomerName = user.FirstName,
-                        CustomerLastName = user.LastName,
-                        title = Detail.FirstOrDefault().ProductName,
-                        description = "customer invoice",
-                        UserID = user.id,
-                        TotalPrice = cart.TotalPrice + deliveryPrice,
-                        Tax = Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1),
-                        DeliveryPrice = deliveryMethod.DeliveryPrice,
-                        Discount = discount.Percent,
-                        FinalPrice = ((cart.TotalPrice + deliveryPrice + Convert.ToDecimal(Convert.ToDouble(cart.TotalPrice) * 0.1)) * discount.Percent)/100,
-                    };
-
-                    await _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
-
-                    cart.IsComplete = true;
-                    await _ShoppingBasketServices.EditShoppingBasket(cart);
-
-
+                    
                 }
                 return Redirect("/ProductList");
             }
