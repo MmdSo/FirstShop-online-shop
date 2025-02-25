@@ -186,7 +186,7 @@
 				@foreach(var item in invoiceBody){
 				<tr class="item">
 					<td>@item.ProductName</td>
-					<td>@item.Price</td>
+					<td>$@item.Price</td>
 				</tr>
 				}
 				<tr class="item">
@@ -200,7 +200,7 @@
 					<td>%0</td>
 				}
 				else{
-				<td>$@invoiceHead.Discount</td>
+				<td>%@invoiceHead.Discount</td>
 				}
 					</tr>
 					<tr class="item">

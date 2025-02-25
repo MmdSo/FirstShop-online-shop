@@ -14,6 +14,7 @@ namespace FirstShop.Core.Services.Products.Product
     {
         IEnumerable<ProductViewModel> GetAllProducts();
         Task<ProductViewModel> GetProductsByIdAsync(long? id);
+        Task<IEnumerable<ProductViewModel>> GetProductsByTitleAsync(string? title);
         List<ProductViewModel> GetProductsByCategoryId(long id);
         ProductViewModel GetProductsById(long? id);
         List<ProductViewModel> GetNineProducts();

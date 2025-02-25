@@ -8,6 +8,8 @@
 @inject FirstShop.Core.Services.Sales.Delivey.IDeliveryMethodServices _delivry;
 
 @{
+    
+
     long? userId = 0;
     List<ShoppingBassketDetailViewModel> CartItem = new List<ShoppingBassketDetailViewModel>();
     ShoppingBassketViewModel ShoppingBasket = new ShoppingBassketViewModel();
@@ -50,6 +52,7 @@
                             <div class="col">$ @item.Price ></div>
                             <form asp-controller="Product" asp-action="DeleteCartItem" method="post">
                             <div>
+                                
                                 <input type="hidden" asp-for="@item.Id" name="deleteItemId"/>
                                 <input type="hidden" asp-for="@userId"/>
                                 <button type="submit" name="deletItem" class="btn btn-tool btn-sm" data-card-widget="remove" data-toggle="tooltip" title="Remove">

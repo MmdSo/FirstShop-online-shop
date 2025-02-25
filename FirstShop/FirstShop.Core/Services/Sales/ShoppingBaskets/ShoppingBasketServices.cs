@@ -28,7 +28,7 @@ namespace FirstShop.Core.Services.Sales.ShoppingBaskets
             var sp = _mapper.Map<ShoppingBassketViewModel, ShoppingBasket>(shoppingBasket);
             await AddEntity(sp);
             _context.SaveChanges();
-            return shoppingBasket.Id;
+            return sp.id;
         }
 
         public void DeleteShoppingBasket(ShoppingBassketViewModel shoppingBasket)

@@ -118,7 +118,21 @@ namespace FirstShop.Core.Services.Products.Product
             return Go; ;
         }
 
-        public  List<ProductViewModel> GetProductsByCategoryId(long id)
+
+        public async Task<IEnumerable<ProductViewModel>> GetProductsByTitleAsync(string? title)
+        {
+            var Go = GetAllProducts().Where(p => p.Title.ToLower().Contains(title.ToLower()));
+
+            foreach (var item in Go)
+            {
+                item.BrandTitle = _brandServices.GetBrandsById(item.BrandId).Title;
+                item.CategoryTitle = _categoryServices.GetCategoriesById(item.CategoryId).Title;
+            }
+            return Go; ;
+        }
+
+
+        public List<ProductViewModel> GetProductsByCategoryId(long id)
         {
             var po = _mapper.Map<IEnumerable<Productss>, IEnumerable<ProductViewModel>>(GetAll().Where(p => p.CategoryId == id)).ToList();
             return po;

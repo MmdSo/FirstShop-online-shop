@@ -12,6 +12,7 @@ using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.ViewModels.Products;
 using FirstShop.Core.ViewModels.Sales;
 using FirstShop.Core.ViewModels.Users;
+using FirstShop.Data.Context;
 using FirstShop.Data.Sales;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,16 +56,30 @@ namespace FirstShop.Controllers
 
         public long ProductID;
 
-        [Route("ProductList")]
-        public IActionResult ProductList()
+        [Route("ProductList/{title?}")]
+        public IActionResult ProductList(string? title)
         {
-            List<ProductViewModel> products = new List<ProductViewModel>();
-            products = _productServices.GetAllProducts().ToList();
+            if (string.IsNullOrEmpty(title))
+            {
+                List<ProductViewModel> products = new List<ProductViewModel>();
+                products = _productServices.GetAllProducts().ToList();
 
-            ViewBag.Products = products;
+                ViewBag.Products = products;
 
-            return View();
+                return View();
+            }
+            else
+            {
+                List<ProductViewModel> products = new List<ProductViewModel>();
+                products = _productServices.GetProductsByTitleAsync(title).Result.ToList();
+
+                ViewBag.Products = products;
+
+                return View();
+            }
         }
+
+        
 
         [Route("CategoryList")]
         public IActionResult CaregoryList()
@@ -140,7 +155,7 @@ namespace FirstShop.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToCart(long ProductId, long userId, int count)
         {
-            long BasketId = 0;
+            //long BasketId = 0;
             if (userId == 0)
             {
                 return Redirect("/Login");
@@ -151,7 +166,7 @@ namespace FirstShop.Controllers
             {
                 ShoppingBassketViewModel Basket = new ShoppingBassketViewModel();
                 Basket.UserId = userId;
-                BasketId = await _ShoppingBasketServices.AddShoppingBasket(Basket);
+                var BasketId = await _ShoppingBasketServices.AddShoppingBasket(Basket);
 
                 ShoppingBassketDetailViewModel Detail = new ShoppingBassketDetailViewModel();
                 Detail.ProductId = ProductId;
@@ -176,6 +191,7 @@ namespace FirstShop.Controllers
             }
 
         }
+        public ErorrMessage errorMessage = new ErorrMessage();
 
         [HttpPost]
         public async Task<IActionResult> DeleteCartItem(long deleteItemId, long userId)
@@ -228,7 +244,7 @@ namespace FirstShop.Controllers
                 else
                 {
 
-
+                    
                     List<ShoppingBassketDetailViewModel> Detail = await _ShoppingBasketDetailServices.GetShoppingBasketDetailByBasketIdAsync(ShoppingCartId);
                     List<InvoiceBodyViewModel> invoiceBodyList = new List<InvoiceBodyViewModel>();
                     var deliveryMethod = _delivery.GetDeliveryById(deliveryId);
@@ -237,8 +253,8 @@ namespace FirstShop.Controllers
 
                     if (discount == null)
                     {
-                        ModelState.AddModelError("", "Invalid discount code!");
-                        return RedirectToAction("ShoppingCart");
+                        errorMessage.type = "error";
+                        errorMessage.message = "Discount code is invalid!";
                     }
                     
                         foreach (var item in Detail)
@@ -267,10 +283,10 @@ namespace FirstShop.Controllers
                             description = "customer invoice",
                             UserID = user.id,
                             TotalPrice = cart.TotalPrice + deliveryPrice,
-                            Tax = (cart.TotalPrice * tax.Percent) / 100,
+                            Tax = cart.TotalPrice * (tax.Percent / 100),
                             DeliveryPrice = deliveryMethod.DeliveryPrice,
                             Discount = discount.Percent,
-                            FinalPrice = ((cart.TotalPrice + deliveryPrice + ((cart.TotalPrice * tax.Percent) / 100)) * (discount.Percent / 100)),
+                            FinalPrice = cart.TotalPrice + (deliveryPrice + (cart.TotalPrice * (tax.Percent / 100))) - (cart.TotalPrice * (discount.Percent / 100)),
                         };
 
                         await _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);

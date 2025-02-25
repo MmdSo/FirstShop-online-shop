@@ -31,6 +31,12 @@ namespace FirstShop.Controllers
             return View();
         }
 
-       
+
+        public IActionResult Search(string title)
+        {
+            return View();
+        }
+
+
     }
 }
