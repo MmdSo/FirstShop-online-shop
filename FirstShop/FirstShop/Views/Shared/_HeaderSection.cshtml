@@ -45,8 +45,8 @@
               </a>
             </div>
 
-            <from class="search_form">
-              <input type="text" class="form-control" oninput="" id="titleInput" name="titleInput" placeholder="Search here...">
+            <from class="search_form ">
+              <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Search here...">
               <input type="hidden" id="titleSearch" />
               <button class="" type="submit" id="search">
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -121,19 +121,33 @@
       @section scripts
       {
           <script>
-              $("input[name='titleInput']").on("input", function() 
-              {
-                  $('#titleSearch').val(jQuery(this).val());
-                  console.log(jQuery(this).val());
-              });
 
-              $('#search').on('click', function() 
-              {
-                  var searchTitle = $('#titleSearch').val();
-                  console.log(searchTitle);
-                  window.location.replace("productlist/"+searchTitle);
+             $(document).ready(function () {
+            $("#search").on("click", function (e) {
+                e.preventDefault(); 
+                var title = $("#titleInput").val().trim(); 
+
+                if (title.length > 0) {
+                    window.location.href = "/ProductList/" + encodeURIComponent(title);
+                }
+                else {
+                    alert("");
+                }
+            });
+        });
+              //$("input[name='titleInput']").on("input", function() 
+              //{
+              //    $('#titleSearch').val(jQuery(this).val());
+              //    console.log(jQuery(this).val());
+              //});
+
+              //$('#search').on('click', function() 
+              //{
+              //    var searchTitle = $('#titleSearch').val();
+              //    console.log(searchTitle);
+              //    window.location.replace("productList/"+searchTitle);
                   
-              });
+              //});
 
 
           </script>
