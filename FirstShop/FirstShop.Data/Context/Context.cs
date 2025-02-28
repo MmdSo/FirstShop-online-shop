@@ -47,6 +47,7 @@ namespace FirstShop.Data.Context
         public DbSet<Logo> Logo { get; set; }
         public DbSet<DiscountCode> DiscountCode { get; set; }
         public DbSet<TaxPercent> Tax { get; set; }
+        public DbSet<UsedCode> UsedCode { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -87,6 +88,7 @@ namespace FirstShop.Data.Context
             builder.Entity<Logo>().HasQueryFilter(e => !e.IsDeleted);
             builder.Entity<DiscountCode>().HasQueryFilter(e => !e.IsDeleted);
             builder.Entity<TaxPercent>().HasQueryFilter(e => !e.IsDeleted);
+            builder.Entity<UsedCode>().HasQueryFilter(e => !e.IsDeleted);
         }
     }
 }

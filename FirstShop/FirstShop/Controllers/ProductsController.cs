@@ -57,6 +57,7 @@ namespace FirstShop.Controllers
         public long ProductID;
 
         [Route("ProductList/{title?}")]
+        [HttpGet]
         public IActionResult ProductList(string? title)
         {
             if (string.IsNullOrEmpty(title))

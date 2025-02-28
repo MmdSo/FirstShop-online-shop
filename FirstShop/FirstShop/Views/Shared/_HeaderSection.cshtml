@@ -45,13 +45,19 @@
               </a>
             </div>
 
-            <from class="search_form ">
-              <input type="text" class="form-control" id="titleInput" name="titleInput" placeholder="Search here...">
-              <input type="hidden" id="titleSearch" />
-              <button class="" type="submit" id="search">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </from>
+           <form action="/ProductList" method="get">
+    <div class="d-flex justify-content-center">
+        <div style="display: flex; align-items: center; gap: 0;">
+            <input type="text" name="title" class="form-control" placeholder="Search here..."
+                style="height: 50px; width: 400px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; box-shadow: none; border-right: none;">
+            <button type="submit" class="btn btn-warning"
+                style="height: 50px; width: 60px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; box-shadow: none; margin-top: -2px;">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
 
             <div class="user_option_box">
                     @if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
@@ -122,19 +128,20 @@
       {
           <script>
 
-             $(document).ready(function () {
-            $("#search").on("click", function (e) {
-                e.preventDefault(); 
-                var title = $("#titleInput").val().trim(); 
+        //     $(document).ready(function () {
+        //    $("#search").on("click", function (e) {
+        //        e.preventDefault(); // جلوگیری از ارسال فرم
+        //        var title = $("#titleInput").val().trim(); // گرفتن مقدار ورودی
 
-                if (title.length > 0) {
-                    window.location.href = "/ProductList/" + encodeURIComponent(title);
-                }
-                else {
-                    alert("");
-                }
-            });
-        });
+        //        if (title.length > 0) {
+        //            let url = "/ProductList/" + encodeURIComponent(title);
+        //            window.location.href = url;
+        //        } 
+        //        else {
+        //            window.location.href = "/ProductList"; // اگر مقدار خالی بود همه محصولات رو نشون بده
+        //        }
+        //    });
+        //});
               //$("input[name='titleInput']").on("input", function() 
               //{
               //    $('#titleSearch').val(jQuery(this).val());
