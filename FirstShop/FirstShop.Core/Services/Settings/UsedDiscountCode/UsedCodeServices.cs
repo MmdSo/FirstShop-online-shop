@@ -16,13 +16,12 @@ namespace FirstShop.Core.Services.Settings.UsedDiscountCode
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IDiscountServices _discount;
+        
 
-        public UsedCodeServices(AppDbContext context , IMapper mapper , IDiscountServices discount) : base(context)
+        public UsedCodeServices(AppDbContext context , IMapper mapper ) : base(context)
         {
             _context = context;
-            _mapper = mapper;
-            _discount = discount;
+            _mapper = mapper;   
         }
 
         public async Task<long> AddCodes(UsedCodeViewModel codes)
@@ -63,9 +62,10 @@ namespace FirstShop.Core.Services.Settings.UsedDiscountCode
             return cd;
         }
 
-        //public bool IsCodesUsed(long userId , long CodeId)
-        //{
-        //    var code = _discount.GetAllCodes().Any(c =>c.Id ==CodeId && )
-        //}
+        public List<UsedCodeViewModel> IsCodesUsed(long userId, long CodeId)
+        {
+            var code = GetAllCodes().Where(c => c.UserId == userId && c.CodeId == CodeId).ToList();
+            return code;
+        }
     }
 }

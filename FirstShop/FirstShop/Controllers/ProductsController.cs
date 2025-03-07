@@ -8,9 +8,11 @@ using FirstShop.Core.Services.Sales.ShoppingBasketDetailServices;
 using FirstShop.Core.Services.Sales.ShoppingBaskets;
 using FirstShop.Core.Services.Sales.Taxes;
 using FirstShop.Core.Services.Settings.Discount;
+using FirstShop.Core.Services.Settings.UsedDiscountCode;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.ViewModels.Products;
 using FirstShop.Core.ViewModels.Sales;
+using FirstShop.Core.ViewModels.Settings;
 using FirstShop.Core.ViewModels.Users;
 using FirstShop.Data.Context;
 using FirstShop.Data.Sales;
@@ -33,12 +35,13 @@ namespace FirstShop.Controllers
         private IDeliveryMethodServices _delivery;
         private IDiscountServices _discount;
         private ITaxServices _taxServices;
+        private IUsedCodeServices _usedCode;
 
 
         public ProductController(IUserServices userServices, IProductServices productServices, IProductCommentServices productCommentServices,
            IHttpContextAccessor Httpaccessor, IShoppingBasketDetailServices ShoppingBasketDetailServices, IShoppingBasketServices ShoppingBasketServices,
            IInvoiceBodyServices InvoiceBodyServices, IInvoiceHeadServices InvoiceHeadServices, ICategoryServices categoryServices, IDeliveryMethodServices delivery ,
-           IDiscountServices discount , ITaxServices taxServices)
+           IDiscountServices discount , ITaxServices taxServices , IUsedCodeServices usedCode)
         {
             _userServices = userServices;
             _productServices = productServices;
@@ -52,6 +55,7 @@ namespace FirstShop.Controllers
             _delivery = delivery;
             _discount = discount;
             _taxServices = taxServices;
+            _usedCode = usedCode;
         }
 
         public long ProductID;
@@ -252,12 +256,17 @@ namespace FirstShop.Controllers
                     var discount = await _discount.GetCodesByCodeAsync(discountCode);
                     var tax = _taxServices.GetAllTax().FirstOrDefault();
 
-                    if (discount == null)
+                    var usedCode = _usedCode.IsCodesUsed(UserId , discount.Id);
+
+                    if (discount == null || usedCode.Any())
                     {
                         errorMessage.type = "error";
-                        errorMessage.message = "Discount code is invalid!";
+                        errorMessage.message = "Discount code is invalid or you used it before!";
                     }
-                    
+                    else
+                    {
+
+
                         foreach (var item in Detail)
                         {
                             InvoiceBodyViewModel invoiceBody = new InvoiceBodyViewModel()
@@ -292,10 +301,18 @@ namespace FirstShop.Controllers
 
                         await _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
 
+                        UsedCodeViewModel UsedCodes = new UsedCodeViewModel()
+                        {
+                            CodeId = discount.Id,
+                            UserId = UserId
+                        };
+
+                        await _usedCode.AddCodes(UsedCodes);
+
                         cart.IsComplete = true;
                         await _ShoppingBasketServices.EditShoppingBasket(cart);
 
-                    
+                    }
                 }
                 return Redirect("/ProductList");
             }

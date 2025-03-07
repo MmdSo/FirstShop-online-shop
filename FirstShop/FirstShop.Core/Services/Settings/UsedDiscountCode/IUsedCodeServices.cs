@@ -16,5 +16,6 @@ namespace FirstShop.Core.Services.Settings.UsedDiscountCode
         Task<long> AddCodes(UsedCodeViewModel codes);
         void EditCodes(UsedCodeViewModel codes);
         Task DeleteCodes(long codeId);
+        List<UsedCodeViewModel> IsCodesUsed(long userId, long CodeId);
     }
 }

@@ -18,6 +18,7 @@ using FirstShop.Core.Services.Settings.Contects;
 using FirstShop.Core.Services.Settings.Discount;
 using FirstShop.Core.Services.Settings.Logos;
 using FirstShop.Core.Services.Settings.Sliders;
+using FirstShop.Core.Services.Settings.UsedDiscountCode;
 using FirstShop.Core.Services.User.PermissionServices;
 using FirstShop.Core.Services.User.RoleServices;
 using FirstShop.Core.Services.UserServices;
@@ -94,6 +95,7 @@ builder.Services.AddTransient<ISliderPicServices, SliderPicServices>();
 builder.Services.AddTransient<ILogoServices, LogoServices>();
 builder.Services.AddTransient<IDiscountServices, DiscountServices>();
 builder.Services.AddTransient<ITaxServices, TaxServices>();
+builder.Services.AddTransient<IUsedCodeServices, UsedCodeServices>();
 
 builder.Services.AddTransient<IUserServices, UserServices>();
 builder.Services.AddTransient<IRoleServices, RoleServices>();
