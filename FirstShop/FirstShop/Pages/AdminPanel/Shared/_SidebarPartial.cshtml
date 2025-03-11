@@ -1,5 +1,12 @@
-﻿@inject IHttpContextAccessor _httpAccessor;
+﻿@using FirstShop.Core.Services.UserServices
+@using FirstShop.Core.ViewModels.Users
+@inject IHttpContextAccessor _httpAccessor;
+@inject IUserServices _user
 
+@{
+    var userid = _user.GetUserIdByUserName(_httpAccessor.HttpContext.User.Identity.Name);
+    UserListViewModel user = _user.GetUserById(userid);
+}
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -16,7 +23,7 @@
         <div class="image">
             @if (_httpAccessor.HttpContext.User.Identity.IsAuthenticated)
                 {
-                    <img src="Admin_content/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="Images/avatar/@user.Avatar" class="img-circle elevation-2" alt="User Image">
                 }
                 else
                 {

@@ -50,6 +50,16 @@ namespace FirstShop.Core.Services.Sales.InvoiceBodies
             return Invoices;
         }
 
+        public IEnumerable<InvoiceBodyViewModel> GetAllInvoiceBodyByDate()
+        {
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+
+            var Invoices = _mapper.Map<IEnumerable<InvoiceBody>, IEnumerable<InvoiceBodyViewModel>>(GetAll().Where(m => m.DataCreated.Month == currentMonth 
+            && m.DataCreated.Year == currentYear ));
+            return Invoices;
+        }
+
         public async Task<InvoiceBodyViewModel> GetInvoiceBodyByIdAsync(long id)
         {
             var Invoice = _mapper.Map<InvoiceBody, InvoiceBodyViewModel>(await GetEntityByIdAsync(id));

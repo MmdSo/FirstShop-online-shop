@@ -125,6 +125,16 @@ namespace FirstShop.Core.Services.UserServices
 
         }
 
+        public IEnumerable<UserListViewModel> GetAllUsersByDate()
+        {
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+
+            var person = _mapper.Map<IEnumerable<SiteUser>, IEnumerable<UserListViewModel>>(GetAll().Where(u => u.DataCreated.Month == currentMonth && u.DataCreated.Year == currentYear));
+            return person;
+
+        }
+
         public UserListViewModel GetUserById(long? id)
         {
             var user = _mapper.Map<SiteUser, UserListViewModel>(GetEntityById(id));

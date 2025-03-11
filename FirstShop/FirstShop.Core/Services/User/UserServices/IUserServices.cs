@@ -13,6 +13,7 @@ namespace FirstShop.Core.Services.UserServices
     public interface IUserServices : IGenericRepository<SiteUser>
     {
         IEnumerable<UserListViewModel> GetAllUsers();
+        IEnumerable<UserListViewModel> GetAllUsersByDate();
         Task<UserListViewModel> GetUserByIdAsync(long? id);
         UserListViewModel GetUserById(long? id);
         ProfileViewModel GetUserByIdProfile(long? id);

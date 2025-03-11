@@ -12,6 +12,7 @@ namespace FirstShop.Core.Services.Sales.InvoiceBodies
     public interface IInvoiceBodyServices : IGenericRepository<InvoiceBody>
     {
         IEnumerable<InvoiceBodyViewModel> GetAllInvoiceBody();
+        IEnumerable<InvoiceBodyViewModel> GetAllInvoiceBodyByDate();
         Task<InvoiceBodyViewModel> GetInvoiceBodyByIdAsync(long id);
         Task<List<InvoiceBodyViewModel>> GetInvoiceBodyByHeadIdAsync(long id);
         Task<long> AddInvoiceBody(InvoiceBodyViewModel Invoice);
