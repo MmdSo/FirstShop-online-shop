@@ -10,46 +10,51 @@ namespace FirstShop.Core.Tools
     {
         public static void Send(string to, string subject, string body)
         {
+            try
+            {
+                MailMessage mail = new MailMessage
+                {
+                    From = new MailAddress("goldenscorpion3@gmail.com", "First shop"),
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                };
+
+                mail.To.Add(to.Trim());
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.Credentials = new NetworkCredential("goldenscorpion3@gmail.com", "bssr gkpr prmu ugpf");
+                    smtp.EnableSsl = true;
+
+                     smtp.SendMailAsync(mail);
+                }
+                Console.WriteLine("ایمیل با موفقیت ارسال شد! 🚀");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"خطا در ارسال ایمیل: {ex.Message}");
+            }
+
             //try
             //{
             //    MailMessage mail = new MailMessage();
-            //    SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-            //    mail.From = new MailAddress("newgenitsolutioncompany@gmail.com", "شرکت نسل جدید آی تی");
-            //    mail.To.Add(to);
+            //    mail.To.Add(to.Trim());
+            //    mail.From = new MailAddress("goldenscorpion3@gmail.com", "حاج محمود");
             //    mail.Subject = subject;
             //    mail.Body = body;
             //    mail.IsBodyHtml = true;
-
-            //    //System.Net.Mail.Attachment attachment;
-            //    // attachment = new System.Net.Mail.Attachment("c:/textfile.txt");
-            //    // mail.Attachments.Add(attachment);
-
-            //    SmtpServer.Port = 587;
-            //    SmtpServer.Credentials = new System.Net.NetworkCredential("newgenitsolutioncompany@gmail.com", "Hika!2024.");
-            //    SmtpServer.EnableSsl = false;
-
-            //    SmtpServer.Send(mail);
+            //    SmtpClient smtp = new SmtpClient();
+            //    smtp.Credentials = new NetworkCredential("goldenscorpion3@gmail.com", "Mmd@1690230150");
+            //    smtp.Host = "smtp.gmail.com";
+            //    smtp.Port = 587;
+            //    //Or your Smtp Email ID and Password
+            //    //smtp.UseDefaultCredentials = true;
+            //    smtp.EnableSsl = true;
+            //    smtp.Send(mail);
             //}
-            //catch { }
-
-            try
-            {
-                MailMessage mail = new MailMessage();
-                mail.To.Add(to.Trim());
-                mail.From = new MailAddress("goldenscorpion3@gmail.com", "حاج محمود");
-                mail.Subject = subject;
-                mail.Body = body;
-                mail.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Credentials = new NetworkCredential("goldenscorpion3@gmail.com", "scorpion_2558");
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                //Or your Smtp Email ID and Password
-                smtp.UseDefaultCredentials = true;
-                smtp.EnableSsl = true;
-                smtp.Send(mail);
-            }
-            catch {}
+            //catch {}
         }
     }
 }

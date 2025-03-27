@@ -39,6 +39,7 @@
                         <tr role="row">
                             <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 176.057px;">User name</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 149.511px;">Operation</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="table">
@@ -52,8 +53,14 @@
                                     <a href="#modalConfirmDelete" id="btnDelete" class="delete" data-toggle="modal">    Delete</a>
                                     <input type="hidden" id="UsertId" name="UsertId" value="@user.id" />
                                 </td>
-
+                                <td>
+                                    <form asp-page-handler="SendMail" method="post">
+                                        <input type="hidden" id="UserId" name="UserId" value="@user.id" />
+                                        <button class="btn btn-primary">SendMail</button>
+                                    </form>
+                                </td>
                             </tr>
+                            
                         }
                     </tbody>
                     <tfoot>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FirstShop.Area.UserPanel.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Area("UserPanel")]
     [Authorize]
     public class HomeController : Controller

@@ -1,10 +1,13 @@
 ﻿@page
 @model FirstShop.Pages.AdminPanel.IndexModel
 @inject FirstShop.Core.Services.UserServices.IUserServices _user;
+@inject FirstShop.Core.Services.Sales.InvoiceBodies.IInvoiceBodyServices _invoices
 @{
     var users = _user.GetAllUsers().Count();
     var TMU = _user.GetAllUsersByDate().Count();
 
+    var AllSales = _invoices.GetAllInvoiceBody().Sum(f => f.Price);
+    var TMP = _invoices.GetAllInvoiceBodyByDate().Sum(f => f.Price);
 
 }
 
@@ -38,7 +41,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>$@TMP</h3>
 
                 <p>This month sells</p>
               </div>
@@ -53,7 +56,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>$@AllSales</h3>
 
                 <p>All sells</p>
               </div>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FirstShop.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class BlogsController : Controller
     {
         private IPostServices _postServices;

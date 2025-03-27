@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FirstShop.Areas.UserPanel.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Area("UserPanel")]
     [Authorize]
     public class InvoicesController : Controller

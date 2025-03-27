@@ -36,14 +36,26 @@ namespace FirstShop.Core.Mapper
             CreateMap<SiteUser, ChangePasswordViewModel>();
             CreateMap<ChangePasswordViewModel, SiteUser>();
 
+            CreateMap<UserListForApiViewModel, ChangePasswordForApiViewModel>();
+            CreateMap<ChangePasswordForApiViewModel, UserListForApiViewModel>();
+
             CreateMap<SiteUser, AboutUserViewModel>();
             CreateMap<AboutUserViewModel, SiteUser>();
+
+            CreateMap<UserListForApiViewModel, AboutUserForApiViewModel>();
+            CreateMap<AboutUserForApiViewModel, UserListForApiViewModel>();
+
+            CreateMap<UserListForApiViewModel, ChangeEmailViewModel>();
+            CreateMap<ChangeEmailViewModel, UserListForApiViewModel>();
 
             CreateMap<SiteUser, ChangeEmailViewModel>();
             CreateMap<ChangeEmailViewModel, SiteUser>();
 
             CreateMap<SiteUser, LoginViewModel>();
             CreateMap<LoginViewModel, SiteUser>();
+
+            CreateMap<UserListForApiViewModel, LoginForApiViewModel>();
+            CreateMap<LoginForApiViewModel, UserListForApiViewModel>();
 
             CreateMap<SiteUser, UserRegisterViewModel>();
             CreateMap<UserRegisterViewModel, SiteUser>();
@@ -111,8 +123,17 @@ namespace FirstShop.Core.Mapper
             CreateMap<ShoppingBasketDetail, ShoppingBassketDetailViewModel>();
             CreateMap<ShoppingBassketDetailViewModel, ShoppingBasketDetail>();
 
+            CreateMap<ShoppingBassketDetailViewModel, ShoppingBassketDetailForApiViewModel>();
+            CreateMap<ShoppingBassketDetailForApiViewModel, ShoppingBassketDetailViewModel>();
+
             CreateMap<DeliveryMethods, DeliveryViewModel>();
             CreateMap<DeliveryViewModel, DeliveryMethods>();
+
+            CreateMap<DeliveryViewModel, DeliveryForApiViewModel>();
+            CreateMap<DeliveryForApiViewModel, DeliveryViewModel>();
+
+            CreateMap<Posts, PostViewModel>();
+            CreateMap<PostViewModel, Posts>();
 
             CreateMap<Posts, PostViewModel>();
             CreateMap<PostViewModel, Posts>();
@@ -138,20 +159,36 @@ namespace FirstShop.Core.Mapper
             CreateMap<ContectViewModel, Contect>();
             CreateMap<Contect, ContectViewModel>();
 
+            CreateMap<ContectViewModel, ContectForApiViewModel>();
+            CreateMap<ContectForApiViewModel, ContectViewModel>();
+
             CreateMap<SliderViewModel, SliderPic>();
             CreateMap<SliderPic, SliderViewModel>();
+
+            CreateMap<SliderViewModel, SliderForApiViewModel>();
+            CreateMap<SliderForApiViewModel, SliderViewModel>();
 
             CreateMap<LogoViewModel, Logo>();
             CreateMap<Logo, LogoViewModel>();
 
+            CreateMap<LogoViewModel, LogoViewForApiModel>();
+            CreateMap<LogoViewForApiModel, LogoViewModel>();
+
             CreateMap<DiscountCodeViewModel, DiscountCode>();
             CreateMap<DiscountCode, DiscountCodeViewModel>();
+
+            CreateMap<DiscountCodeViewModel, DiscountCodeForApiViewModel>();
+            CreateMap<DiscountCodeForApiViewModel, DiscountCodeViewModel>();
 
             CreateMap<TaxViewModel, TaxPercent>();
             CreateMap<TaxPercent, TaxViewModel>();
 
+            CreateMap<TaxViewModel, TaxForApiViewModel>();
+            CreateMap<TaxForApiViewModel, TaxViewModel>();
+
             CreateMap<UsedCodeViewModel, UsedCode>();
             CreateMap<UsedCode, UsedCodeViewModel>();
+
         }
     }
 }

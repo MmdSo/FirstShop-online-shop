@@ -36,37 +36,6 @@ namespace FirstShop.Controllers
     }
 
 
-
-
-
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UsersController : ControllerBase
-    {
-        private IUserServices _userServices;
-        public UsersController(IUserServices userServices)
-        {
-            _userServices = userServices;
-        }
-
-        public List<UserListViewModel> usersList { get; set; }
-
-        [HttpGet]
-        public List<UserListViewModel> GetProducts()
-        {
-            usersList = _userServices.GetAllUsers().ToList();
-            return usersList;
-        }
-
-        [HttpGet("{id}")]
-        public UserListViewModel GetProductById(long id)
-        {
-            return _userServices.GetUserById(id);
-        }
-
-    }
-
-
     [ApiController]
     [Route("api/[controller]")]
     public class BrandController : ControllerBase
