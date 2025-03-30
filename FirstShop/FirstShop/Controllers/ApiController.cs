@@ -2,10 +2,12 @@
 using FirstShop.Core.Services.Products.Brands;
 using FirstShop.Core.Services.Products.Category;
 using FirstShop.Core.Services.Products.Product;
+using FirstShop.Core.Services.Products.ProductComments;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.Tools;
 using FirstShop.Core.ViewModels.Products;
 using FirstShop.Core.ViewModels.Users;
+using FirstShop.Data.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstShop.Controllers
@@ -210,8 +212,8 @@ namespace FirstShop.Controllers
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
-        public ICategoryServices _categoryServices;
-        public IMapper _mapper;
+        private ICategoryServices _categoryServices;
+        private IMapper _mapper;
 
         public CategoryController(ICategoryServices categoryServices , IMapper mapper)
         {
@@ -317,6 +319,94 @@ namespace FirstShop.Controllers
             return Ok();
         }
 
+    }
+    #endregion
+
+    #region ProductComment
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ProductCommentController : ControllerBase
+    {
+        private IProductCommentServices _productCommentServices;
+        private IMapper _mapper;
+
+        public ProductCommentController(IProductCommentServices productCommentServices , IMapper mapper)
+        {
+            _productCommentServices = productCommentServices;
+            _mapper = mapper;
+        }
+
+        public List<ProductCommentViewModel> productCommentViewModels { get; set; }
+
+        [HttpGet]
+        public List<ProductCommentViewModel> GetProductComments()
+        {
+            productCommentViewModels = _productCommentServices.GetAllProductComments().ToList();
+            return productCommentViewModels;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<ProductCommentForApiViewModel> GetProductCommentById(long id)
+        {
+            var pc = _productCommentServices.GetCommentByProductId(id);
+            if (pc == null)
+                return NotFound(pc);
+            else
+                return Ok(pc);
+        }
+        [HttpPost]
+        public long AddProductCommentFromApi(long id)
+        {
+            return id;
+        }
+
+        [HttpPost("AddProductCommentFromApiBody")]
+        public async Task<long> AddProductCommentFromApiBody(ProductCommentForApiViewModel productComment)
+        {
+            var pc = _mapper.Map<ProductCommentForApiViewModel, ProductCommentViewModel>(productComment);
+
+            return await _productCommentServices.AddProductComments(pc);
+        }
+
+        [HttpPost("AddProductCommentFromApiQuery")]
+        public async Task<long> AddProductCommentFromApiQuery([FromQuery] ProductCommentForApiViewModel productComment)
+        {
+            var pc = _mapper.Map<ProductCommentForApiViewModel, ProductCommentViewModel>(productComment);
+
+            return await _productCommentServices.AddProductComments(pc);
+        }
+
+
+        [HttpDelete("DeleteProductCommentFromApi")]
+        public async Task<IActionResult> DeleteProductCommentFromApi(long id, ProductCommentForApiViewModel productComment)
+        {
+            var proComment = _mapper.Map<ProductCommentForApiViewModel, ProductCommentViewModel>(productComment);
+            var pc = _productCommentServices.GetProductCommentsById(id);
+
+            if (pc == null)
+            {
+                return NotFound(new { message = "Not found !" });
+            }
+
+            _productCommentServices.DeleteProductComments(proComment);
+
+            return Ok();
+        }
+
+        [HttpPost("ApproveComment/{id}")]
+        public IActionResult ApproveComment(long? id , bool IsApprove)
+        {
+            var pc =  _productCommentServices.ApprovedComment(id, IsApprove);
+
+            if (pc)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { message = "Error in validation ! please try again ." });
+            }
+        }
     }
     #endregion
 }

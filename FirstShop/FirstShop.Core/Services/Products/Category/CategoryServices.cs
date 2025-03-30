@@ -46,9 +46,9 @@ namespace FirstShop.Core.Services.Products.Category
             return category.Id;
         }
 
-        public async Task DeleteCategories(long colorId)
+        public async Task DeleteCategories(long categoeryId)
         {
-            CategoryViewModel cat = GetCategoriesById(colorId);
+            CategoryViewModel cat = GetCategoriesById(categoeryId);
 
             var ca = _mapper.Map<CategoryViewModel, Categories>(cat);
 

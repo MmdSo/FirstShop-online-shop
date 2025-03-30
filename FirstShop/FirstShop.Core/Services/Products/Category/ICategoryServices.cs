@@ -17,6 +17,6 @@ namespace FirstShop.Core.Services.Products.Category
         CategoryViewModel GetCategoriesById(long? id);
         Task<long> AddCategories(CategoryViewModel category, IFormFile CImg);
         Task EditCategories(CategoryViewModel category, IFormFile CImg);
-        Task DeleteCategories(long colorId);
+        Task DeleteCategories(long categoryId);
     }
 }
