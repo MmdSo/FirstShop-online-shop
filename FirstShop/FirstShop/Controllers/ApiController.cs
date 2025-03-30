@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FirstShop.Core.Services.Products.Brands;
+using FirstShop.Core.Services.Products.Category;
 using FirstShop.Core.Services.Products.Product;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.Tools;
@@ -119,6 +120,8 @@ namespace FirstShop.Controllers
         }
     }
     #endregion
+
+    #region Brand
     [ApiController]
     [Route("api/[controller]")]
     public class BrandController : ControllerBase
@@ -173,8 +176,147 @@ namespace FirstShop.Controllers
             return await _brandServices.AddBrands(br);
         }
 
+
+        [HttpPut("EditBrandFromApi")]
+        public async Task<IActionResult> EditBrandFromApi(BrandForApiViewModel brand)
+        {
+            var br = _mapper.Map<BrandForApiViewModel, BrandViewModel>(brand);
+
+            await _brandServices.EditBrands(br);
+
+            return Ok();
+        }
+
+        [HttpDelete("DeleteBrandFromApi")]
+        public async Task<IActionResult> DeleteBrandFromApi(long id)
+        {
+            var br = _brandServices.GetBrandsById(id);
+
+            if (br == null)
+            {
+                return NotFound(new { message = "Not found !" });
+            }
+
+            await _brandServices.DeleteBrands(id);
+
+            return Ok();
+        }
     }
+    #endregion
 
 
+    #region Category 
+    [ApiController]
+    [Route("api/[controller]")]
+    public class CategoryController : ControllerBase
+    {
+        public ICategoryServices _categoryServices;
+        public IMapper _mapper;
 
+        public CategoryController(ICategoryServices categoryServices , IMapper mapper)
+        {
+            _categoryServices = categoryServices;
+            _mapper = mapper;
+        }
+
+        public List<CategoryViewModel> categoryViewModel { get; set; }
+
+        [HttpGet]
+        public List<CategoryViewModel> GetCategory()
+        {
+            categoryViewModel = _categoryServices.GetAllICategories().ToList();
+            return categoryViewModel;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<CategoryViewModel> GetCategorydById(long id)
+        {
+            var category = _categoryServices.GetCategoriesById(id);
+            if (category == null)
+                return NotFound(category);
+            else
+                return Ok(category);
+        }
+        [HttpPost]
+        public long AddCategoryFromApi(long id)
+        {
+            return id;
+        }
+
+        [HttpPost("AddCategoryFromApiBody")]
+        public async Task<long> AddCategoryFromApiBody(CategoryForApiViewModel category, IFormFile CImg)
+        {
+            var cat = _mapper.Map<CategoryForApiViewModel, CategoryViewModel>(category);
+
+            string fileName = NameGenerator.GenerateUniqCode() + Path.GetExtension(CImg.FileName);
+            string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", fileName);
+
+            using (var stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await CImg.CopyToAsync(stream);
+            }
+
+
+            cat.CategoryImage = "/Images/" + fileName;
+
+            return await _categoryServices.AddCategories(cat , CImg);
+        }
+
+        [HttpPost("AddCategoryFromApiQuery")]
+        public async Task<long> AddCategoryFromApiQuery([FromQuery] CategoryForApiViewModel category, IFormFile CImg)
+        {
+            var cat = _mapper.Map<CategoryForApiViewModel, CategoryViewModel>(category);
+
+            string fileName = NameGenerator.GenerateUniqCode() + Path.GetExtension(CImg.FileName);
+            string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", fileName);
+
+            using (var stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await CImg.CopyToAsync(stream);
+            }
+
+
+            cat.CategoryImage = "/Images/" + fileName;
+
+            return await _categoryServices.AddCategories(cat, CImg);
+        }
+
+
+        [HttpPut("EditCategoryFromApi")]
+        public async Task<IActionResult> EditCategoryFromApi(CategoryForApiViewModel category, IFormFile CImg)
+        {
+            var cat = _mapper.Map<CategoryForApiViewModel, CategoryViewModel>(category);
+
+            string fileName = NameGenerator.GenerateUniqCode() + Path.GetExtension(CImg.FileName);
+            string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", fileName);
+
+            using (var stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await CImg.CopyToAsync(stream);
+            }
+
+            cat.CategoryImage = "/Images/" + fileName;
+
+            await _categoryServices.EditCategories(cat ,CImg);
+
+            return Ok();
+        }
+
+        [HttpDelete("DeleteCategoryFromApi")]
+        public async Task<IActionResult> DeleteCategoryFromApi(long id)
+        {
+            var br = _categoryServices.GetCategoriesById(id);
+
+            if (br == null)
+            {
+                return NotFound(new { message = "Not found !" });
+            }
+
+            await _categoryServices.DeleteCategories(id);
+
+            return Ok();
+        }
+
+    }
+    #endregion
 }
