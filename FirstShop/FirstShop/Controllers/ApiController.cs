@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FirstShop.Core.Services.Products.Brands;
 using FirstShop.Core.Services.Products.Category;
+using FirstShop.Core.Services.Products.Colors;
 using FirstShop.Core.Services.Products.Product;
 using FirstShop.Core.Services.Products.ProductComments;
 using FirstShop.Core.Services.UserServices;
@@ -206,6 +207,88 @@ namespace FirstShop.Controllers
     }
     #endregion
 
+    #region Color
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ColorController : ControllerBase
+    {
+        private IMapper _mapper;
+        private IColorServices _colorServices;
+        public ColorController(IColorServices colorServices, IMapper mapper)
+        {
+            _colorServices = colorServices;
+            _mapper = mapper;
+        }
+
+        public List<ColorViewModel> colorViewModel { get; set; }
+
+        [HttpGet]
+        public List<ColorViewModel> GetBrands()
+        {
+            colorViewModel = _colorServices.GetAllColor().ToList();
+            return colorViewModel;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<ColorViewModel> GetColorById(long id)
+        {
+            var color = _colorServices.GetColorById(id);
+            if (color == null)
+                return NotFound(color);
+            else
+                return Ok(color);
+        }
+
+
+        [HttpPost]
+        public long AddColorFromApi(long id)
+        {
+            return id;
+        }
+
+        [HttpPost("AddColorFromApiBody")]
+        public async Task<long> AddColorFromApiBody(ColorForApiViewModel color)
+        {
+            var cr = _mapper.Map<ColorForApiViewModel, ColorViewModel>(color);
+
+            return await _colorServices.AddColors(cr);
+        }
+
+        [HttpPost("AddColorFromApiQuery")]
+        public async Task<long> AddColorFromApiQuery([FromQuery] ColorForApiViewModel color)
+        {
+            var cr = _mapper.Map<ColorForApiViewModel, ColorViewModel>(color);
+
+            return await _colorServices.AddColors(cr);
+        }
+
+
+        [HttpPut("EditColorFromApi")]
+        public async Task<IActionResult> EditColorFromApi(ColorForApiViewModel color)
+        {
+            var br = _mapper.Map<ColorForApiViewModel, ColorViewModel>(color);
+
+            await _colorServices.EditColors(br);
+
+            return Ok();
+        }
+
+        [HttpDelete("DeleteColorFromApi")]
+        public async Task<IActionResult> DeleteColorFromApi(long id)
+        {
+            var br = _colorServices.DeleteColor(id);
+
+            if (br == null)
+            {
+                return NotFound(new { message = "Not found !" });
+            }
+
+            await _colorServices.DeleteColor(id);
+
+            return Ok();
+        }
+    }
+    #endregion
 
     #region Category 
     [ApiController]
