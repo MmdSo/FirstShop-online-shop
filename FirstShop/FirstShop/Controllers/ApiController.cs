@@ -4,11 +4,8 @@ using FirstShop.Core.Services.Products.Category;
 using FirstShop.Core.Services.Products.Colors;
 using FirstShop.Core.Services.Products.Product;
 using FirstShop.Core.Services.Products.ProductComments;
-using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.Tools;
 using FirstShop.Core.ViewModels.Products;
-using FirstShop.Core.ViewModels.Users;
-using FirstShop.Data.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstShop.Controllers

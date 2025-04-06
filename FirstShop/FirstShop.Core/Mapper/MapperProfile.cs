@@ -30,23 +30,23 @@ namespace FirstShop.Core.Mapper
             CreateMap<SiteUser, ProfileViewModel>();
             CreateMap<ProfileViewModel, SiteUser>();
 
-            CreateMap<UserListForApiViewModel, ProfileViewModel>();
-            CreateMap<ProfileViewModel, UserListForApiViewModel>();
+            CreateMap<ProfileForApiViewModel, ProfileViewModel>();
+            CreateMap<ProfileViewModel, ProfileForApiViewModel>();
 
             CreateMap<SiteUser, ChangePasswordViewModel>();
             CreateMap<ChangePasswordViewModel, SiteUser>();
 
-            CreateMap<UserListForApiViewModel, ChangePasswordForApiViewModel>();
-            CreateMap<ChangePasswordForApiViewModel, UserListForApiViewModel>();
+            CreateMap<ChangePasswordViewModel, ChangePasswordForApiViewModel>();
+            CreateMap<ChangePasswordForApiViewModel, ChangePasswordViewModel>();
 
             CreateMap<SiteUser, AboutUserViewModel>();
             CreateMap<AboutUserViewModel, SiteUser>();
 
-            CreateMap<UserListForApiViewModel, AboutUserForApiViewModel>();
-            CreateMap<AboutUserForApiViewModel, UserListForApiViewModel>();
+            CreateMap<AboutUserViewModel, AboutUserForApiViewModel>();
+            CreateMap<AboutUserForApiViewModel, AboutUserViewModel>();
 
-            CreateMap<UserListForApiViewModel, ChangeEmailViewModel>();
-            CreateMap<ChangeEmailViewModel, UserListForApiViewModel>();
+            CreateMap<ChangeEmailForApiViewModel, ChangeEmailViewModel>();
+            CreateMap<ChangeEmailViewModel, ChangeEmailForApiViewModel>();
 
             CreateMap<SiteUser, ChangeEmailViewModel>();
             CreateMap<ChangeEmailViewModel, SiteUser>();
@@ -54,14 +54,14 @@ namespace FirstShop.Core.Mapper
             CreateMap<SiteUser, LoginViewModel>();
             CreateMap<LoginViewModel, SiteUser>();
 
-            CreateMap<UserListForApiViewModel, LoginForApiViewModel>();
-            CreateMap<LoginForApiViewModel, UserListForApiViewModel>();
+            CreateMap<LoginViewModel, LoginForApiViewModel>();
+            CreateMap<LoginForApiViewModel, LoginViewModel>();
 
             CreateMap<SiteUser, UserRegisterViewModel>();
             CreateMap<UserRegisterViewModel, SiteUser>();
 
-            CreateMap<UserListForApiViewModel, UserRegisterViewModel>();
-            CreateMap<UserRegisterViewModel, UserListForApiViewModel>();
+            CreateMap<UserRegisterForApiViewModel, UserRegisterViewModel>();
+            CreateMap<UserRegisterViewModel, UserRegisterForApiViewModel>();
 
             CreateMap<Roles, RoleViewModel>();
             CreateMap<RoleViewModel, Roles>();

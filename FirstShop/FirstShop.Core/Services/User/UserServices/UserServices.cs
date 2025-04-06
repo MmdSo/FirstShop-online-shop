@@ -253,5 +253,11 @@ namespace FirstShop.Core.Services.UserServices
             var person = _mapper.Map<IEnumerable<SiteUser>, IEnumerable<AboutUserViewModel>>(GetAll().Where(p => p.Isshow == true));
             return person;
         }
+
+        public AboutUserViewModel GetStuffByUserId(long id)
+        {
+            var person = _mapper.Map<SiteUser, AboutUserViewModel>(GetAll().SingleOrDefault(p => p.id == id));
+            return person;
+        }
     }
 }

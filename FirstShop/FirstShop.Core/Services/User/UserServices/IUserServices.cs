@@ -33,6 +33,7 @@ namespace FirstShop.Core.Services.UserServices
         List<long> GetUserRolesByUserID(long userID);
         void UpdateUserRoles(long userId, List<long> Roles);
         Task<IEnumerable<AboutUserViewModel>> GetAllStuff();
+        AboutUserViewModel GetStuffByUserId(long id);
 
     }
 }
