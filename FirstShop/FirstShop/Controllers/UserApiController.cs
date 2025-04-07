@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FirstShop.Core.Services.User.PermissionServices;
 using FirstShop.Core.Services.User.RoleServices;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.ViewModels.Users;
@@ -12,28 +13,28 @@ namespace FirstShop.Controllers
     [ApiController]
     public class UserApiController : ControllerBase
     {
-            private IMapper _mapper;
-            private IUserServices _userServices;
-            public UserApiController(IUserServices userServices, IMapper mapper)
-            {
-                _userServices = userServices;
-                _mapper = mapper;
-            }
+        private IMapper _mapper;
+        private IUserServices _userServices;
+        public UserApiController(IUserServices userServices, IMapper mapper)
+        {
+            _userServices = userServices;
+            _mapper = mapper;
+        }
 
-            public List<UserListViewModel> usersList { get; set; }
+        public List<UserListViewModel> usersList { get; set; }
 
-            [HttpGet]
-            public List<UserListViewModel> Getusers()
-            {
-                usersList = _userServices.GetAllUsers().ToList();
-                return usersList;
-            }
+        [HttpGet]
+        public List<UserListViewModel> Getusers()
+        {
+            usersList = _userServices.GetAllUsers().ToList();
+            return usersList;
+        }
 
-            [HttpGet("{id}")]
-            public UserListViewModel GetUserById(long id)
-            {
-                return _userServices.GetUserById(id);
-            }
+        [HttpGet("{id}")]
+        public UserListViewModel GetUserById(long id)
+        {
+            return _userServices.GetUserById(id);
+        }
 
         [HttpPost]
         public long AddUserFromApi(long id)
@@ -110,16 +111,16 @@ namespace FirstShop.Controllers
         [HttpPost("UserLoginFromApi")]
         public LoginViewModel UserLoginFromApi([FromQuery] LoginForApiViewModel login)
         {
-            var log = _mapper.Map<LoginForApiViewModel , LoginViewModel>(login);
+            var log = _mapper.Map<LoginForApiViewModel, LoginViewModel>(login);
 
             return _userServices.Login(log);
- 
+
         }
 
         [HttpPost("UserRegisterFromApi")]
         public async Task<long> UserRegisterFromApi(UserRegisterForApiViewModel Register)
         {
-            var user = _mapper.Map<UserRegisterForApiViewModel , UserRegisterViewModel>(Register);
+            var user = _mapper.Map<UserRegisterForApiViewModel, UserRegisterViewModel>(Register);
 
             return await _userServices.Register(user);
         }
@@ -134,7 +135,7 @@ namespace FirstShop.Controllers
     {
         private IMapper _mapper;
         private IRoleServices _roleServices;
-        public UserRolesApiController (IMapper mapper , IRoleServices roleServices)
+        public UserRolesApiController(IMapper mapper, IRoleServices roleServices)
         {
             _mapper = mapper;
             _roleServices = roleServices;
@@ -155,6 +156,89 @@ namespace FirstShop.Controllers
         {
             return _roleServices.GetRoleById(id);
         }
+
+
+        [HttpPost]
+        public long AddUserFromApi(long id)
+        {
+            return id;
+        }
+
+        [HttpPost("AddUserRoleFromApiBody")]
+        public async Task<long> AddUserRoleFromApiBody(RoleForApiViewModel role)
+        {
+            var ro = _mapper.Map<RoleForApiViewModel, RoleViewModel>(role);
+
+            return await _roleServices.AddRole(ro);
+        }
+
+        [HttpPost("AddUserRoleFromApiQuery")]
+        public async Task<long> AddUserRoleFromApiQuery([FromQuery] RoleForApiViewModel role)
+        {
+            var ro = _mapper.Map<RoleForApiViewModel, RoleViewModel>(role);
+
+            return await _roleServices.AddRole(ro);
+        }
+
+
+        [HttpPut("EditUserRoleFromApi")]
+        public async Task<IActionResult> EditUserFromApi(RoleForApiViewModel role)
+        {
+            var ro = _mapper.Map<RoleForApiViewModel, RoleViewModel>(role);
+
+            await _roleServices.EditRole(ro);
+
+            return Ok();
+        }
+
+        [HttpDelete("DeleteUserRoleFromApi")]
+        public async Task<IActionResult> DeleteUserRoleFromApi(long id)
+        {
+            var ro = _roleServices.GetRoleById(id);
+
+            if (ro == null)
+            {
+                return NotFound(new { message = "Not found !" });
+            }
+
+            await _roleServices.DeleteRole(id);
+
+            return Ok();
+        }
+
     }
+    #endregion
+
+    #region Permissions
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserPermissionApiController : ControllerBase
+    {
+        private IMapper _mapper;
+        private IPermissionServices _permissionServices;
+        public UserPermissionApiController(IMapper mapper, IPermissionServices permissionServices)
+        {
+            _mapper = mapper;
+            _permissionServices = permissionServices;
+        }
+
+        public List<PermissionViewModel> permissionViewModel { get; set; }
+
+
+        [HttpGet]
+        public List<PermissionViewModel> GetuserPermissions()
+        {
+            permissionViewModel = _permissionServices.GetAllPermission().ToList();
+            return permissionViewModel;
+        }
+
+        [HttpGet("{id}")]
+        public PermissionViewModel GetPermissionById(long id)
+        {
+            return _permissionServices.GetPermissionById(id);
+        }
+
+    }
+
     #endregion
 }
