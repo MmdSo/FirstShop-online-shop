@@ -1,4 +1,5 @@
-﻿using FirstShop.Core.ViewModels.Products;
+﻿using FirstShop.Core.ViewModels.Blogs;
+using FirstShop.Core.ViewModels.Products;
 using FirstShop.Data.Blogs;
 using FirstShop.Data.Repository;
 using System;
@@ -11,10 +12,10 @@ namespace FirstShop.Core.Services.Blogs.PostComment
 {
     public interface IPostCommentServices : IGenericRepository<PostComments>
     {
-        IEnumerable<ProductCommentViewModel> GetAllPostComments();
-        Task<ProductCommentViewModel> GetPostCommentssByIdAsync(long id);
-        Task<long> AddUPostComments(ProductCommentViewModel postComment);
-        void EditInvoiceHeader(ProductCommentViewModel postComment);
-        void DeletePostComments(ProductCommentViewModel postcomment);
+        IEnumerable<PostCommentViewModel> GetAllPostComments();
+        Task<PostCommentViewModel> GetPostCommentssByIdAsync(long id);
+        Task<long> AddUPostComments(PostCommentViewModel postComment);
+        void EditComment(PostCommentViewModel postComment);
+        Task DeletePostComments(long postcommentId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FirstShop.Core.ViewModels.Blogs;
 using FirstShop.Core.ViewModels.Products;
 using FirstShop.Data.Blogs;
 using FirstShop.Data.Context;
@@ -22,36 +23,42 @@ namespace FirstShop.Core.Services.Blogs.PostComment
             _mapper = mapper;
         }
 
-        public async Task<long> AddUPostComments(ProductCommentViewModel postComment)
+        public async Task<long> AddUPostComments(PostCommentViewModel postComment)
         {
-            var pc = _mapper.Map<ProductCommentViewModel, PostComments>(postComment);
+            var pc = _mapper.Map<PostCommentViewModel, PostComments>(postComment);
             await AddEntity(pc);
             _context.SaveChanges();
             return postComment.Id;
         }
 
-        public void DeletePostComments(ProductCommentViewModel postcomment)
+        public async Task DeletePostComments(long postcommentId)
         {
-            postcomment.IsDeleted = true;
-            EditInvoiceHeader(postcomment);
+            PostCommentViewModel pc =await GetPostCommentssByIdAsync(postcommentId);
+
+            var postComment  = _mapper.Map<PostCommentViewModel, PostComments>(pc);
+
+            postComment.IsDeleted = true;
+
+            EditEntity(postComment);
+            await SaveChanges();
         }
 
-        public async void EditInvoiceHeader(ProductCommentViewModel postComment)
+        public async void EditComment(PostCommentViewModel postComment)
         {
-            var pc = _mapper.Map<ProductCommentViewModel, PostComments>(postComment);
+            var pc = _mapper.Map<PostCommentViewModel, PostComments>(postComment);
             EditEntity(pc);
             await SaveChanges();
         }
 
-        public IEnumerable<ProductCommentViewModel> GetAllPostComments()
+        public IEnumerable<PostCommentViewModel> GetAllPostComments()
         {
-            var pc = _mapper.Map<IEnumerable<PostComments>, IEnumerable<ProductCommentViewModel>>(GetAll());
+            var pc = _mapper.Map<IEnumerable<PostComments>, IEnumerable<PostCommentViewModel>>(GetAll());
             return pc;
         }
 
-        public async Task<ProductCommentViewModel> GetPostCommentssByIdAsync(long id)
+        public async Task<PostCommentViewModel> GetPostCommentssByIdAsync(long id)
         {
-            var pc = _mapper.Map<PostComments, ProductCommentViewModel>(await GetEntityByIdAsync(id));
+            var pc = _mapper.Map<PostComments, PostCommentViewModel>(await GetEntityByIdAsync(id));
             return pc;
         }
     }

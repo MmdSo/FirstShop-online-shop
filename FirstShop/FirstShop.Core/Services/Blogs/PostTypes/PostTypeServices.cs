@@ -31,10 +31,16 @@ namespace FirstShop.Core.Services.Blogs.PostTypes
             return post.Id;
         }
 
-        public void DeletePostTypes(PostTypeViewModel post)
+        public async Task DeletePostTypes(long postTypeId)
         {
-            post.IsDeleted = true;
-            EditPostTypes(post);
+            PostTypeViewModel postType = GetPostTypesById(postTypeId);
+
+            var pt = _mapper.Map<PostTypeViewModel, PostType>(postType);
+
+            pt.IsDeleted = true;
+
+            EditEntity(pt);
+            await SaveChanges();
         }
 
         public async void EditPostTypes(PostTypeViewModel post)
