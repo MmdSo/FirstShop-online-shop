@@ -22,12 +22,12 @@ namespace FirstShop.Core.Services.Sales.Taxes
             _mapper = mapper;
         }
 
-        public async Task<TaxViewModel> AddTax(TaxViewModel tax)
+        public async Task<long> AddTax(TaxViewModel tax)
         {
             var ta = _mapper.Map<TaxViewModel, TaxPercent>(tax);
             await AddEntity(ta);
             await SaveChanges();
-            return tax;
+            return tax.Id;
         }
 
         public async Task EditTax(TaxViewModel tax)

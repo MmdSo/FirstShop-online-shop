@@ -12,7 +12,7 @@ namespace FirstShop.Core.Services.Sales.Taxes
     public interface ITaxServices : IGenericRepository<TaxPercent>
     {
         IEnumerable<TaxViewModel> GetAllTax();
-        Task<TaxViewModel> AddTax(TaxViewModel tax);
+        Task<long> AddTax(TaxViewModel tax);
         Task<TaxViewModel> GetTaxById(long Id);
         Task EditTax(TaxViewModel tax);
     }
