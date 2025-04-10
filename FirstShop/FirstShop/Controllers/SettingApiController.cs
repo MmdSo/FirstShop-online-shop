@@ -287,7 +287,7 @@ namespace FirstShop.Controllers
         public List<SliderViewModel> sliderList { get; set; }
 
         [HttpGet]
-        public List<SliderViewModel> GetLogo()
+        public List<SliderViewModel> GetSlider()
         {
             sliderList = _sliderServices.GetAllPhotos().ToList();
             return sliderList;
@@ -303,7 +303,7 @@ namespace FirstShop.Controllers
                 return Ok(photo);
         }
 
-        [HttpGet("")]
+        [HttpGet("GetFiveSlider")]
         public ActionResult<SliderForApiViewModel> GetFiveSlider()
         {
             var photo = _sliderServices.GetFivephoto();
@@ -411,7 +411,7 @@ namespace FirstShop.Controllers
         public List<SendMessagesViewModel> messageList { get; set; }
 
         [HttpGet]
-        public List<SendMessagesViewModel> GetContact()
+        public List<SendMessagesViewModel> GetMessage()
         {
             messageList = _messageServices.GetAllMessages().ToList();
             return messageList;
