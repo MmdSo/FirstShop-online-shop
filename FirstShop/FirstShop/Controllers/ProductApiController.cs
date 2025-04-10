@@ -33,9 +33,13 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public ProductViewModel GetProductById(long id)
+        public ActionResult< ProductForApiViewModel> GetProductById(long id)
         {
-            return _productServices.GetProductsById(id);
+            var product = _productServices.GetProductsById(id);
+            if (product == null)
+                return NotFound(product);
+            else
+                return Ok(product);
         }
 
         [HttpPost]
@@ -144,7 +148,7 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<BrandViewModel> GetBrandById(long id)
+        public ActionResult<BrandForApiViewModel> GetBrandById(long id)
         {
             var brand = _brandServices.GetBrandsById(id);
             if (brand == null)
@@ -227,7 +231,7 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ColorViewModel> GetColorById(long id)
+        public ActionResult<ColorForApiViewModel> GetColorById(long id)
         {
             var color = _colorServices.GetColorById(id);
             if (color == null)
@@ -311,7 +315,7 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<CategoryViewModel> GetCategorydById(long id)
+        public ActionResult<CategoryForApiViewModel> GetCategorydById(long id)
         {
             var category = _categoryServices.GetCategoriesById(id);
             if (category == null)

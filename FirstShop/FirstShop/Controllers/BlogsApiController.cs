@@ -32,9 +32,13 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public PostViewModel GetPostById(long id)
+        public ActionResult<PostForApiViewModel> GetPostById(long id)
         {
-            return _postServices.GetPostsById(id);
+            var post = _postServices.GetPostsById(id);
+            if (post == null)
+                return NotFound(post);
+            else
+                return Ok(post);
         }
 
 
@@ -144,7 +148,7 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<PostTypeViewModel> GetPostTypeById(long id)
+        public ActionResult<PostTypeForApiViewModel> GetPostTypeById(long id)
         {
             var pt = _PostTypeServices.GetPostTypesById(id);
             if (pt == null)
@@ -228,7 +232,7 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<PostCommentViewModel> GetPostCommentById(long id)
+        public ActionResult<PostCommentForApiViewModel> GetPostCommentById(long id)
         {
             var pc = _PostCommentServices.GetPostCommentssByIdAsync(id);
             if (pc == null)

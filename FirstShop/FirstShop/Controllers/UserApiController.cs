@@ -31,9 +31,13 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public UserListViewModel GetUserById(long id)
+        public ActionResult<UserListViewModel> GetUserById(long id)
         {
-            return _userServices.GetUserById(id);
+            var user = _userServices.GetUserById(id);
+            if (user == null)
+                return NotFound(user);
+            else
+                return Ok(user);
         }
 
         [HttpPost]
@@ -152,9 +156,13 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public RoleViewModel GetRoleById(long id)
+        public ActionResult< RoleForApiViewModel> GetRoleById(long id)
         {
-            return _roleServices.GetRoleById(id);
+            var role = _roleServices.GetRoleById(id);
+            if (role == null)
+                return NotFound(role);
+            else
+                return Ok(role);
         }
 
 
@@ -233,9 +241,13 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public PermissionViewModel GetPermissionById(long id)
+        public ActionResult< PermissionForApiViewModel> GetPermissionById(long id)
         {
-            return _permissionServices.GetPermissionById(id);
+            var permission = _permissionServices.GetPermissionById(id);
+            if (permission == null)
+                return NotFound(permission);
+            else
+                return Ok(permission);
         }
 
     }
