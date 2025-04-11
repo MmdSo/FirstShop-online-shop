@@ -8,6 +8,7 @@ namespace FirstShop.Core.ViewModels.Products
 {
     public class ProductViewModel
     {
+
         public long Id { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

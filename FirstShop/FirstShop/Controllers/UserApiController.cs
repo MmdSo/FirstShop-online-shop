@@ -131,7 +131,6 @@ namespace FirstShop.Controllers
     }
     #endregion
 
-
     #region Roles
     [Route("api/[controller]")]
     [ApiController]

@@ -17,7 +17,7 @@ namespace FirstShop.Controllers
     {
         private IProductServices _productServices;
         private IMapper _mapper;
-        public ProductsController(IProductServices productServices , IMapper mapper)
+        public ProductsController(IProductServices productServices, IMapper mapper)
         {
             _productServices = productServices;
             _mapper = mapper;
@@ -33,7 +33,7 @@ namespace FirstShop.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult< ProductForApiViewModel> GetProductById(long id)
+        public ActionResult<ProductForApiViewModel> GetProductById(long id)
         {
             var product = _productServices.GetProductsById(id);
             if (product == null)
@@ -49,7 +49,7 @@ namespace FirstShop.Controllers
         }
 
         [HttpPost("AddProductFromApiBody")]
-        public async Task<long> AddProductFromApiBody(ProductForApiViewModel product , IFormFile PImg)
+        public async Task<long> AddProductFromApiBody([FromForm]ProductForApiViewModel product, IFormFile PImg)
         {
             var pr = _mapper.Map<ProductForApiViewModel, ProductViewModel>(product);
 
@@ -61,10 +61,10 @@ namespace FirstShop.Controllers
                 await PImg.CopyToAsync(stream);
             }
 
-            
+
             pr.ProductImage = "/Images/" + fileName;
 
-            return await _productServices.AddProducts(pr , PImg);
+            return await _productServices.AddProducts(pr, PImg);
         }
 
         [HttpPost("AddProductFromApiQuery")]
@@ -83,14 +83,25 @@ namespace FirstShop.Controllers
 
             pr.ProductImage = "/Images/" + fileName;
 
-            return await _productServices.AddProducts(pr , PImg);
+            return await _productServices.AddProducts(pr, PImg);
         }
 
         [HttpPut("EditProductFromApi")]
-        public async Task<IActionResult> EditProductFromApi( ProductForApiViewModel product, IFormFile PImg)
+        public async Task<IActionResult> EditProductFromApi(long id, [FromForm] ProductForApiViewModel product, IFormFile PImg)
         {
-            var pr = _mapper.Map<ProductForApiViewModel, ProductViewModel>(product);
+            var existProduct = _productServices.GetProductsById(id);
+            if(existProduct == null)
+            {
+                return NotFound("product is not found!");
+            }
 
+            existProduct.Title = product.Title;
+            existProduct.Description = product.Description;
+            existProduct.Quantity = product.Quantity;
+            existProduct.Price = product.Price; 
+            existProduct.BrandTitle = product.BrandTitle;
+            existProduct.CategoryTitle = product.CategoryTitle;
+            
             
                 string fileName = NameGenerator.GenerateUniqCode() + Path.GetExtension(PImg.FileName);
                 string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", fileName);
@@ -100,10 +111,10 @@ namespace FirstShop.Controllers
                     await PImg.CopyToAsync(stream);
                 }
 
-                pr.ProductImage = "/Images/" + fileName;
+            existProduct.ProductImage = "/Images/" + fileName;
             
 
-            await _productServices.EditProducts(pr, PImg);
+            await _productServices.EditProducts(existProduct , null);
 
             return Ok();
         }
@@ -182,11 +193,17 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditBrandFromApi")]
-        public async Task<IActionResult> EditBrandFromApi(BrandForApiViewModel brand)
+        public async Task<IActionResult> EditBrandFromApi(BrandForApiViewModel brand , long id)
         {
-            var br = _mapper.Map<BrandForApiViewModel, BrandViewModel>(brand);
+            var existBrand = _brandServices.GetBrandsById(id);
+            if(existBrand == null)
+            {
+                return NotFound("Brand not found!");
+            }
 
-            await _brandServices.EditBrands(br);
+            existBrand.Title = brand.Title;
+
+            await _brandServices.EditBrands(existBrand);
 
             return Ok();
         }
@@ -265,11 +282,18 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditColorFromApi")]
-        public async Task<IActionResult> EditColorFromApi(ColorForApiViewModel color)
+        public async Task<IActionResult> EditColorFromApi(long id ,[FromForm]ColorForApiViewModel color)
         {
-            var br = _mapper.Map<ColorForApiViewModel, ColorViewModel>(color);
+            var existColor = _colorServices.GetColorById(id);
+            if(existColor == null)
+            {
+                return NotFound("color is not found");
+            }
 
-            await _colorServices.EditColors(br);
+            existColor.ColorCode = color.ColorCode;
+            existColor.Title = color.Title;
+
+            await _colorServices.EditColors(existColor);
 
             return Ok();
         }
@@ -277,11 +301,11 @@ namespace FirstShop.Controllers
         [HttpDelete("DeleteColorFromApi")]
         public async Task<IActionResult> DeleteColorFromApi(long id)
         {
-            var br = _colorServices.DeleteColor(id);
+            var co = _colorServices.GetColorById(id);
 
-            if (br == null)
+            if (co == null)
             {
-                return NotFound(new { message = "Not found !" });
+                return NotFound(new { message = "color isNot found !" });
             }
 
             await _colorServices.DeleteColor(id);
@@ -369,9 +393,11 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditCategoryFromApi")]
-        public async Task<IActionResult> EditCategoryFromApi(CategoryForApiViewModel category, IFormFile CImg)
+        public async Task<IActionResult> EditCategoryFromApi(long id ,[FromForm]CategoryForApiViewModel category, IFormFile CImg)
         {
-            var cat = _mapper.Map<CategoryForApiViewModel, CategoryViewModel>(category);
+            var existCategory = _categoryServices.GetCategoriesById(id);
+
+            existCategory.Title = category.Title;
 
             string fileName = NameGenerator.GenerateUniqCode() + Path.GetExtension(CImg.FileName);
             string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", fileName);
@@ -381,9 +407,9 @@ namespace FirstShop.Controllers
                 await CImg.CopyToAsync(stream);
             }
 
-            cat.CategoryImage = "/Images/" + fileName;
+            existCategory.CategoryImage = "/Images/" + fileName;
 
-            await _categoryServices.EditCategories(cat ,CImg);
+            await _categoryServices.EditCategories(existCategory ,null);
 
             return Ok();
         }
@@ -395,7 +421,7 @@ namespace FirstShop.Controllers
 
             if (br == null)
             {
-                return NotFound(new { message = "Not found !" });
+                return NotFound(new { message = "category is Not found !" });
             }
 
             await _categoryServices.DeleteCategories(id);
