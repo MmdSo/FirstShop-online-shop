@@ -68,9 +68,9 @@ namespace FirstShop.Controllers
         [HttpPut("EditContectFromApi")]
         public async Task<IActionResult> EditContectFromApi(ContectForApiViewModel Contect)
         {
-            var co = _mapper.Map<ContectForApiViewModel, ContectViewModel>(Contect);
+            var existContect = _contactServices.GetAllContects().FirstOrDefault();
 
-            await _contactServices.EditContect(co);
+            await _contactServices.EditContect(existContect);
 
             return Ok();
         }
@@ -145,11 +145,18 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditCodeFromApi")]
-        public async Task<IActionResult> EditCodeFromApi(DiscountCodeForApiViewModel code)
+        public async Task<IActionResult> EditCodeFromApi(long id ,[FromForm]DiscountCodeForApiViewModel code)
         {
-            var dc = _mapper.Map<DiscountCodeForApiViewModel, DiscountCodeViewModel>(code);
+            var existCode =await _discountServices.GetCodesByIdAsync(id);
+            if(existCode == null)
+            {
+                return NotFound("Code is not found");
+            }
 
-            _discountServices.EditCodes(dc);
+            existCode.Code = code.Code;
+            existCode.Percent = code.Percent;
+
+            _discountServices.EditCodes(existCode);
 
             return Ok();
         }
@@ -251,7 +258,7 @@ namespace FirstShop.Controllers
         [HttpPut("EditlogoFromApi")]
         public async Task<IActionResult> EditlogoFromApi(LogoViewForApiModel logo, IFormFile logoImg)
         {
-            var lo = _mapper.Map<LogoViewForApiModel, LogoViewModel>(logo);
+            var lo = _logoServices.GetAllLogo().FirstOrDefault();
 
             string fileName = NameGenerator.GenerateUniqCode() + Path.GetExtension(logoImg.FileName);
             string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", fileName);
@@ -264,7 +271,7 @@ namespace FirstShop.Controllers
 
             lo.LogoImage = "/Images/" + fileName;
 
-            await _logoServices.EditLogo(lo , logoImg);
+            await _logoServices.EditLogo(lo , null);
 
             return Ok();
         }
@@ -358,10 +365,14 @@ namespace FirstShop.Controllers
         }
 
         [HttpPut("EditSliderFromApi")]
-        public async Task<IActionResult> EditSliderFromApi(SliderForApiViewModel photo, IFormFile pImg)
+        public async Task<IActionResult> EditSliderFromApi(long id ,[FromForm]SliderForApiViewModel photo, IFormFile pImg)
         {
-            var slider = _mapper.Map<SliderForApiViewModel, SliderViewModel>(photo);
+            var existPhoto = _sliderServices.GetAllPhotosById(id);
 
+            existPhoto.Link = photo.Link;
+            existPhoto.PhotoName = photo.PhotoName;
+            existPhoto.SliderDescription = photo.SliderDescription;
+            
             string fileName = NameGenerator.GenerateUniqCode() + Path.GetExtension(pImg.FileName);
             string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", fileName);
 
@@ -371,9 +382,9 @@ namespace FirstShop.Controllers
             }
 
 
-            slider.SliderPhoto = "/Images/" + fileName;
+            existPhoto.SliderPhoto = "/Images/" + fileName;
 
-            await _sliderServices.AddPhoto(slider, pImg);
+            await _sliderServices.AddPhoto(existPhoto, null);
 
             return Ok();
         }

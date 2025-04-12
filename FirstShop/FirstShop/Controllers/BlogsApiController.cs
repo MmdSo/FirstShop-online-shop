@@ -88,9 +88,20 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditPostFromApi")]
-        public async Task<IActionResult> EditPostFromApi(PostForApiViewModel post, IFormFile PostImg)
+        public async Task<IActionResult> EditPostFromApi(long id ,[FromForm]PostForApiViewModel post, IFormFile PostImg)
         {
-            var po = _mapper.Map<PostForApiViewModel, PostViewModel>(post);
+            var existpost = _postServices.GetPostsById(id);
+            if(existpost == null)
+            {
+                return NotFound("post is not found !");
+            }
+
+            existpost.Author = post.Author;
+            existpost.Body = post.Body;
+            existpost.Title = post.Title;
+            existpost.Subject = post.Subject;
+            existpost.Summary = post.Summary;
+
 
             string fileName = NameGenerator.GenerateUniqCode() + Path.GetExtension(PostImg.FileName);
             string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", fileName);
@@ -101,9 +112,9 @@ namespace FirstShop.Controllers
             }
 
 
-            po.PostImage = "/Images/" + fileName;
+            existpost.PostImage = "/Images/" + fileName;
 
-            await _postServices.AddPosts(po, PostImg);
+            await _postServices.AddPosts(existpost, PostImg);
 
             return Ok();
         }
@@ -115,7 +126,7 @@ namespace FirstShop.Controllers
 
             if (ro == null)
             {
-                return NotFound(new { message = "Not found !" });
+                return NotFound(new { message = "post is Not found !" });
             }
 
             await _postServices.DeletePosts(id);
@@ -182,11 +193,13 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditPostTypeFromApi")]
-        public async Task<IActionResult> EditPostTypeFromApi(PostTypeForApiViewModel postType)
+        public async Task<IActionResult> EditPostTypeFromApi(long id ,[FromForm]PostTypeForApiViewModel postType)
         {
-            var pt = _mapper.Map<PostTypeForApiViewModel, PostTypeViewModel>(postType);
+            var existPT = _PostTypeServices.GetPostTypesById(id);
 
-            _PostTypeServices.EditPostTypes(pt);
+            existPT.Title = postType.Title;
+
+            _PostTypeServices.EditPostTypes(existPT);
 
             return Ok();
         }
@@ -262,17 +275,6 @@ namespace FirstShop.Controllers
             var pc = _mapper.Map<PostCommentForApiViewModel, PostCommentViewModel>(postComment);
 
             return await _PostCommentServices.AddUPostComments(pc);
-        }
-
-
-        [HttpPut("EditPostCommentFromApi")]
-        public async Task<IActionResult> EditPostCommentFromApi(PostCommentForApiViewModel postComment)
-        {
-            var pc = _mapper.Map<PostCommentForApiViewModel, PostCommentViewModel>(postComment);
-
-            _PostCommentServices.EditComment(pc);
-
-            return Ok();
         }
 
         [HttpDelete("DeletePostCommentFromApi")]

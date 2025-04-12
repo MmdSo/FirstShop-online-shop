@@ -79,11 +79,14 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditMethodFromApi")]
-        public async Task<IActionResult> EditMethodFromApi(DeliveryForApiViewModel method)
+        public async Task<IActionResult> EditMethodFromApi(long id , [FromForm]DeliveryForApiViewModel method)
         {
-            var dm = _mapper.Map<DeliveryForApiViewModel, DeliveryViewModel>(method);
+            var existMethod = _deliveryServices.GetDeliveryById(id);
 
-            await _deliveryServices.EditDelivery(dm);
+            existMethod.DeliveryMethod = method.DeliveryMethod;
+            existMethod.DeliveryPrice = method.DeliveryPrice;
+
+            await _deliveryServices.EditDelivery(existMethod);
 
             return Ok();
         }
@@ -307,11 +310,12 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditMethodFromApi")]
-        public async Task<IActionResult> EditMethodFromApi(TaxForApiViewModel tax)
+        public async Task<IActionResult> EditMethodFromApi( [FromForm]TaxForApiViewModel tax)
         {
-            var ta = _mapper.Map<TaxForApiViewModel, TaxViewModel>(tax);
+            var existTax = _taxServices.GetAllTax().FirstOrDefault();
+            
 
-            await _taxServices.EditTax(ta);
+            await _taxServices.EditTax(existTax);
 
             return Ok();
         }

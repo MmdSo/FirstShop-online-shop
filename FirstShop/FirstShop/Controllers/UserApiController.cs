@@ -64,11 +64,21 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditUserFromApi")]
-        public async Task<IActionResult> EditUserFromApi(UserListForApiViewModel user)
+        public async Task<IActionResult> EditUserFromApi(long id , [FromForm]UserListForApiViewModel user)
         {
-            var us = _mapper.Map<UserListForApiViewModel, UserListViewModel>(user);
+            var existUser = _userServices.GetUserById(id);
+            if(existUser == null)
+            {
+                return NotFound("user is not Exist");
+            }
 
-            await _userServices.EditUser(us);
+            existUser.FirstName = user.FirstName;
+            existUser.LastName = user.LastName;
+            existUser.UserName = user.UserName;
+            existUser.Password = user.Password;
+            existUser.Email = user.Email;
+
+            await _userServices.EditUser(existUser);
 
             return Ok();
         }
@@ -189,11 +199,17 @@ namespace FirstShop.Controllers
 
 
         [HttpPut("EditUserRoleFromApi")]
-        public async Task<IActionResult> EditUserFromApi(RoleForApiViewModel role)
+        public async Task<IActionResult> EditUserFromApi(long id ,[FromForm]RoleForApiViewModel role)
         {
-            var ro = _mapper.Map<RoleForApiViewModel, RoleViewModel>(role);
+            var existRole = _roleServices.GetRoleById(id);
+            if(existRole == null)
+            {
+                return NotFound("Role is not Found");
+            }
 
-            await _roleServices.EditRole(ro);
+            existRole.Title = role.Title;
+
+            await _roleServices.EditRole(existRole);
 
             return Ok();
         }

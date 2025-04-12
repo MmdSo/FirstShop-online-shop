@@ -43,7 +43,7 @@ namespace FirstShop.Core.Services.Blogs.PostTypes
             await SaveChanges();
         }
 
-        public async void EditPostTypes(PostTypeViewModel post)
+        public async Task EditPostTypes(PostTypeViewModel post)
         {
             var pt = _mapper.Map<PostTypeViewModel, PostType>(post);
             EditEntity(pt);

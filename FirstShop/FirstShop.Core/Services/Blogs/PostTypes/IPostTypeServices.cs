@@ -15,7 +15,7 @@ namespace FirstShop.Core.Services.Blogs.PostTypes
         Task<PostTypeViewModel> GetPostTypesByIdAsync(long? id);
         PostTypeViewModel GetPostTypesById(long? id);
         Task<long> AddUPostTypes(PostTypeViewModel post);
-        void EditPostTypes(PostTypeViewModel post);
+        Task EditPostTypes(PostTypeViewModel post);
         Task DeletePostTypes(long postTypeId);
     }
 }
