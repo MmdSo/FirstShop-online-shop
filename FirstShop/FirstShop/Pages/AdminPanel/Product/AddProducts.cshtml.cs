@@ -71,7 +71,39 @@ namespace FirstShop.Pages.AdminPanel.Product
             }
             else
             {
-                await _productServices.AddProducts(productViewModel, prodImgUp);
+                //using (var client = new HttpClient())
+                //{
+                //    ProductForApiViewModel product = new ProductForApiViewModel()
+                //    {
+                //        BrandId = productViewModel.BrandId,
+                //        CategoryId = productViewModel.CategoryId,
+                //        Description = productViewModel.Description,
+                //        IsActive = productViewModel.IsActive,
+                //        Price = productViewModel.Price,
+                //        Quantity = productViewModel.Quantity,
+                //        Summery = productViewModel.Summery,
+                //        Title = productViewModel.Title,
+                //        ProductImage = ""
+                //    };
+
+                //    Uri baseUri = new Uri("https://localhost:7071");
+                    
+                //    client.BaseAddress =  baseUri;
+
+                //    var resposnse = await client.PostAsync("/api/Products/AddProductFromApiBody", JsonContent.Create(product));
+
+                //    var resultCode = resposnse.StatusCode;
+                //    var resultMessage = resposnse.Content.ReadAsStringAsync().Result;
+
+                //    if(resposnse.StatusCode == System.Net.HttpStatusCode.OK)
+                //    {
+                //        errorMessage.type = "success";
+                //        errorMessage.message = "Product is added successfully";
+
+                //        return RedirectToPage("/AdminPanel/Product/ProductList");
+                //    }
+                //} 
+                    //await _productServices.AddProducts(productViewModel, prodImgUp);
 
                 errorMessage.type = "success";
                 errorMessage.message = "Product is added successfully";

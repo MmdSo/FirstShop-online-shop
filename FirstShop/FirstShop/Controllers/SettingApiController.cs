@@ -256,7 +256,7 @@ namespace FirstShop.Controllers
         }
 
         [HttpPut("EditlogoFromApi")]
-        public async Task<IActionResult> EditlogoFromApi(LogoViewForApiModel logo, IFormFile logoImg)
+        public async Task<IActionResult> EditlogoFromApi([FromForm]LogoViewForApiModel logo, IFormFile logoImg)
         {
             var lo = _logoServices.GetAllLogo().FirstOrDefault();
 

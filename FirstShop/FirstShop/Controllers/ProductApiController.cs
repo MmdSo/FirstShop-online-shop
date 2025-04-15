@@ -49,7 +49,8 @@ namespace FirstShop.Controllers
         }
 
         [HttpPost("AddProductFromApiBody")]
-        public async Task<long> AddProductFromApiBody([FromForm]ProductForApiViewModel product, IFormFile PImg)
+        public async Task<long> AddProductFromApiBody([FromBody] ProductForApiViewModel product, IFormFile PImg)
+        //public async Task<long> AddProductFromApiBody([FromBody]ProductForApiViewModel product)
         {
             var pr = _mapper.Map<ProductForApiViewModel, ProductViewModel>(product);
 
@@ -65,6 +66,7 @@ namespace FirstShop.Controllers
             pr.ProductImage = "/Images/" + fileName;
 
             return await _productServices.AddProducts(pr, PImg);
+            //return await _productServices.AddProducts(pr, null);
         }
 
         [HttpPost("AddProductFromApiQuery")]
@@ -99,8 +101,8 @@ namespace FirstShop.Controllers
             existProduct.Description = product.Description;
             existProduct.Quantity = product.Quantity;
             existProduct.Price = product.Price; 
-            existProduct.BrandTitle = product.BrandTitle;
-            existProduct.CategoryTitle = product.CategoryTitle;
+            existProduct.BrandId = product.BrandId;
+            existProduct.CategoryId = product.CategoryId;
             
             
                 string fileName = NameGenerator.GenerateUniqCode() + Path.GetExtension(PImg.FileName);

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "mVKhh4yk6IwpkgixBCo5f/dmpTndxV3pocy+DEAYkYUvZjm8b+R3U+1Cb7/37jgoF4/HTxqIByIcMJrPB4XX4Q==",
+  "dgSpecHash": "PNaDkYKb5dJLodWj3AWLHeLSeN4S3KbRHs41zljcurTXGwkiJcvRFGStYzLUO62d19cLkFq9hzhVQ7SdX2m9Vg==",
   "success": true,
   "projectFilePath": "F:\\github\\FirstShop-online-shop\\FirstShop\\FirstShop\\FirstShop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Vidar\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Vidar\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\Vidar\\.nuget\\packages\\jwt\\11.0.0\\jwt.11.0.0.nupkg.sha512",
     "C:\\Users\\Vidar\\.nuget\\packages\\kavenegardotnetcore\\1.0.7\\kavenegardotnetcore.1.0.7.nupkg.sha512",
     "C:\\Users\\Vidar\\.nuget\\packages\\microsoft.aspnetcore\\2.2.0\\microsoft.aspnetcore.2.2.0.nupkg.sha512",
     "C:\\Users\\Vidar\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",

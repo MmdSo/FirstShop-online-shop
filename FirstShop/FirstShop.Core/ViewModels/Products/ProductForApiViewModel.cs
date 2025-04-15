@@ -12,8 +12,8 @@ namespace FirstShop.Core.ViewModels.Products
         public string Title { get; set; }
         public int Quantity { get; set; }
         public long Price { get; set; }
-        public string? CategoryTitle { get; set; }
-        public string? BrandTitle { get; set; }
+        public long CategoryId { get; set; }
+        public long BrandId { get; set; }
         public bool IsActive { get; set; }
         public string? Description { get; set; }
         public string? Summery { get; set; }

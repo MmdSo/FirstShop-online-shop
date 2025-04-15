@@ -23,6 +23,18 @@
           "lib/netstandard2.0/Humanizer.dll": {}
         }
       },
+      "JWT/11.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "compile": {
+          "lib/net6.0/JWT.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/JWT.dll": {}
+        }
+      },
       "KavenegarDotNetCore/1.0.7": {
         "type": "package",
         "dependencies": {
@@ -3474,6 +3486,39 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "JWT/11.0.0": {
+      "sha512": "jOT1PA95jgf78CqWsKt8hz9Uzv4J39vukzf5nYtfky9N6wl1W4vIXT1CdkQI7zG20HnApEMtmpC/pMtCKr4rvw==",
+      "type": "package",
+      "path": "jwt/11.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "jwt.11.0.0.nupkg.sha512",
+        "jwt.nuspec",
+        "lib/net35/JWT.dll",
+        "lib/net35/JWT.pdb",
+        "lib/net35/JWT.xml",
+        "lib/net40/JWT.dll",
+        "lib/net40/JWT.pdb",
+        "lib/net40/JWT.xml",
+        "lib/net462/JWT.dll",
+        "lib/net462/JWT.pdb",
+        "lib/net462/JWT.xml",
+        "lib/net6.0/JWT.dll",
+        "lib/net6.0/JWT.pdb",
+        "lib/net6.0/JWT.xml",
+        "lib/net8.0/JWT.dll",
+        "lib/net8.0/JWT.pdb",
+        "lib/net8.0/JWT.xml",
+        "lib/netstandard1.3/JWT.dll",
+        "lib/netstandard1.3/JWT.pdb",
+        "lib/netstandard1.3/JWT.xml",
+        "lib/netstandard2.0/JWT.dll",
+        "lib/netstandard2.0/JWT.pdb",
+        "lib/netstandard2.0/JWT.xml"
       ]
     },
     "KavenegarDotNetCore/1.0.7": {
@@ -10003,6 +10048,7 @@
     "net6.0": [
       "FirstShop.Core >= 1.0.0",
       "FirstShop.Data >= 1.0.0",
+      "JWT >= 11.0.0",
       "KavenegarDotNetCore >= 1.0.7",
       "Microsoft.AspNetCore.JsonPatch >= 9.0.3",
       "Microsoft.EntityFrameworkCore >= 6.0.0",
@@ -10063,6 +10109,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "JWT": {
+            "target": "Package",
+            "version": "[11.0.0, )"
+          },
           "KavenegarDotNetCore": {
             "target": "Package",
             "version": "[1.0.7, )"
