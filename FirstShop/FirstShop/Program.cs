@@ -26,7 +26,10 @@ using FirstShop.Core.Tools;
 using FirstShop.Core.ViewModels.Settings;
 using FirstShop.Data.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +67,27 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         config.Cookie.IsEssential = true;
     });
 
+#endregion
+
+#region jwtAuthentication
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(option =>
+{
+    var config = builder.Configuration.GetSection("JwtSettings");
+    option.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = config["Issuer"],
+        ValidAudience = config["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Key"]))
+    };
+});
 #endregion
 
 builder.Services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericRepository<>));

@@ -3,8 +3,13 @@ using FirstShop.Core.Services.User.PermissionServices;
 using FirstShop.Core.Services.User.RoleServices;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.ViewModels.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace FirstShop.Controllers
 {
@@ -15,10 +20,12 @@ namespace FirstShop.Controllers
     {
         private IMapper _mapper;
         private IUserServices _userServices;
-        public UserApiController(IUserServices userServices, IMapper mapper)
+        private IConfiguration _config;
+        public UserApiController(IUserServices userServices, IMapper mapper , IConfiguration config)
         {
             _userServices = userServices;
             _mapper = mapper;
+            _config = config;
         }
 
         public List<UserListViewModel> usersList { get; set; }
@@ -62,7 +69,7 @@ namespace FirstShop.Controllers
             return await _userServices.AddUser(us);
         }
 
-
+        [Authorize]
         [HttpPut("EditUserFromApi")]
         public async Task<IActionResult> EditUserFromApi(long id , [FromForm]UserListForApiViewModel user)
         {
@@ -103,7 +110,7 @@ namespace FirstShop.Controllers
         //{
         //    return _userServices.GetStuffByUserId(id);
         //}
-
+        [Authorize]
         [HttpPut("ChangeEmailFromApi")]
         public async Task<IActionResult> ChangeEmailFromApi(ChangeEmailForApiViewModel mail)
         {
@@ -112,6 +119,7 @@ namespace FirstShop.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut("ChangePasswordFromApi")]
         public async Task<IActionResult> ChangePasswordFromApi(ChangePasswordForApiViewModel password)
         {
@@ -123,12 +131,32 @@ namespace FirstShop.Controllers
         }
 
         [HttpPost("UserLoginFromApi")]
-        public LoginViewModel UserLoginFromApi([FromQuery] LoginForApiViewModel login)
+        public IActionResult UserLoginFromApi([FromQuery] LoginForApiViewModel login)
         {
-            var log = _mapper.Map<LoginForApiViewModel, LoginViewModel>(login);
+           if(login.UserName =="Admin" && login.Password == "Admin1234")
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.UTF8.GetBytes(_config["JwtSettings:Key"]);
 
-            return _userServices.Login(log);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                        new Claim(ClaimTypes.Name ,login.UserName)
+                    }),
+                    Expires = DateTime.UtcNow.AddMinutes(60),
+                    Issuer = _config["JwtSettings:Issuer"],
+                    Audience = _config["JwtSettings:Audience"],
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
 
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+
+                return Ok(new { Token = tokenString});
+            }
+
+           return Unauthorized("username and password dosnt mathch !");
         }
 
         [HttpPost("UserRegisterFromApi")]

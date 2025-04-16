@@ -4,12 +4,14 @@ using FirstShop.Core.Services.Blogs.PostComment;
 using FirstShop.Core.Services.Blogs.PostTypes;
 using FirstShop.Core.Tools;
 using FirstShop.Core.ViewModels.Blogs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstShop.Controllers
 {
     #region Post
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostApiController : ControllerBase
@@ -223,6 +225,7 @@ namespace FirstShop.Controllers
     #endregion
 
     #region PostComment
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class PostCommentController : ControllerBase

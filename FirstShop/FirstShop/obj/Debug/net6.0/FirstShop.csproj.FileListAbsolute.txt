@@ -170,3 +170,11 @@ F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\FirstShop.d
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\ref\FirstShop.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\FirstShop.pdb
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\FirstShop.genruntimeconfig.cache
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\JWT.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Authorization.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\Microsoft.Bcl.Memory.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\Microsoft.Bcl.TimeProvider.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

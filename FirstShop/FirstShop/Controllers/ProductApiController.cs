@@ -6,6 +6,7 @@ using FirstShop.Core.Services.Products.Product;
 using FirstShop.Core.Services.Products.ProductComments;
 using FirstShop.Core.Tools;
 using FirstShop.Core.ViewModels.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstShop.Controllers
@@ -435,6 +436,7 @@ namespace FirstShop.Controllers
     #endregion
 
     #region ProductComment
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ProductCommentController : ControllerBase
