@@ -50,34 +50,69 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("FirstShopConecti
 
 builder.Services.Configure<SendMessagesViewModel>(builder.Configuration.GetSection("KavehNegar"));
 
-#region Authentication
+//#region Authentication
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
-    {
-        config.Cookie.Name = "Shop.CookieAuth";
-        config.LoginPath = "/Login";
-        config.LogoutPath = "/logout";
-        config.SlidingExpiration = true;
-        config.Cookie.MaxAge = TimeSpan.FromMinutes(60);
-        config.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-        config.Cookie.HttpOnly = false;
-        config.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
-        config.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
-        config.Cookie.IsEssential = true;
-    });
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
+//    {
+//        config.Cookie.Name = "Shop.CookieAuth";
+//        config.LoginPath = "/Login";
+//        config.LogoutPath = "/logout";
+//        config.SlidingExpiration = true;
+//        config.Cookie.MaxAge = TimeSpan.FromMinutes(60);
+//        config.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+//        config.Cookie.HttpOnly = false;
+//        config.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+//        config.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
+//        config.Cookie.IsEssential = true;
+//    });
 
-#endregion
+//#endregion
 
-#region jwtAuthentication
-builder.Services.AddAuthentication(option =>
+//#region jwtAuthentication
+//builder.Services.AddAuthentication(option =>
+//{
+//    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//}).AddJwtBearer(option =>
+//{
+//    var config = builder.Configuration.GetSection("JwtSettings");
+//    option.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey = true,
+//        ValidIssuer = config["Issuer"],
+//        ValidAudience = config["Audience"],
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Key"]))
+//    };
+//});
+//#endregion
+
+#region Authorization
+builder.Services.AddAuthentication(options =>
 {
-    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(option =>
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
+{
+    config.Cookie.Name = "Shop.CookieAuth";
+    config.LoginPath = "/Login";
+    config.LogoutPath = "/logout";
+    config.SlidingExpiration = true;
+    config.Cookie.MaxAge = TimeSpan.FromMinutes(60);
+    config.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    config.Cookie.HttpOnly = false;
+    config.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+    config.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
+    config.Cookie.IsEssential = true;
+})
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 {
     var config = builder.Configuration.GetSection("JwtSettings");
-    option.TokenValidationParameters = new TokenValidationParameters
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,

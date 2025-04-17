@@ -133,7 +133,7 @@ namespace FirstShop.Controllers
         [HttpPost("UserLoginFromApi")]
         public IActionResult UserLoginFromApi([FromQuery] LoginForApiViewModel login)
         {
-           if(login.UserName =="Admin" && login.Password == "Admin1234")
+            if (login.UserName == "Admin" && login.Password == "Admin1234")
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.UTF8.GetBytes(_config["JwtSettings:Key"]);
@@ -153,10 +153,10 @@ namespace FirstShop.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                return Ok(new { Token = tokenString});
+                return Ok(new { Token = tokenString });
             }
 
-           return Unauthorized("username and password dosnt mathch !");
+            return Unauthorized("username and password dosnt mathch !");
         }
 
         [HttpPost("UserRegisterFromApi")]
