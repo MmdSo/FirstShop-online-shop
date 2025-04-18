@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FirstShop.Core.Security;
 using FirstShop.Core.Services.User.PermissionServices;
 using FirstShop.Core.Services.User.RoleServices;
 using FirstShop.Core.Services.UserServices;
@@ -133,8 +134,17 @@ namespace FirstShop.Controllers
         [HttpPost("UserLoginFromApi")]
         public IActionResult UserLoginFromApi([FromQuery] LoginForApiViewModel login)
         {
-            if (login.UserName == "Admin" && login.Password == "Admin1234")
+            string pass = PasswordHelper.EncodePasswordMd5(login.Password);
+            if (login.UserName != null && pass != null)
             {
+                var log = _mapper.Map<LoginForApiViewModel , LoginViewModel>(login);
+                var user = _userServices.Login(log);
+
+                if(user == null)
+                {
+                    return Unauthorized();
+                }
+
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.UTF8.GetBytes(_config["JwtSettings:Key"]);
 
