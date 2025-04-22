@@ -42,7 +42,28 @@ builder.Services.AddMvc();
 builder.Services.AddRazorPages();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(option =>
+{
+    var jwtScurityScheme = new OpenApiSecurityScheme
+    {
+        BearerFormat ="JWT",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme =JwtBearerDefaults.AuthenticationScheme,
+        Description = "Enter your token :",
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+    option.AddSecurityDefinition("Bearer" , jwtScurityScheme);
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {jwtScurityScheme ,Array.Empty<string>() }
+    });
+});
 
 builder.Services.AddDbContext<FirstShop.Data.Context.AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("FirstShopConectionString"))
@@ -94,6 +115,7 @@ builder.Services.Configure<SendMessagesViewModel>(builder.Configuration.GetSecti
 #region Authorization
 builder.Services.AddAuthentication(options =>
 {
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
@@ -112,6 +134,8 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 {
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
     var config = builder.Configuration.GetSection("JwtSettings");
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -124,6 +148,7 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Key"]))
     };
 });
+builder.Services.AddAuthentication();
 #endregion
 
 #region GetToken
@@ -147,14 +172,14 @@ builder.Services.AddSwaggerGen(c =>
         }
     };
 
-    c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+    //c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         { jwtSecurityScheme, Array.Empty<string>() }
     });
 
-    c.OperationFilter<AuthorizeOperationFilter>();
+    //c.OperationFilter<AuthorizeOperationFilter>();
 });
 #endregion
 
