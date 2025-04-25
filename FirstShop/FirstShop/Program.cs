@@ -20,7 +20,9 @@ using FirstShop.Core.Services.Settings.Logos;
 using FirstShop.Core.Services.Settings.Sliders;
 using FirstShop.Core.Services.Settings.UsedDiscountCode;
 using FirstShop.Core.Services.User.PermissionServices;
+using FirstShop.Core.Services.User.RefreshTokenServices;
 using FirstShop.Core.Services.User.RoleServices;
+using FirstShop.Core.Services.User.TokenServices;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.Tools;
 using FirstShop.Core.ViewModels.Settings;
@@ -148,7 +150,6 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Key"]))
     };
 });
-builder.Services.AddAuthentication();
 #endregion
 
 #region GetToken
@@ -219,6 +220,9 @@ builder.Services.AddTransient<IRoleServices, RoleServices>();
 builder.Services.AddTransient<IPermissionServices, PermissionServices>();
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
+
+builder.Services.AddTransient<IRefreshTokenServices, RefreshTokenServices>();
+builder.Services.AddTransient<ITokenServices, TokenServices>();
 
 builder.Services.AddTransient(typeof(EncryptionUtility));
 builder.Services.AddTransient(typeof(GoogleReCaptchaServices));

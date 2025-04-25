@@ -75,6 +75,9 @@ namespace FirstShop.Core.Mapper
             CreateMap<PermissionForApiViewModel, PermissionViewModel>();
             CreateMap<PermissionViewModel, PermissionForApiViewModel>();
 
+            CreateMap<RefreshToken, RefreshTokenRequestViewModel>().ReverseMap();
+            CreateMap<RefreshToken, AuthResultViewModel>().ReverseMap();
+
             CreateMap<Productss, ProductViewModel>();
             CreateMap<ProductViewModel, Productss>();
 

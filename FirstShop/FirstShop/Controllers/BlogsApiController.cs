@@ -51,7 +51,7 @@ namespace FirstShop.Controllers
         }
 
         [HttpPost("AddPostFromApiBody")]
-        public async Task<long> AddPostFromApiBody(PostForApiViewModel post, IFormFile PostImg)
+        public async Task<long> AddPostFromApiBody([FromForm]PostForApiViewModel post, IFormFile? PostImg)
         {
             var po = _mapper.Map<PostForApiViewModel, PostViewModel>(post);
 

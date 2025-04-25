@@ -15,6 +15,7 @@ namespace FirstShop.Core.ViewModels.Blogs
         public string Body { get; set; }
         public string? PostImage { get; set; }
         public string? PostIndexImage { get; set; }
-        public string? PostType { get; set; }
+        public long UserId { get; set; }
+        public long PostTypeId { get; set; }
     }
 }

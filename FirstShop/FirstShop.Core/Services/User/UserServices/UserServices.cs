@@ -259,5 +259,16 @@ namespace FirstShop.Core.Services.UserServices
             var person = _mapper.Map<SiteUser, AboutUserViewModel>(GetAll().SingleOrDefault(p => p.id == id));
             return person;
         }
+
+        public async Task<SiteUser?> GetUserByRefreshToken(string refreshToken)
+        {
+            return _context.Users.FirstOrDefault(u => u.RefreshToken == refreshToken);
+        }
+
+        public async Task UpdateUserAsync(SiteUser user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -34,6 +34,7 @@ namespace FirstShop.Core.Services.UserServices
         void UpdateUserRoles(long userId, List<long> Roles);
         Task<IEnumerable<AboutUserViewModel>> GetAllStuff();
         AboutUserViewModel GetStuffByUserId(long id);
-
+        Task<SiteUser?> GetUserByRefreshToken(string refreshToken);
+        Task UpdateUserAsync(SiteUser user);
     }
 }

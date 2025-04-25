@@ -31,3 +31,4 @@ F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstS
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\ref\FirstShop.Data.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.pdb
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.genruntimeconfig.cache
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.csproj.AssemblyReference.cache

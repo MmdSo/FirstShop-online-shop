@@ -21,6 +21,7 @@ namespace FirstShop.Data.Context
         public DbSet<Permissions> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<RefreshToken> RefreshToken { get; set; }
 
 
         public DbSet<ShoppingBasket> shoppingBasket { get; set; }

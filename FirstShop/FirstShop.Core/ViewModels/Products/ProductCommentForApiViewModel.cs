@@ -12,6 +12,8 @@ namespace FirstShop.Core.ViewModels.Products
         public string Title { get; set; }
         public string UserName { get; set; }
         public string UserEmail { get; set; }
+        public long ProductsId { get; set; }
+        public long? CommentID { get; set; }
         public bool IsApproved { get; set; }
     }
 }

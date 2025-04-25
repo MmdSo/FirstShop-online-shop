@@ -31,7 +31,8 @@ namespace FirstShop.Data.Users
 
         public bool IsActive { get; set; }
         public string? ActivateCode { get; set; }
-
+        public string RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiryTime { get; set; }
 
 
         #region Relation
