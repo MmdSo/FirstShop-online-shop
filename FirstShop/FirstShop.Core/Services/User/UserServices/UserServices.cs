@@ -262,7 +262,8 @@ namespace FirstShop.Core.Services.UserServices
 
         public async Task<SiteUser?> GetUserByRefreshToken(string refreshToken)
         {
-            return _context.Users.FirstOrDefault(u => u.RefreshToken == refreshToken);
+            var token =  _context.Users.FirstOrDefault(u => u.RefreshToken == refreshToken);
+            return token;
         }
 
         public async Task UpdateUserAsync(SiteUser user)

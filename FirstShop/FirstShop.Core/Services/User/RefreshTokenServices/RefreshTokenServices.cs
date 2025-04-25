@@ -40,7 +40,7 @@ namespace FirstShop.Core.Services.User.RefreshTokenServices
 
             
             user.RefreshToken = newRefreshToken;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(60); 
+            user.RefreshTokenExpiryTime = DateTime.Now.AddHours(5); 
             await _userService.UpdateUserAsync(user);
 
             return new AuthResultViewModel

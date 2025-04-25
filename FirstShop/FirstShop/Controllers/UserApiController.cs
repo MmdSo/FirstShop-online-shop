@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FirstShop.Core.Security;
 using FirstShop.Core.Services.User.PermissionServices;
+using FirstShop.Core.Services.User.RefreshTokenServices;
 using FirstShop.Core.Services.User.RoleServices;
 using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.ViewModels.Users;
@@ -21,12 +22,14 @@ namespace FirstShop.Controllers
     {
         private IMapper _mapper;
         private IUserServices _userServices;
+        private IRefreshTokenServices _refreshTokenService;
         private IConfiguration _config;
-        public UserApiController(IUserServices userServices, IMapper mapper , IConfiguration config)
+        public UserApiController(IUserServices userServices, IMapper mapper , IConfiguration config , IRefreshTokenServices refreshTokenService)
         {
             _userServices = userServices;
             _mapper = mapper;
             _config = config;
+            _refreshTokenService = refreshTokenService;
         }
 
         public List<UserListViewModel> usersList { get; set; }
@@ -175,6 +178,17 @@ namespace FirstShop.Controllers
             var user = _mapper.Map<UserRegisterForApiViewModel, UserRegisterViewModel>(Register);
 
             return await _userServices.Register(user);
+        }
+
+        [HttpPost("RefreshToken")]
+        public async Task<IActionResult> RefreshToken([FromForm] string refreshToken)
+        {
+            var result = await _refreshTokenService.RefreshTokenAsync(refreshToken);
+
+            if (result == null)
+                return Unauthorized("Refresh token is invalid or expired.");
+
+            return Ok(result); 
         }
     }
     #endregion
