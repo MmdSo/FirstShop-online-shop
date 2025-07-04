@@ -115,7 +115,7 @@ namespace FirstShop.Core.Services.Products.Product
             Go.BrandTitle = _brandServices.GetBrandsById(Go.BrandId).Title;
             Go.CategoryTitle = _categoryServices.GetCategoriesById(Go.CategoryId).Title;
 
-            return Go; ;
+            return Go; 
         }
 
 
@@ -128,7 +128,7 @@ namespace FirstShop.Core.Services.Products.Product
                 item.BrandTitle = _brandServices.GetBrandsById(item.BrandId).Title;
                 item.CategoryTitle = _categoryServices.GetCategoriesById(item.CategoryId).Title;
             }
-            return Go; ;
+            return Go;
         }
 
 

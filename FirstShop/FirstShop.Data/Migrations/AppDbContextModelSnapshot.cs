@@ -827,34 +827,22 @@ namespace FirstShop.Data.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("FirstShop.Data.Users.RefreshToken", b =>
+            modelBuilder.Entity("FirstShop.Data.Users.RefreshTokens", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataCreated")
+                    b.Property<DateTime>("Expires")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateModified")
+                    b.Property<DateTime?>("Revoked")
                         .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpireTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsRevoked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUsed")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Token")
                         .IsRequired()
@@ -863,7 +851,7 @@ namespace FirstShop.Data.Migrations
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -1202,7 +1190,7 @@ namespace FirstShop.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("FirstShop.Data.Users.RefreshToken", b =>
+            modelBuilder.Entity("FirstShop.Data.Users.RefreshTokens", b =>
                 {
                     b.HasOne("FirstShop.Data.Users.SiteUser", "User")
                         .WithMany()

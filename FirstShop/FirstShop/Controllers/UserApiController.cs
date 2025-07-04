@@ -155,7 +155,9 @@ namespace FirstShop.Controllers
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                        new Claim(ClaimTypes.Name ,login.UserName)
+                        new Claim(ClaimTypes.Name ,login.UserName),
+                        new Claim(ClaimTypes.Email , user.Email ?? ""),
+                        new Claim(ClaimTypes.NameIdentifier, user.id.ToString())
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(60),
                     Issuer = _config["JwtSettings:Issuer"],
@@ -228,7 +230,7 @@ namespace FirstShop.Controllers
 
 
         [HttpPost]
-        public long AddUserFromApi(long id)
+        public long AddRoleFromApi(long id)
         {
             return id;
         }
