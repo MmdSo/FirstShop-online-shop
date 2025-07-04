@@ -1,5 +1,6 @@
 ﻿using FirstShop.Data.Blogs;
 using FirstShop.Data.Products;
+using FirstShop.Data.RefreshTokens;
 using FirstShop.Data.Sales;
 using FirstShop.Data.setting;
 using FirstShop.Data.Users;
@@ -21,8 +22,8 @@ namespace FirstShop.Data.Context
         public DbSet<Permissions> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
-        
 
+        public DbSet<RefrshToken> RefreshToken { get; set; }
 
         public DbSet<ShoppingBasket> shoppingBasket { get; set; }
         public DbSet<ShoppingBasketDetail> shoppingBasketDetail { get; set; }

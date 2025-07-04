@@ -134,64 +134,64 @@ namespace FirstShop.Controllers
             return Ok();
         }
 
-        [HttpPost("UserLoginFromApi")]
-        public IActionResult UserLoginFromApi([FromQuery] LoginForApiViewModel login)
-        {
-            string pass = PasswordHelper.EncodePasswordMd5(login.Password);
-            if (login.UserName != null && pass != null)
-            {
-                var log = _mapper.Map<LoginForApiViewModel , LoginViewModel>(login);
-                var user = _userServices.Login(log);
+        //[HttpPost("UserLoginFromApi")]
+        //public IActionResult UserLoginFromApi([FromQuery] LoginForApiViewModel login)
+        //{
+        //    string pass = PasswordHelper.EncodePasswordMd5(login.Password);
+        //    if (login.UserName != null && pass != null)
+        //    {
+        //        var log = _mapper.Map<LoginForApiViewModel , LoginViewModel>(login);
+        //        var user = _userServices.Login(log);
 
-                if(user == null)
-                {
-                    return Unauthorized();
-                }
+        //        if(user == null)
+        //        {
+        //            return Unauthorized();
+        //        }
 
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.UTF8.GetBytes(_config["JwtSettings:Key"]);
+        //        var tokenHandler = new JwtSecurityTokenHandler();
+        //        var key = Encoding.UTF8.GetBytes(_config["JwtSettings:Key"]);
 
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                        new Claim(ClaimTypes.Name ,login.UserName),
-                        new Claim(ClaimTypes.Email , user.Email ?? ""),
-                        new Claim(ClaimTypes.NameIdentifier, user.id.ToString())
-                    }),
-                    Expires = DateTime.UtcNow.AddMinutes(60),
-                    Issuer = _config["JwtSettings:Issuer"],
-                    Audience = _config["JwtSettings:Audience"],
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
+        //        var tokenDescriptor = new SecurityTokenDescriptor
+        //        {
+        //            Subject = new ClaimsIdentity(new[]
+        //            {
+        //                new Claim(ClaimTypes.Name ,login.UserName),
+        //                new Claim(ClaimTypes.Email , user.Email ?? ""),
+        //                new Claim(ClaimTypes.NameIdentifier, user.id.ToString())
+        //            }),
+        //            Expires = DateTime.UtcNow.AddMinutes(60),
+        //            Issuer = _config["JwtSettings:Issuer"],
+        //            Audience = _config["JwtSettings:Audience"],
+        //            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        //        };
 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
+        //        var token = tokenHandler.CreateToken(tokenDescriptor);
+        //        var tokenString = tokenHandler.WriteToken(token);
 
-                return Ok(new { Token = tokenString });
-            }
+        //        return Ok(new { Token = tokenString });
+        //    }
 
-            return Unauthorized("username and password dosnt mathch !");
-        }
+        //    return Unauthorized("username and password dosnt mathch !");
+        //}
 
-        [HttpPost("UserRegisterFromApi")]
-        public async Task<long> UserRegisterFromApi(UserRegisterForApiViewModel Register)
-        {
-            var user = _mapper.Map<UserRegisterForApiViewModel, UserRegisterViewModel>(Register);
+        //[HttpPost("UserRegisterFromApi")]
+        //public async Task<long> UserRegisterFromApi(UserRegisterForApiViewModel Register)
+        //{
+        //    var user = _mapper.Map<UserRegisterForApiViewModel, UserRegisterViewModel>(Register);
 
-            return await _userServices.Register(user);
-        }
+        //    return await _userServices.Register(user);
+        //}
 
-        [HttpPost("RefreshToken")]
-        public async Task<IActionResult> RefreshToken([FromForm] string refreshToken)
-        {
-            var result = await _refreshTokenService.RefreshTokenAsync(refreshToken);
+        //[HttpPost("RefreshToken")]
+        //public async Task<IActionResult> RefreshToken([FromForm] string refreshToken)
+        //{
+        //    var result = await _refreshTokenService.RefreshTokenAsync(refreshToken);
 
-            if (result == null)
-                return Unauthorized("Refresh token is invalid or expired.");
+        //    if (result == null)
+        //        return Unauthorized("Refresh token is invalid or expired.");
 
-            return Ok(result); 
-        }
+        //    return Ok(result); 
+        //}
     }
     #endregion
 

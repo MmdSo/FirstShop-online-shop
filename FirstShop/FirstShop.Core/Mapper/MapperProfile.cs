@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using FirstShop.Core.ViewModels.Blogs;
 using FirstShop.Core.ViewModels.Products;
+using FirstShop.Core.ViewModels.RefreshRokensViewModel;
 using FirstShop.Core.ViewModels.Sales;
 using FirstShop.Core.ViewModels.Settings;
 using FirstShop.Core.ViewModels.Users;
 using FirstShop.Data.Blogs;
 using FirstShop.Data.Products;
+using FirstShop.Data.RefreshTokens;
 using FirstShop.Data.Sales;
 using FirstShop.Data.setting;
 using FirstShop.Data.Users;
@@ -75,7 +77,11 @@ namespace FirstShop.Core.Mapper
             CreateMap<PermissionForApiViewModel, PermissionViewModel>();
             CreateMap<PermissionViewModel, PermissionForApiViewModel>();
 
-            
+            CreateMap<RefrshToken, TokenResponseViewModel>();
+            CreateMap<TokenResponseViewModel, RefrshToken>();
+
+            CreateMap<RefrshToken, TokenRequestViewModel>();
+            CreateMap<TokenRequestViewModel, RefrshToken>();
 
             CreateMap<Productss, ProductViewModel>();
             CreateMap<ProductViewModel, Productss>();
