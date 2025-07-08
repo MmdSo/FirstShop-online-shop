@@ -4,9 +4,13 @@ using FirstShop.Core.Services.UserServices;
 using FirstShop.Core.Tools;
 using FirstShop.Core.ViewModels.Users;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 namespace FirstShop.Controllers
 {
@@ -38,41 +42,35 @@ namespace FirstShop.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UserLogin(LoginViewModel login)
+        public async Task<IActionResult> UserLogin(LoginViewModel login)
         {
             if (!ModelState.IsValid)
-            {
-                return new JsonResult(0);
-            }
+                return new JsonResult(0); 
+
+            if (!await _recaptchaServices.VerifyRecaptchaToken(login.captchaToken))
+                return new JsonResult(5); 
+
             var user = _userServices.Login(login);
+            if (user == null)
+                return new JsonResult(2); 
 
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, user.UserName),
+        new Claim("UserName", user.UserName),
+        new Claim(ClaimTypes.NameIdentifier, user.id.ToString())
+    };
 
-            if (user != null)
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            var props = new AuthenticationProperties
             {
-                List<Claim> claim = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name,user.UserName),
-                    new Claim("UserName",user.UserName),
-                    new Claim(ClaimTypes.NameIdentifier,user.id.ToString())
-                };
-                var identity = new ClaimsIdentity(claim, "Cookies");
-                var principals = new ClaimsPrincipal(identity);
-                var properties = new AuthenticationProperties
-                {
-                    IsPersistent = login.RememberMe
-                };
+                IsPersistent = login.RememberMe
+            };
 
-                if(! await _recaptchaServices.VerifyRecaptchaToken(login.captchaToken))
-                {
-                    return new JsonResult(5);
-                }
-                await _Httpaccessor.HttpContext.SignInAsync("Cookies", principals, properties);
-            }
-            else
-            {
-                return new JsonResult(2);
-            }
-            return new JsonResult(10);
+            await _Httpaccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props);
+
+            return new JsonResult(10); 
         }
 
 

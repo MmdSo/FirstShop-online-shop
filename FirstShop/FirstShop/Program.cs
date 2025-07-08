@@ -1,4 +1,4 @@
-using FirstShop.Core.Security;
+﻿using FirstShop.Core.Security;
 using FirstShop.Core.Services.Blogs.Post;
 using FirstShop.Core.Services.Blogs.PostComment;
 using FirstShop.Core.Services.Blogs.PostTypes;
@@ -117,37 +117,40 @@ builder.Services.Configure<SendMessagesViewModel>(builder.Configuration.GetSecti
 #region Authorization
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 })
+
 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
 {
     config.Cookie.Name = "Shop.CookieAuth";
     config.LoginPath = "/Login";
-    config.LogoutPath = "/logout";
+    config.LogoutPath = "/Logout";
     config.SlidingExpiration = true;
     config.Cookie.MaxAge = TimeSpan.FromMinutes(60);
     config.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-    config.Cookie.HttpOnly = false;
-    config.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
-    config.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
+    config.Cookie.HttpOnly = true;
+    config.Cookie.SameSite = SameSiteMode.Lax;
+    config.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; 
     config.Cookie.IsEssential = true;
 })
 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 {
     options.RequireHttpsMetadata = false;
     options.SaveToken = true;
-    var config = builder.Configuration.GetSection("JwtSettings");
+
+    var jwtConfig = builder.Configuration.GetSection("JwtSettings");
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = config["Issuer"],
-        ValidAudience = config["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Key"]))
+        ValidIssuer = jwtConfig["Issuer"],
+        ValidAudience = jwtConfig["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig["Key"]))
     };
 });
 #endregion
