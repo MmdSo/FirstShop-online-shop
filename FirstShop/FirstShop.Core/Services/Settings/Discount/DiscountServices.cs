@@ -63,6 +63,7 @@ namespace FirstShop.Core.Services.Settings.Discount
 
         public async Task<DiscountCodeViewModel> GetCodesByCodeAsync(string? code)
         {
+            
             var cd = _mapper.Map<DiscountCode, DiscountCodeViewModel>(GetAll().SingleOrDefault(c => c.Code == code));
             return cd;
         }

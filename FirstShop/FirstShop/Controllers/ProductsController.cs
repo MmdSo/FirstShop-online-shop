@@ -256,15 +256,17 @@ namespace FirstShop.Controllers
                     var discount = await _discount.GetCodesByCodeAsync(discountCode);
                     var tax = _taxServices.GetAllTax().FirstOrDefault();
 
-                    var usedCode = _usedCode.IsCodesUsed(UserId , discount.Id);
+                    if (discount != null)
+                    {
+                        var usedCode = _usedCode.IsCodesUsed(UserId, discount.Id);
 
-                    if (discount == null || usedCode.Any())
-                    {
-                        errorMessage.type = "error";
-                        errorMessage.message = "Discount code is invalid or you used it before!";
+                        if (discount == null || usedCode.Any())
+                        {
+                            errorMessage.type = "error";
+                            errorMessage.message = "Discount code is invalid or you used it before!";
+                        }
                     }
-                    else
-                    {
+                    
 
 
                         foreach (var item in Detail)
@@ -285,6 +287,8 @@ namespace FirstShop.Controllers
                             //long invoiceBodyId = await _InvoiceBodyServices.AddInvoiceBody(invoiceBody);
                         }
                         var user = await _userServices.GetUserByIdAsync(UserId);
+                    if (discount != null)
+                    {
                         InvoiceHeadViewModel invoiceHead = new InvoiceHeadViewModel()
                         {
                             CustomerName = user.FirstName,
@@ -308,11 +312,32 @@ namespace FirstShop.Controllers
                         };
 
                         await _usedCode.AddCodes(UsedCodes);
+                        cart.IsComplete = true;
+                        await _ShoppingBasketServices.EditShoppingBasket(cart);
+                    }
+                    else
+                    {
+                        InvoiceHeadViewModel invoiceHead = new InvoiceHeadViewModel()
+                        {
+                            CustomerName = user.FirstName,
+                            CustomerLastName = user.LastName,
+                            title = Detail.FirstOrDefault().ProductName,
+                            description = "customer invoice",
+                            UserID = user.id,
+                            TotalPrice = cart.TotalPrice + deliveryPrice,
+                            Tax = cart.TotalPrice * (tax.Percent / 100),
+                            DeliveryPrice = deliveryMethod.DeliveryPrice,
+                            FinalPrice = cart.TotalPrice + (deliveryPrice + (cart.TotalPrice * (tax.Percent / 100)))
+                        };
+
+                        await _InvoiceHeadServices.AddInvoiceHead(invoiceHead, invoiceBodyList);
 
                         cart.IsComplete = true;
                         await _ShoppingBasketServices.EditShoppingBasket(cart);
-
                     }
+                        
+
+                    
                 }
                 return Redirect("/ProductList");
             }
