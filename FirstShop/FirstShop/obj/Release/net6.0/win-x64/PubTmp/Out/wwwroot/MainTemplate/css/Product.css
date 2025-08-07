@@ -1,0 +1,214 @@
+﻿.product-cardss {
+/*    display: flex;
+*/    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+/*    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+*/    overflow: hidden;
+}
+
+/* Product Image Section */
+.product-Images {
+    flex: 1;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .product-Images img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 5px;
+    }
+
+/* Product Details Section */
+.product-detailss {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-titles {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.product-brandss, .product-categoryss {
+    font-size: 1em;
+    color: #555555;
+    margin: 5px 0;
+}
+
+    .product-brandss span, .product-categoryss span {
+        font-weight: bold;
+        color: #333333;
+    }
+
+.product-descriptionss {
+    font-size: 1em;
+    color: #666666;
+    line-height: 1.6;
+    margin: 20px 0;
+}
+
+.product-pricess {
+    font-size: 2em;
+    font-weight: bold;
+    color: #e91e63;
+    margin: 20px 0;
+}
+
+.product-Quantityss {
+    font-size: 2em;
+    font-weight: normal;
+    color: black;
+    margin: 20px 0;
+}
+
+/* Buttons */
+.action-buttonss {
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    border: none;
+    padding: 15px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+.buy-button {
+    background-color: #4caf50;
+    color: #ffffff;
+}
+
+    .buy-button:hover {
+        background-color: #45a049;
+    }
+
+.add-to-cart-button {
+    background-color: #008cba;
+    color: #ffffff;
+}
+
+    .add-to-cart-button:hover {
+        background-color: #007bb5;
+    }
+
+
+
+
+
+.comments-sectionss {
+    width: 90%;
+    max-width: 1200px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+/*    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+*/    height: 90%; /* Takes up 90% of the screen height */
+    overflow-y: auto; /* Add scrolling if content exceeds container */
+}
+
+h2, h3 {
+    color: #333;
+}
+
+/* Comments List */
+.comments-listss {
+    margin-bottom: 20px;
+}
+
+.commentss {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    position: relative;
+}
+
+.comment-authorss {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #4caf50;
+    margin: 0;
+}
+
+.comment-textss {
+    font-size: 1em;
+    margin: 5px 0;
+    color: #555;
+}
+
+.comment-datess {
+    font-size: 0.8em;
+    color: #999;
+}
+
+/* Reply Button */
+.reply-buttonss {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-color: #008cba;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+    .reply-buttonss:hover {
+        background-color: #007bb5;
+    }
+
+/* Add Comment Form */
+.add-commentss h3 {
+    margin-bottom: 10px;
+    color: #008cba;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 1em;
+    color: #333;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+button {
+    align-self: flex-start;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: #45a049;
+    }

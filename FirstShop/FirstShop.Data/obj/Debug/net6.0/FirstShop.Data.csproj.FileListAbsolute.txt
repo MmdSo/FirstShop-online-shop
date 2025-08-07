@@ -18,7 +18,6 @@ F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Data\obj\Debug\net6.0
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.deps.json
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.runtimeconfig.json
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.dll
-F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\ref\FirstShop.Data.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\bin\Debug\net6.0\FirstShop.Data.pdb
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.GeneratedMSBuildEditorConfig.editorconfig
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.AssemblyInfoInputs.cache
@@ -32,3 +31,10 @@ F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\ref\Fi
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.pdb
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.genruntimeconfig.cache
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.csproj.AssemblyReference.cache
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\FirstShop.Data.sourcelink.json
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\staticwebassets\msbuild.FirstShop.Data.Microsoft.AspNetCore.StaticWebAssets.props
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\staticwebassets\msbuild.build.FirstShop.Data.props
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.FirstShop.Data.props
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.FirstShop.Data.props
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\staticwebassets.pack.json
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Data\obj\Debug\net6.0\refint\FirstShop.Data.dll

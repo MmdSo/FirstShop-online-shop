@@ -100,7 +100,6 @@ F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\FirstShop.e
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\FirstShop.deps.json
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\FirstShop.runtimeconfig.json
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\FirstShop.dll
-F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\ref\FirstShop.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\FirstShop.pdb
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\AutoMapper.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\Humanizer.dll
@@ -179,9 +178,16 @@ F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\staticwebas
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\scopedcss\Pages\AdminPanel\Shared\_AdminLayout.cshtml.rz.scp.css
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\scopedcss\bundle\FirstShop.styles.css
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\scopedcss\projectbundle\FirstShop.bundle.scp.css
-F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\FirstShop.csproj.CopyComplete
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\FirstShop.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\ref\FirstShop.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\FirstShop.pdb
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\FirstShop.genruntimeconfig.cache
 F:\github\FirstShop-online-shop\FirstShop\FirstShop\bin\Debug\net6.0\web.config
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\FirstShop.sourcelink.json
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\staticwebassets\msbuild.FirstShop.Microsoft.AspNetCore.StaticWebAssets.props
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\staticwebassets\msbuild.build.FirstShop.props
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.FirstShop.props
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.FirstShop.props
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\staticwebassets.pack.json
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\FirstShop.csproj.Up2Date
+F:\github\FirstShop-online-shop\FirstShop\FirstShop\obj\Debug\net6.0\refint\FirstShop.dll
