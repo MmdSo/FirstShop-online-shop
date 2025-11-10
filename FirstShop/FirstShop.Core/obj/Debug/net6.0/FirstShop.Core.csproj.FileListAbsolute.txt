@@ -20,6 +20,7 @@ F:\Visual Studio\Training\ASP.Net core\FirstShop\FirstShop.Core\obj\Debug\net6.0
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\bin\Debug\net6.0\FirstShop.Core.deps.json
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\bin\Debug\net6.0\FirstShop.Core.runtimeconfig.json
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\bin\Debug\net6.0\FirstShop.Core.dll
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\bin\Debug\net6.0\ref\FirstShop.Core.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\bin\Debug\net6.0\FirstShop.Core.pdb
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\bin\Debug\net6.0\FirstShop.Data.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\bin\Debug\net6.0\FirstShop.Data.pdb
@@ -30,10 +31,8 @@ F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstS
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstShop.Core.csproj.CoreCompileInputs.cache
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstShop.Core.RazorAssemblyInfo.cache
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstShop.Core.RazorAssemblyInfo.cs
+F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstShop.Core.csproj.CopyComplete
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstShop.Core.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\ref\FirstShop.Core.dll
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstShop.Core.pdb
 F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstShop.Core.genruntimeconfig.cache
-F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstShop.Core.sourcelink.json
-F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\FirstSho.839C0DB9.Up2Date
-F:\github\FirstShop-online-shop\FirstShop\FirstShop.Core\obj\Debug\net6.0\refint\FirstShop.Core.dll
